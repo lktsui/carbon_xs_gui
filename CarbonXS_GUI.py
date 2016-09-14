@@ -75,6 +75,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_enable_17,
         ]
 
+        self.init_ui_elements()
 
         self.fig = Figure()
         self.ax = self.fig.add_subplot(111)
@@ -86,6 +87,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.show()
 
+
+    def init_ui_elements(self):
+
+        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)
+        exitAction.setShortcut('Crtl+Q')
+        exitAction.setStatusTip('Exit Application')
+        exitAction.triggered.connect(self.close)
+        self.menuFile.addAction(exitAction)
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(exitAction)
 
 
     def addmpl(self, fig):
