@@ -121,6 +121,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         x_data = plot_data[:,0]
         y_data = plot_data[:,1]
 
+        self.theta_min_value.setValue(np.min(x_data))
+        self.theta_max_value.setValue(np.max(x_data))
+
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
@@ -128,12 +131,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
         self.canvas.draw()
-
-    def goPushed(self):
-
-        for parameter in self.parameter_list:
-
-            print parameter.value()
 
 def main():
 
