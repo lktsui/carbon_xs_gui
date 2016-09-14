@@ -79,6 +79,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fig = Figure()
         self.ax = self.fig.add_subplot(111)
 
+        self.x_data = None
+        self.y_data = None
+
         self.addmpl(self.fig)
 
         self.show()
@@ -93,8 +96,31 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def assignWidgets(self):
 
-        self.load_scan.clicked.connect(self.plot_scan)
         self.import_data.clicked.connect(self.load_parameters)
+        self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
+
+    def open_pattern(self):
+
+
+        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
+        input_file = open(fname, 'r')
+
+        plot_data = np.loadtxt(input_file, delimiter='\t')
+
+        self.x_data = plot_data[:,0]
+        self.y_data = plot_data[:,1]
+
+        self.theta_min_value.setValue(np.min(self.x_data))
+        self.theta_max_value.setValue(np.max(self.x_data))
+
+
+        self.fig.delaxes(self.ax)
+        self.ax = self.fig.add_subplot(111)
+        self.ax.plot(self.x_data, self.y_data)
+
+        self.canvas.draw()
+
+
 
     def load_parameters(self):
         input_file = 'CARBON.INP'
@@ -113,24 +139,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.parameter_list[index].setValue(param_value)
             self.parameter_enable_list[index].setChecked(param_enable)
 
-    def plot_scan(self):
-        input_file = 'Scan1.dat'
-
-        plot_data = np.loadtxt(input_file, delimiter='\t')
-
-        x_data = plot_data[:,0]
-        y_data = plot_data[:,1]
-
-        self.theta_min_value.setValue(np.min(x_data))
-        self.theta_max_value.setValue(np.max(x_data))
-
-
-        self.fig.delaxes(self.ax)
-        self.ax = self.fig.add_subplot(111)
-        self.ax.plot(x_data, y_data)
-
-
-        self.canvas.draw()
 
 def main():
 

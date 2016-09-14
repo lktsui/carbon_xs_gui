@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'qt\untitled\mainwindow.ui'
+# Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Wed Sep 14 17:35:46 2016
+# Created: Wed Sep 14 17:44:05 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -305,9 +305,6 @@ class Ui_MainWindow(object):
         self.param_9.setMaximum(99999999.0)
         self.param_9.setObjectName("param_9")
         self.fit_params.addWidget(self.param_9, 11, 0, 1, 1)
-        self.load_scan = QtGui.QPushButton(self.gridLayoutWidget)
-        self.load_scan.setObjectName("load_scan")
-        self.fit_params.addWidget(self.load_scan, 20, 2, 1, 1)
         self.import_data = QtGui.QPushButton(self.gridLayoutWidget)
         self.import_data.setObjectName("import_data")
         self.fit_params.addWidget(self.import_data, 20, 0, 1, 2)
@@ -371,6 +368,8 @@ class Ui_MainWindow(object):
         self.menuBar = QtGui.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 1473, 21))
         self.menuBar.setObjectName("menuBar")
+        self.menuFile = QtGui.QMenu(self.menuBar)
+        self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtGui.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
@@ -382,6 +381,10 @@ class Ui_MainWindow(object):
         self.actionOpen.setObjectName("actionOpen")
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
+        self.menu_open_xrd_pattern = QtGui.QAction(MainWindow)
+        self.menu_open_xrd_pattern.setObjectName("menu_open_xrd_pattern")
+        self.menuFile.addAction(self.menu_open_xrd_pattern)
+        self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -424,13 +427,14 @@ class Ui_MainWindow(object):
         self.param_enable_11.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_7.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_10.setText(QtGui.QApplication.translate("MainWindow", "M, Number of Layers", None, QtGui.QApplication.UnicodeUTF8))
-        self.load_scan.setText(QtGui.QApplication.translate("MainWindow", "Load XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
         self.import_data.setText(QtGui.QApplication.translate("MainWindow", "Import Parameters", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
         self.iterations_label.setText(QtGui.QApplication.translate("MainWindow", "Iterations", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_min_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Min", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_max_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Max", None, QtGui.QApplication.UnicodeUTF8))
         self.fitting_settings_label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_open_xrd_pattern.setText(QtGui.QApplication.translate("MainWindow", "Open XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
 
