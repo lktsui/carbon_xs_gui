@@ -104,6 +104,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.canvas)
         self.canvas.draw()
 
+        self.mpl_toolbar = NavigationToolbar(self.canvas, self.mplwindow)
+        self.mplvl.addWidget(self.mpl_toolbar)
+
+
 
     def assignWidgets(self):
 
@@ -138,7 +142,29 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         config_file = open(fname, 'r')
 
-        for index, line in enumerate(config_file.readlines()[6:]):
+        data_lines = config_file.readlines()
+
+        # Thetamin, theta max, wavelength, nskip
+        data_elements_1 = data_lines[1].split()
+
+        self.theta_min_value.setValue(float(data_elements_1[0]))
+        self.theta_max_value.setValue(float(data_elements_1[1]))
+        self.wavelength.setValue(float(data_elements_1[2]))
+        # TODO: Add parameter for Nskip
+
+        # TODO: Add readin for fitting parameters Npar, Nphi, Nsg, Nlayer
+
+        # Diffractometer Parameters
+        data_elements_3 = data_lines[3].split()
+        self.sample_density.setValue(float(data_elements_3[0]))
+        self.goniometer_radius.setValue(float(data_elements_3[1]))
+        self.sample_depth.setValue(float(data_elements_3[2]))
+        self.sample_width.setValue(float(data_elements_3[3]))
+        self.beam_width.setValue(float(data_elements_3[4]))
+
+
+
+        for index, line in enumerate(data_lines[6:]):
             config_elements = line.split()
 
             param_value = float(config_elements[0])
