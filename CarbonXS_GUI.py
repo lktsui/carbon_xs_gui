@@ -220,6 +220,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.goniometer_radius.setValue(diffractometer_settings['gonio_radius'])
 
             print 'Imported Diffractometer Settings from: %s'%fname
+
             self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
 
 

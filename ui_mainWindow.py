@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 13:51:53 2016
+# Created: Thu Sep 15 14:02:54 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -480,7 +480,7 @@ class Ui_MainWindow(object):
         self.logging_console.setContentsMargins(0, 0, 0, 0)
         self.logging_console.setObjectName("logging_console")
         self.console = QtGui.QPlainTextEdit(self.verticalLayoutWidget)
-        self.console.setEnabled(False)
+        self.console.setEnabled(True)
         self.console.setObjectName("console")
         self.logging_console.addWidget(self.console)
         MainWindow.setCentralWidget(self.centralWidget)
@@ -518,11 +518,14 @@ class Ui_MainWindow(object):
         self.menu_export_fittingparams.setObjectName("menu_export_fittingparams")
         self.menu_import_fittingparams = QtGui.QAction(MainWindow)
         self.menu_import_fittingparams.setObjectName("menu_import_fittingparams")
+        self.menu_export_fittingsettings = QtGui.QAction(MainWindow)
+        self.menu_export_fittingsettings.setObjectName("menu_export_fittingsettings")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
         self.menuExport.addAction(self.menu_export_diffsettings)
         self.menuExport.addAction(self.menu_export_fittingparams)
+        self.menuExport.addAction(self.menu_export_fittingsettings)
         self.menuFile.addAction(self.menu_open_xrd_pattern)
         self.menuFile.addAction(self.menuImport.menuAction())
         self.menuFile.addAction(self.menuExport.menuAction())
@@ -604,4 +607,5 @@ class Ui_MainWindow(object):
         self.menu_import_diffsettings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_export_fittingparams.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_import_fittingparams.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_export_fittingsettings.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
 
