@@ -107,8 +107,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def assignWidgets(self):
 
-        self.import_data.clicked.connect(self.load_parameters)
+        # self.import_data.clicked.connect(self.load_parameters)
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
+        self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
 
     def open_pattern(self):
 
@@ -131,11 +132,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.canvas.draw()
 
+    def import_from_carboninp(self):
 
+        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
 
-    def load_parameters(self):
-        input_file = 'CARBON.INP'
-        config_file = open(input_file, 'r')
+        config_file = open(fname, 'r')
 
         for index, line in enumerate(config_file.readlines()[6:]):
             config_elements = line.split()

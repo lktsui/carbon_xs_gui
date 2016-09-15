@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Wed Sep 14 17:44:05 2016
+# Created: Wed Sep 14 17:58:08 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,6 +22,13 @@ class Ui_MainWindow(object):
         self.fit_params = QtGui.QGridLayout(self.gridLayoutWidget)
         self.fit_params.setContentsMargins(0, 0, 0, 0)
         self.fit_params.setObjectName("fit_params")
+        self.label = QtGui.QLabel(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.fit_params.addWidget(self.label, 1, 0, 1, 3)
         self.param_label_3 = QtGui.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setWeight(75)
@@ -305,21 +312,11 @@ class Ui_MainWindow(object):
         self.param_9.setMaximum(99999999.0)
         self.param_9.setObjectName("param_9")
         self.fit_params.addWidget(self.param_9, 11, 0, 1, 1)
-        self.import_data = QtGui.QPushButton(self.gridLayoutWidget)
-        self.import_data.setObjectName("import_data")
-        self.fit_params.addWidget(self.import_data, 20, 0, 1, 2)
         self.param_10 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_10.setDecimals(6)
         self.param_10.setMaximum(99999999.0)
         self.param_10.setObjectName("param_10")
         self.fit_params.addWidget(self.param_10, 12, 0, 1, 1)
-        self.label = QtGui.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(24)
-        self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.fit_params.addWidget(self.label, 1, 0, 1, 3)
         self.mplwindow = QtGui.QWidget(self.centralWidget)
         self.mplwindow.setGeometry(QtCore.QRect(610, 20, 801, 541))
         self.mplwindow.setObjectName("mplwindow")
@@ -370,6 +367,8 @@ class Ui_MainWindow(object):
         self.menuBar.setObjectName("menuBar")
         self.menuFile = QtGui.QMenu(self.menuBar)
         self.menuFile.setObjectName("menuFile")
+        self.menuImport = QtGui.QMenu(self.menuFile)
+        self.menuImport.setObjectName("menuImport")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtGui.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
@@ -383,7 +382,11 @@ class Ui_MainWindow(object):
         self.actionExit.setObjectName("actionExit")
         self.menu_open_xrd_pattern = QtGui.QAction(MainWindow)
         self.menu_open_xrd_pattern.setObjectName("menu_open_xrd_pattern")
+        self.menu_import_carboninp = QtGui.QAction(MainWindow)
+        self.menu_import_carboninp.setObjectName("menu_import_carboninp")
+        self.menuImport.addAction(self.menu_import_carboninp)
         self.menuFile.addAction(self.menu_open_xrd_pattern)
+        self.menuFile.addAction(self.menuImport.menuAction())
         self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -391,6 +394,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_3.setText(QtGui.QApplication.translate("MainWindow", "Background S^2", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_1.setText(QtGui.QApplication.translate("MainWindow", "Background Constant", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_9.setText(QtGui.QApplication.translate("MainWindow", "La, Coherence Length", None, QtGui.QApplication.UnicodeUTF8))
@@ -427,14 +431,14 @@ class Ui_MainWindow(object):
         self.param_enable_11.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_7.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_10.setText(QtGui.QApplication.translate("MainWindow", "M, Number of Layers", None, QtGui.QApplication.UnicodeUTF8))
-        self.import_data.setText(QtGui.QApplication.translate("MainWindow", "Import Parameters", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
         self.iterations_label.setText(QtGui.QApplication.translate("MainWindow", "Iterations", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_min_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Min", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_max_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Max", None, QtGui.QApplication.UnicodeUTF8))
         self.fitting_settings_label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuImport.setTitle(QtGui.QApplication.translate("MainWindow", "Import", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_open_xrd_pattern.setText(QtGui.QApplication.translate("MainWindow", "Open XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_import_carboninp.setText(QtGui.QApplication.translate("MainWindow", "From CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
 
