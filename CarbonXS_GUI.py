@@ -3,7 +3,7 @@ from PySide import QtGui, QtCore
 from ui_mainWindow import Ui_MainWindow
 import ujson
 import sys
-
+import os
 import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backend_bases import key_press_handler
@@ -52,6 +52,27 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_15,
             self.param_16,
             self.param_17,
+        ]
+
+        self.parameter_labels = [
+            self.param_label_0.text(),
+            self.param_label_1.text(),
+            self.param_label_2.text(),
+            self.param_label_3.text(),
+            self.param_label_4.text(),
+            self.param_label_5.text(),
+            self.param_label_6.text(),
+            self.param_label_7.text(),
+            self.param_label_8.text(),
+            self.param_label_9.text(),
+            self.param_label_10.text(),
+            self.param_label_11.text(),
+            self.param_label_12.text(),
+            self.param_label_13.text(),
+            self.param_label_14.text(),
+            self.param_label_15.text(),
+            self.param_label_16.text(),
+            self.param_label_17.text(),
         ]
 
         self.parameter_enable_list = [
@@ -119,6 +140,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Export Data
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
+        self.menu_export_fittingparams.triggered.connect(self.export_fitting_params)
 
     def open_pattern(self):
 
@@ -143,7 +165,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def export_diffractometer_params(self):
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', 'config', filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -160,14 +182,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                                        }
 
 
-            ujson.dump(diffractometer_settings, data_file)
+            ujson.dump(diffractometer_settings, data_file, indent = 4)
 
             self.statusBar.showMessage('Exported Diffractometer Settings to: %s'%fname)
 
 
+
     def import_diffractometer_params(self):
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', 'config', filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', os.path.join('config','diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -184,9 +207,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
 
 
+    def export_fitting_params(self):
 
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'fitting parameters'), filter="*.json")
 
+        if fname:
 
+            data_file = open(fname, 'w')
+
+            fitting_params = {}
+
+            for index, label in enumerate(self.parameter_labels):
+
+                fitting_params[label] = (self.parameter_list[index].value(), self.parameter_enable_list[index].isChecked())
+
+            ujson.dump(fitting_params, data_file, indent = 4)
+
+            self.statusBar.showMessage('Exported Fitting Parameters to: %s'%fname)
 
     def import_from_carboninp(self):
 
