@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 13:41:22 2016
+# Created: Thu Sep 15 13:51:53 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -473,6 +473,16 @@ class Ui_MainWindow(object):
         self.diffract_settings_label.setAlignment(QtCore.Qt.AlignCenter)
         self.diffract_settings_label.setObjectName("diffract_settings_label")
         self.diffract_settings.addWidget(self.diffract_settings_label, 0, 0, 1, 3)
+        self.verticalLayoutWidget = QtGui.QWidget(self.centralWidget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(620, 570, 781, 341))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.logging_console = QtGui.QVBoxLayout(self.verticalLayoutWidget)
+        self.logging_console.setContentsMargins(0, 0, 0, 0)
+        self.logging_console.setObjectName("logging_console")
+        self.console = QtGui.QPlainTextEdit(self.verticalLayoutWidget)
+        self.console.setEnabled(False)
+        self.console.setObjectName("console")
+        self.logging_console.addWidget(self.console)
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtGui.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 1473, 21))

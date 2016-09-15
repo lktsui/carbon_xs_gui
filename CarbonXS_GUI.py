@@ -22,6 +22,16 @@ else:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
 
+class ConsoleStream(QtCore.QObject):
+
+    message = QtCore.Signal(str)
+    def __init__(self, parent=None):
+        super(ConsoleStream, self).__init__(parent)
+
+    def write(self, message):
+        self.message.emit(str(message))
+
+
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -120,6 +130,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menuFile.addAction(exitAction)
 
 
+    @QtCore.Slot(str)
+    def on_stream_message(self, message):
+        self.console.moveCursor(QtGui.QTextCursor.End)
+        self.console.insertPlainText(message)
+
     def addmpl(self, fig):
         self.canvas = FigureCanvas(fig)
         self.mplvl.addWidget(self.canvas)
@@ -144,7 +159,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def open_pattern(self):
 
-
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
         input_file = open(fname, 'r')
 
@@ -155,7 +169,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.theta_min_value.setValue(np.min(self.x_data))
         self.theta_max_value.setValue(np.max(self.x_data))
-
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
@@ -184,6 +197,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             ujson.dump(diffractometer_settings, data_file, indent = 4)
 
+            print 'Exported Diffractometer Settings to: %s'%fname
             self.statusBar.showMessage('Exported Diffractometer Settings to: %s'%fname)
 
 
@@ -204,6 +218,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.sample_depth.setValue(diffractometer_settings['sample_depth'])
             self.sample_density.setValue(diffractometer_settings['sample_density'])
             self.goniometer_radius.setValue(diffractometer_settings['gonio_radius'])
+
+            print 'Imported Diffractometer Settings from: %s'%fname
             self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
 
 
@@ -223,6 +239,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             ujson.dump(fitting_params, data_file, indent = 4)
 
+            print 'Exported Fitting Parameters to: %s'%fname
             self.statusBar.showMessage('Exported Fitting Parameters to: %s'%fname)
 
     def import_fitting_params(self):
@@ -242,6 +259,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.parameter_list[index].setValue(param_value)
                 self.parameter_enable_list[index].setChecked(enabled)
 
+            print 'Imported Fitting Parameters from: %s'%fname
             self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
 
 
@@ -302,7 +320,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.number_layers.setCurrentIndex(1)
 
 
-            print data_elements_5
             self.gradient_check_delta.setValue(float(data_elements_5[1]))
 
 
@@ -321,12 +338,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.parameter_enable_list[index].setChecked(param_enable)
 
 
+            print 'Imported CARBON.INP parameters from: %s' % fname
             self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
 def main():
 
     app = QtGui.QApplication(sys.argv)
     ex = MainWindow()
+
+    console_stream = ConsoleStream()
+    console_stream.message.connect(ex.on_stream_message)
+
+    sys.stdout = console_stream
+    sys.stderr = console_stream
 
     sys.exit(app.exec_())
 
