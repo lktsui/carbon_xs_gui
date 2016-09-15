@@ -136,7 +136,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
-
+        self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
 
         # Export Data
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
@@ -224,6 +224,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             ujson.dump(fitting_params, data_file, indent = 4)
 
             self.statusBar.showMessage('Exported Fitting Parameters to: %s'%fname)
+
+    def import_fitting_params(self):
+
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', os.path.join('config','fitting parameters'), filter="*.json")
+
+        if fname:
+
+            data_file = open(fname, 'r')
+
+            fitting_params = ujson.load(data_file)
+
+            for index, label in enumerate(self.parameter_labels):
+
+                param_value, enabled = fitting_params[label]
+
+                self.parameter_list[index].setValue(param_value)
+                self.parameter_enable_list[index].setChecked(enabled)
+
+            self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
+
+
+
 
     def import_from_carboninp(self):
 
