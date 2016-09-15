@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 11:37:12 2016
+# Created: Thu Sep 15 11:38:53 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -448,7 +448,10 @@ class Ui_MainWindow(object):
         self.actionDiffractometer_Settings.setObjectName("actionDiffractometer_Settings")
         self.menu_export_diffsettings = QtGui.QAction(MainWindow)
         self.menu_export_diffsettings.setObjectName("menu_export_diffsettings")
+        self.menu_import_diffsettings = QtGui.QAction(MainWindow)
+        self.menu_import_diffsettings.setObjectName("menu_import_diffsettings")
         self.menuImport.addAction(self.menu_import_carboninp)
+        self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuExport.addAction(self.menu_export_diffsettings)
         self.menuFile.addAction(self.menu_open_xrd_pattern)
         self.menuFile.addAction(self.menuImport.menuAction())
@@ -517,4 +520,5 @@ class Ui_MainWindow(object):
         self.menu_import_carboninp.setText(QtGui.QApplication.translate("MainWindow", "From CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDiffractometer_Settings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_export_diffsettings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_import_diffsettings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
 

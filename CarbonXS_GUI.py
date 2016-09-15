@@ -114,6 +114,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # self.import_data.clicked.connect(self.load_parameters)
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
+        self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
+
 
         # Export Data
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
@@ -161,6 +163,26 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             ujson.dump(diffractometer_settings, data_file)
 
             self.statusBar.showMessage('Exported Diffractometer Settings to: %s'%fname)
+
+
+    def import_diffractometer_params(self):
+
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', 'config', filter="*.json")
+
+        if fname:
+
+            data_file = open(fname, 'r')
+
+            diffractometer_settings = ujson.load(data_file)
+
+            self.wavelength.setValue(diffractometer_settings['wavelength'])
+            self.beam_width.setValue(diffractometer_settings['beam_width'])
+            self.sample_width.setValue(diffractometer_settings['sample_width'])
+            self.sample_depth.setValue(diffractometer_settings['sample_depth'])
+            self.sample_density.setValue(diffractometer_settings['sample_density'])
+            self.goniometer_radius.setValue(diffractometer_settings['gonio_radius'])
+            self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
+
 
 
 
