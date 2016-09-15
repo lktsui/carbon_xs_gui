@@ -155,6 +155,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
 
         # Export Data
+        self.menu_export_carboninp.triggered.connect(self.export_to_carboninp)
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
         self.menu_export_fittingparams.triggered.connect(self.export_fitting_params)
         self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
@@ -340,6 +341,84 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             print 'Imported Fitting Settings from: %s'%fname
             self.statusBar.showMessage('Imported Fitting Settings to: %s'%fname)
+
+
+    def export_to_carboninp(self):
+
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
+                                                          os.path.join('config', 'fitting settings'), filter="CARBON.INP")
+
+        if fname:
+            self.write_carboninp(fname)
+
+
+    def write_carboninp(self, destination):
+
+        export_file = open(destination, 'w')
+
+        export_file.write("SCAN.DAT\n")
+
+        #
+        export_file.write("  %5.2f    %5.2f %6.6f       %d  "%(self.theta_min_value.value(),
+                                                        self.theta_max_value.value(),
+                                                        self.wavelength.value(),
+                                                        self.nskip.value())+
+                          "            Thmin   Thmax   Lambda  Nskip\n")
+
+        if self.number_layers.currentIndex() == 0:
+            num_layers = 1
+        else:
+            num_layers = 2
+        export_file.write("     18        %d        %d       %d  "%(self.n_phi.value(),
+                                                                   self.n_sg.value(),
+                                                                   num_layers
+                                                                   )
+                           +"            Npar    Nphi    Nsg     Nlayer\n")
+
+        export_file.write(" %6.3f   %6.3f   %6.3f  %6.3f   %6.3f"%(self.sample_density.value(),
+                                                                                 self.goniometer_radius.value(),
+                                                                                 self.sample_depth.value(),
+                                                                                 self.sample_width.value(),
+                                                                                 self.beam_width.value()
+
+                                                                                 )
+                          +"     Rdens   L0      Wd      Ww      Bw\n")
+        export_file.write("      %d   %6.5f                        "%(self.iterations.value(), self.epsilon.value())+
+                          "       Itmax   Eps\n")
+
+        if self.gradient_check_enable.currentIndex() == 1:
+            enable_gc = 1
+        else:
+            enable_gc = 0
+
+        export_file.write("      %d   %6.5f                        "%(enable_gc, self.gradient_check_delta.value())+
+                          "       Itest   Dx\n")
+
+        for index, label in enumerate(self.parameter_labels):
+
+            param_value = self.parameter_list[index].value()
+            if index == 0:
+                param_str = ("%4.3E"%param_value).rjust(12)
+            else:
+
+                param_str = ("%10.6f"%param_value).rjust(12)
+            print param_str, len(param_str)
+
+            if self.parameter_enable_list[index].isChecked():
+                param_str += "  1    "
+            else:
+                param_str += "  0    "
+
+            param_str += label.ljust(70)
+            param_str += "\n"
+
+            export_file.write(param_str)
+
+
+
+
+
+
 
     def import_from_carboninp(self):
 
