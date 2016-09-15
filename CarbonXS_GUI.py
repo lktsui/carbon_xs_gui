@@ -152,6 +152,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
+        self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
 
         # Export Data
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
@@ -205,7 +206,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def import_diffractometer_params(self):
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', os.path.join('config','diffractometer settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings', os.path.join('config','diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -227,7 +228,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def export_fitting_params(self):
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Import Diffractometer Settings', os.path.join('config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -246,7 +247,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def import_fitting_params(self):
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export File', os.path.join('config','fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters', os.path.join('config','fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -266,7 +267,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def export_fitting_settings(self):
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'fitting settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
 
         if fname:
 
@@ -301,7 +302,44 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print 'Exported Fitting Settings to: %s'%fname
             self.statusBar.showMessage('Exported Fitting Settings to: %s'%fname)
 
+    def import_fitting_settings(self):
 
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
+
+        if fname:
+
+            data_file = open(fname, 'r')
+
+            fitting_settings = ujson.load(data_file)
+
+            self.theta_min_value.setValue(fitting_settings['theta min'])
+            self.theta_max_value.setValue(fitting_settings['theta max'])
+
+            self.iterations.setValue(fitting_settings['iterations'])
+            self.nskip.setValue(fitting_settings['nskip'])
+
+
+            if fitting_settings['layers'] == 1:
+                self.number_layers.setCurrentIndex(0)
+            elif fitting_settings['layers'] == 2:
+                self.number_layers.setCurrentIndex(1)
+            else:
+                print "Error: Number of layers is not 1 or 2. Setting it to 1."
+                self.number_layers.setCurrentIndex(0)
+
+            self.n_phi.setValue(fitting_settings['nphi'])
+            self.n_sg.setValue(fitting_settings['nsg'])
+            self.epsilon.setValue(fitting_settings['epsilon'])
+
+            if fitting_settings['enable_gc']:
+                self.gradient_check_enable.setCurrentIndex(1)
+            else:
+                self.gradient_check_enable.setCurrentIndex(0)
+
+            self.gradient_check_delta.setValue(fitting_settings['gc_delta'])
+
+            print 'Imported Fitting Settings from: %s'%fname
+            self.statusBar.showMessage('Imported Fitting Settings to: %s'%fname)
 
     def import_from_carboninp(self):
 
