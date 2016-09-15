@@ -134,7 +134,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def import_from_carboninp(self):
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
+        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter='CARBON.INP')
 
         config_file = open(fname, 'r')
 
