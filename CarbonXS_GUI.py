@@ -10,10 +10,10 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.backends.backend_qt4agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
-from matplotlib.backends import qt4_compat
+from matplotlib.backends import qt_compat
 
 import seaborn as sns
-use_pyside = qt4_compat.QT_API == qt4_compat.QT_API_PYSIDE
+use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
 if use_pyside:
     from PySide.QtCore import *
@@ -96,6 +96,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_enable_17,
         ]
 
+        self.num_params = len(self.parameter_list)
+
         self.init_ui_elements()
 
         self.fig = Figure()
@@ -116,8 +118,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         exitAction.setStatusTip('Exit Application')
         exitAction.triggered.connect(self.close)
         self.menuFile.addAction(exitAction)
-        self.toolbar = self.addToolBar('Exit')
-        self.toolbar.addAction(exitAction)
 
 
     def addmpl(self, fig):
@@ -263,9 +263,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.theta_min_value.setValue(float(data_elements_1[0]))
             self.theta_max_value.setValue(float(data_elements_1[1]))
             self.wavelength.setValue(float(data_elements_1[2]))
-            # TODO: Add parameter for Nskip
+            self.nskip.setValue(int(data_elements_1[3]))
 
             # TODO: Add readin for fitting parameters Npar, Nphi, Nsg, Nlayer
+            data_elements_2 = data_lines[2].split()
+
+            self.n_phi.setValue(float(data_elements_2[1]))
+            self.n_sg.setValue(float(data_elements_2[2]))
+
+            if int(data_elements_2[3]) == 1:
+                self.number_layers.setCurrentIndex(0)
+            elif int(data_elements_2[3]) == 2:
+                self.number_layers.setCurrentIndex(1)
+            else:
+                print "Number of layers is not 1 or 2. Setting to 1"
+                self.number_layers.setCurrentIndex(0)
 
             # Diffractometer Parameters
             data_elements_3 = data_lines[3].split()
@@ -274,6 +286,26 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.sample_depth.setValue(float(data_elements_3[2]))
             self.sample_width.setValue(float(data_elements_3[3]))
             self.beam_width.setValue(float(data_elements_3[4]))
+
+
+            data_elements_4 = data_lines[4].split()
+
+            self.iterations.setValue(int(data_elements_4[0]))
+            self.epsilon.setValue(float(data_elements_4[1]))
+
+            data_elements_5 = data_lines[5].split()
+            if int(data_elements_5[0]):
+                # Enable Gradient Checking
+                self.number_layers.setCurrentIndex(1)
+            else:
+                # Disable Gradient Checking
+                self.number_layers.setCurrentIndex(1)
+
+
+            print data_elements_5
+            self.gradient_check_delta.setValue(float(data_elements_5[1]))
+
+
 
             for index, line in enumerate(data_lines[6:]):
                 config_elements = line.split()
