@@ -156,6 +156,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Export Data
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
         self.menu_export_fittingparams.triggered.connect(self.export_fitting_params)
+        self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
 
     def open_pattern(self):
 
@@ -263,6 +264,42 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print 'Imported Fitting Parameters from: %s'%fname
             self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
 
+    def export_fitting_settings(self):
+
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'fitting settings'), filter="*.json")
+
+        if fname:
+
+            data_file = open(fname, 'w')
+
+            fitting_settings = {}
+
+            fitting_settings['theta min'] = self.theta_min_value.value()
+            fitting_settings['theta max'] = self.theta_max_value.value()
+
+            fitting_settings['iterations'] = self.iterations.value()
+            fitting_settings['nskip']  = self.nskip.value()
+
+            if self.number_layers.currentIndex() == 0:
+                fitting_settings['layers'] = 1
+            else:
+                fitting_settings['layers'] = 2
+
+            fitting_settings['nphi']  = self.n_phi.value()
+            fitting_settings['nsg']  = self.n_sg.value()
+            fitting_settings['epsilon'] = self.epsilon.value()
+
+            if self.gradient_check_enable.currentIndex() == 0:
+                fitting_settings['enable_gc'] = False
+            else:
+                fitting_settings['enable_gc'] = True
+
+            fitting_settings['gc_delta']  = self.gradient_check_delta.value()
+
+            ujson.dump(fitting_settings, data_file, indent = 4)
+
+            print 'Exported Fitting Settings to: %s'%fname
+            self.statusBar.showMessage('Exported Fitting Settings to: %s'%fname)
 
 
 
