@@ -1,7 +1,7 @@
 import sys
 from PySide import QtGui, QtCore
 from ui_mainWindow import Ui_MainWindow
-
+import ujson
 import sys
 
 import numpy as np
@@ -115,6 +115,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
 
+        # Export Data
+        self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
+
     def open_pattern(self):
 
 
@@ -136,47 +139,76 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.canvas.draw()
 
+    def export_diffractometer_params(self):
+
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', 'config', filter="*.json")
+
+        if fname:
+
+            data_file = open(fname, 'w')
+
+            diffractometer_settings = {"wavelength":self.wavelength.value(),
+                                       "beam_width":self.beam_width.value(),
+                                       "sample_width":self.sample_width.value(),
+                                       "sample_depth":self.sample_depth.value(),
+                                       "sample_density":self.sample_density.value(),
+                                       "gonio_radius":self.goniometer_radius.value(),
+
+
+                                       }
+
+
+            ujson.dump(diffractometer_settings, data_file)
+
+            self.statusBar.showMessage('Exported Diffractometer Settings to: %s'%fname)
+
+
+
+
+
     def import_from_carboninp(self):
 
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter='CARBON.INP')
 
-        config_file = open(fname, 'r')
+        if fname:
 
-        data_lines = config_file.readlines()
+            config_file = open(fname, 'r')
 
-        # Thetamin, theta max, wavelength, nskip
-        data_elements_1 = data_lines[1].split()
+            data_lines = config_file.readlines()
 
-        self.theta_min_value.setValue(float(data_elements_1[0]))
-        self.theta_max_value.setValue(float(data_elements_1[1]))
-        self.wavelength.setValue(float(data_elements_1[2]))
-        # TODO: Add parameter for Nskip
+            # Thetamin, theta max, wavelength, nskip
+            data_elements_1 = data_lines[1].split()
 
-        # TODO: Add readin for fitting parameters Npar, Nphi, Nsg, Nlayer
+            self.theta_min_value.setValue(float(data_elements_1[0]))
+            self.theta_max_value.setValue(float(data_elements_1[1]))
+            self.wavelength.setValue(float(data_elements_1[2]))
+            # TODO: Add parameter for Nskip
 
-        # Diffractometer Parameters
-        data_elements_3 = data_lines[3].split()
-        self.sample_density.setValue(float(data_elements_3[0]))
-        self.goniometer_radius.setValue(float(data_elements_3[1]))
-        self.sample_depth.setValue(float(data_elements_3[2]))
-        self.sample_width.setValue(float(data_elements_3[3]))
-        self.beam_width.setValue(float(data_elements_3[4]))
+            # TODO: Add readin for fitting parameters Npar, Nphi, Nsg, Nlayer
+
+            # Diffractometer Parameters
+            data_elements_3 = data_lines[3].split()
+            self.sample_density.setValue(float(data_elements_3[0]))
+            self.goniometer_radius.setValue(float(data_elements_3[1]))
+            self.sample_depth.setValue(float(data_elements_3[2]))
+            self.sample_width.setValue(float(data_elements_3[3]))
+            self.beam_width.setValue(float(data_elements_3[4]))
+
+            for index, line in enumerate(data_lines[6:]):
+                config_elements = line.split()
+
+                param_value = float(config_elements[0])
+
+                if config_elements[1] == '1':
+                    param_enable = True
+                else:
+                    param_enable = False
+
+                self.parameter_list[index].setValue(param_value)
+                self.parameter_enable_list[index].setChecked(param_enable)
 
 
-
-        for index, line in enumerate(data_lines[6:]):
-            config_elements = line.split()
-
-            param_value = float(config_elements[0])
-
-            if config_elements[1] == '1':
-                param_enable = True
-            else:
-                param_enable = False
-
-            self.parameter_list[index].setValue(param_value)
-            self.parameter_enable_list[index].setChecked(param_enable)
-
+            self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
 def main():
 

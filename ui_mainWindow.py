@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 09:54:56 2016
+# Created: Thu Sep 15 11:24:24 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -421,6 +421,8 @@ class Ui_MainWindow(object):
         self.menuFile.setObjectName("menuFile")
         self.menuImport = QtGui.QMenu(self.menuFile)
         self.menuImport.setObjectName("menuImport")
+        self.menuExport = QtGui.QMenu(self.menuFile)
+        self.menuExport.setObjectName("menuExport")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtGui.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
@@ -438,9 +440,13 @@ class Ui_MainWindow(object):
         self.menu_import_carboninp.setObjectName("menu_import_carboninp")
         self.actionDiffractometer_Settings = QtGui.QAction(MainWindow)
         self.actionDiffractometer_Settings.setObjectName("actionDiffractometer_Settings")
+        self.menu_export_diffsettings = QtGui.QAction(MainWindow)
+        self.menu_export_diffsettings.setObjectName("menu_export_diffsettings")
         self.menuImport.addAction(self.menu_import_carboninp)
+        self.menuExport.addAction(self.menu_export_diffsettings)
         self.menuFile.addAction(self.menu_open_xrd_pattern)
         self.menuFile.addAction(self.menuImport.menuAction())
+        self.menuFile.addAction(self.menuExport.menuAction())
         self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -498,9 +504,11 @@ class Ui_MainWindow(object):
         self.beam_width_label.setText(QtGui.QApplication.translate("MainWindow", "Beam Width (mm)", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuImport.setTitle(QtGui.QApplication.translate("MainWindow", "Import", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuExport.setTitle(QtGui.QApplication.translate("MainWindow", "Export", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_open_xrd_pattern.setText(QtGui.QApplication.translate("MainWindow", "Open XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_import_carboninp.setText(QtGui.QApplication.translate("MainWindow", "From CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDiffractometer_Settings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_export_diffsettings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
 
