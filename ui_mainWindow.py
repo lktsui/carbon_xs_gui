@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 11:24:24 2016
+# Created: Thu Sep 15 11:37:12 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -371,10 +371,13 @@ class Ui_MainWindow(object):
         self.wavelength_label.setObjectName("wavelength_label")
         self.diffract_settings.addWidget(self.wavelength_label, 1, 0, 1, 1)
         self.sample_depth = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
+        self.sample_depth.setMaximum(1000000000.0)
         self.sample_depth.setObjectName("sample_depth")
         self.diffract_settings.addWidget(self.sample_depth, 2, 1, 1, 1)
         self.wavelength = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
         self.wavelength.setEnabled(True)
+        self.wavelength.setDecimals(5)
+        self.wavelength.setMaximum(1000000000.0)
         self.wavelength.setObjectName("wavelength")
         self.diffract_settings.addWidget(self.wavelength, 2, 0, 1, 1)
         self.diffract_settings_label = QtGui.QLabel(self.gridLayoutWidget_3)
@@ -394,9 +397,11 @@ class Ui_MainWindow(object):
         self.goniometer_radius_label.setObjectName("goniometer_radius_label")
         self.diffract_settings.addWidget(self.goniometer_radius_label, 3, 0, 1, 1)
         self.sample_width = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
+        self.sample_width.setMaximum(1000000000.0)
         self.sample_width.setObjectName("sample_width")
         self.diffract_settings.addWidget(self.sample_width, 2, 2, 1, 1)
         self.goniometer_radius = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
+        self.goniometer_radius.setMaximum(1000000000.0)
         self.goniometer_radius.setObjectName("goniometer_radius")
         self.diffract_settings.addWidget(self.goniometer_radius, 4, 0, 1, 1)
         self.sample_density_label = QtGui.QLabel(self.gridLayoutWidget_3)
@@ -406,6 +411,7 @@ class Ui_MainWindow(object):
         self.beam_width_label.setObjectName("beam_width_label")
         self.diffract_settings.addWidget(self.beam_width_label, 3, 1, 1, 1)
         self.beam_width = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
+        self.beam_width.setMaximum(1000000000.0)
         self.beam_width.setObjectName("beam_width")
         self.diffract_settings.addWidget(self.beam_width, 4, 1, 1, 1)
         self.sample_density = QtGui.QDoubleSpinBox(self.gridLayoutWidget_3)
