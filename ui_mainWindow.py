@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 15 15:14:19 2016
+# Created: Fri Sep 16 09:43:44 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -490,6 +490,12 @@ class Ui_MainWindow(object):
         self.mplvl.setContentsMargins(0, 0, 0, 0)
         self.mplvl.setObjectName("mplvl")
         MainWindow.setCentralWidget(self.centralWidget)
+        self.mainToolBar = QtGui.QToolBar(MainWindow)
+        self.mainToolBar.setObjectName("mainToolBar")
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+        self.statusBar = QtGui.QStatusBar(MainWindow)
+        self.statusBar.setObjectName("statusBar")
+        MainWindow.setStatusBar(self.statusBar)
         self.menuBar = QtGui.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 1473, 21))
         self.menuBar.setObjectName("menuBar")
@@ -500,12 +506,6 @@ class Ui_MainWindow(object):
         self.menuExport = QtGui.QMenu(self.menuFile)
         self.menuExport.setObjectName("menuExport")
         MainWindow.setMenuBar(self.menuBar)
-        self.mainToolBar = QtGui.QToolBar(MainWindow)
-        self.mainToolBar.setObjectName("mainToolBar")
-        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
-        self.statusBar = QtGui.QStatusBar(MainWindow)
-        self.statusBar.setObjectName("statusBar")
-        MainWindow.setStatusBar(self.statusBar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
         self.actionExit = QtGui.QAction(MainWindow)
@@ -530,6 +530,8 @@ class Ui_MainWindow(object):
         self.menu_import_fittingsettings.setObjectName("menu_import_fittingsettings")
         self.menu_export_carboninp = QtGui.QAction(MainWindow)
         self.menu_export_carboninp.setObjectName("menu_export_carboninp")
+        self.menu_start_fitting = QtGui.QAction(MainWindow)
+        self.menu_start_fitting.setObjectName("menu_start_fitting")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -622,4 +624,5 @@ class Ui_MainWindow(object):
         self.menu_export_fittingsettings.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_import_fittingsettings.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_export_carboninp.setText(QtGui.QApplication.translate("MainWindow", "To CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_start_fitting.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
 

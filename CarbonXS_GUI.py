@@ -118,7 +118,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.addmpl(self.fig)
 
+
+
+
         self.show()
+
+
 
 
     def init_ui_elements(self):
@@ -159,6 +164,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
         self.menu_export_fittingparams.triggered.connect(self.export_fitting_params)
         self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
+
 
     def open_pattern(self):
 
@@ -351,6 +357,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if fname:
             self.write_carboninp(fname)
 
+        print 'Exported in CARBON.INP format to: %s'%fname
+        self.statusBar.showMessage('Exported in CARBON.INP format to: %s'%fname)
 
     def write_carboninp(self, destination):
 
@@ -402,7 +410,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             else:
 
                 param_str = ("%10.6f"%param_value).rjust(12)
-            print param_str, len(param_str)
 
             if self.parameter_enable_list[index].isChecked():
                 param_str += "  1    "
