@@ -129,11 +129,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def init_ui_elements(self):
 
-        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)
-        exitAction.setShortcut('Crtl+Q')
-        exitAction.setStatusTip('Exit Application')
-        exitAction.triggered.connect(self.close)
-        self.menuFile.addAction(exitAction)
+        self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
+        self.calculate_pattern_button.setStatusTip('Calculate Pattern')
+        self.calculate_pattern_button.triggered.connect(self.calculate_pattern)
+        self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','fit.png')), 'Fit', self)
+        self.fit_pattern_button.setStatusTip('Fit Pattern')
+        self.fit_pattern_button.triggered.connect(self.start_fitting_process)
+
+        self.abort_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','stop.png')), 'Abort', self)
+        self.abort_fit_button.setStatusTip('Abort Fit')
+        self.abort_fit_button.triggered.connect(self.abort_fit_process)
+        self.abort_fit_button.setEnabled(False)
+
+
+
+        self.toolbar = self.addToolBar('Tools')
+        self.toolbar.addAction(self.calculate_pattern_button)
+        self.toolbar.addAction(self.fit_pattern_button)
+        self.toolbar.addAction(self.abort_fit_button)
+
 
 
     @QtCore.Slot(str)
@@ -155,6 +169,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.mpl_toolbar = NavigationToolbar(self.canvas, self.mplwindow)
         self.mplvl.addWidget(self.mpl_toolbar)
+
+
 
 
 
@@ -655,6 +671,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         print "Calling CARBONXS.exe"
         self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
+        self.abort_fit_button.setEnabled(True)
         os.chdir('..')
 
 
@@ -673,12 +690,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = True
         self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
+        self.abort_fit_button.setEnabled(True)
         os.chdir('..')
 
     def abort_fit_process(self):
 
         self.fitting_process.kill()
         self.menu_abort_fit.setEnabled(False)
+        self.abort_fit_button.setEnabled(False)
         self.abort_flag = True
 
     def fitting_finished(self):
@@ -688,6 +707,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "CarbonXS.exe Process Complete"
 
             self.menu_abort_fit.setEnabled(False)
+            self.abort_fit_button.setEnabled(False)
 
             if not self.pattern_calc_flag:
                 print "Reading new CARBON.INP data and plotting new data"
