@@ -123,9 +123,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
-
         self.show()
 
+    def data_init(self):
+
+        # On startup, read the last used Carbon.INP file
+        try:
+            self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+
+            print "Loaded most recently used parameters successfully from 'carbonxs' directory."
+        except IOError:
+            print "No previous parameters found in 'carbonxs' directory."
 
     def init_ui_elements(self):
 
@@ -732,6 +740,8 @@ def main():
 
     sys.stdout = console_stream
     sys.stderr = console_stream
+
+    ex.data_init()
 
     sys.exit(app.exec_())
 
