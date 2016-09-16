@@ -188,12 +188,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def assignWidgets(self):
 
+        # Enable/Disable/Invert All Parameter Buttons
+        self.enable_all_button.clicked.connect(self.enable_all_params)
+        self.enable_none_button.clicked.connect(self.disable_all_params)
+        self.enable_invert_button.clicked.connect(self.invert_all_params)
+
+
         # self.import_data.clicked.connect(self.load_parameters)
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
         self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
+
+
 
         # Export Data
         self.menu_export_carboninp.triggered.connect(self.export_to_carboninp)
@@ -205,6 +213,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_calculate_pattern.triggered.connect(self.calculate_pattern)
         self.menu_start_fit.triggered.connect(self.start_fitting_process)
         self.menu_abort_fit.triggered.connect(self.abort_fit_process)
+
+    def disable_all_params(self):
+        for setting in self.parameter_enable_list:
+            setting.setChecked(False)
+
+    def enable_all_params(self):
+        for setting in self.parameter_enable_list:
+            setting.setChecked(True)
+
+    def invert_all_params(self):
+        for setting in self.parameter_enable_list:
+            setting.setChecked(not setting.isChecked())
 
 
 
@@ -219,6 +239,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         dialect = sniffer.sniff(input_file.readline())
         plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
 
+        source_color = "#66c2a5"
         self.x_data = plot_data[:,0]
         self.y_data = plot_data[:,1]
 
@@ -227,7 +248,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_data, self.y_data, linewidth = 2, label="Source")
+        self.ax.plot(self.x_data, self.y_data, linewidth = 2, label="Source", color=source_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -243,6 +264,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.x_fit_data = []
         self.y_fit_data = []
 
+        source_color = "#66c2a5"
+        fit_color = "#fc8d62"
+
+
         pattern_file = open(pattern_filename, 'r')
         for line in pattern_file.readlines():
             data_elements = line.split()
@@ -253,8 +278,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2)
-        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2)
+        self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
+        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
