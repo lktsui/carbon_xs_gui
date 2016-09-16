@@ -127,6 +127,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
+        # On startup, read the most recently written carbon.inp file
+
         self.show()
 
 
@@ -586,6 +588,40 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             scan_file.write(data_line)
 
+    def sanity_checks(self):
+
+        errors = 0
+
+        if self.iterations.value() < 1:
+            print "Number of iterations is less than 1. No fitting will be performed."
+            print "Use Fitting -> Calculate Pattern to perform pattern calculation."
+            errors += 1
+
+
+
+        if self.sample_density.value() > 1.0 or self.sample_density.value() < 0.0:
+            print "Sample Density must be between 0 and 1"
+            errors += 1
+        if self.param_14.value() > 1 or  self.param_14.value() < 0:
+            print "Pr must be between 0 and 1"
+            errors += 1
+        if self.param_15.value() > 1 or  self.param_15.value() < 0:
+            print "Pt must be between 0 and 1"
+            errors += 1
+        if self.param_12.value() < 0:
+            print "Dab (In plane strain) must be greater than 0"
+            errors += 1
+        if self.param_13.value() < 0:
+            print "Del (Interplanar strain) must be greater than 0"
+            errors += 1
+
+        if errors > 0:
+            print "Found %d errors. Aborting Fit."%errors
+            return False
+        else:
+            print "Parameter check passed with 0 errors. Proceeding with fit."
+            return True
+
 
 
     def start_fitting_process(self):
@@ -594,18 +630,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if len(self.x_data) > 0 and len(self.y_data) > 0:
             print "Beginning Fitting Process"
 
-            os.chdir('carbonxs')
-
-            print "Wrote CARBON.INP to the CarbonXS Directory"
-
-            self.write_carboninp("CARBON.INP")
-            self.write_scan_data("SCAN.DAT")
-            self.pattern_calc_flag = False
-
-            print "Calling CARBONXS.exe"
-            self.fitting_process.start('CARBONXS.exe')
-            self.menu_abort_fit.setEnabled(True)
-            os.chdir('..')
+            if self.sanity_checks():
+                self.call_fit_program()
 
         else:
 
@@ -616,26 +642,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if reply == QtGui.QMessageBox.Yes:
 
                 self.open_pattern()
-
-                if len(self.x_data) > 0 and len(self.y_data) > 0:
+                if len(self.x_data) > 0 and len(self.y_data) > 0 and self.sanity_checks():
 
                     print "Loaded an XRD pattern"
+                    self.call_fit_program()
 
-                    os.chdir('carbonxs')
+    def call_fit_program(self):
 
-                    print "Wrote CARBON.INP to the CarbonXS Directory"
+        os.chdir('carbonxs')
 
-                    self.write_carboninp("CARBON.INP")
-                    self.write_scan_data("SCAN.DAT")
-                    self.pattern_calc_flag = False
+        print "Wrote CARBON.INP to the CarbonXS Directory"
 
-                    print "Calling CARBONXS.exe"
-                    self.fitting_process.start('CARBONXS.exe')
-                    self.menu_abort_fit.setEnabled(True)
-                    os.chdir('..')
+        self.write_carboninp("CARBON.INP")
 
+        print "Wrote SCAN.DAT to the CarbonXS Directory"
 
+        self.write_scan_data("SCAN.DAT")
+        self.pattern_calc_flag = False
 
+        print "Calling CARBONXS.exe"
+        self.fitting_process.start('CARBONXS.exe')
+        self.menu_abort_fit.setEnabled(True)
+        os.chdir('..')
 
 
 
