@@ -118,10 +118,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.addmpl(self.fig)
 
-
+        # Fitting Process
+        self.fitting_process = QtCore.QProcess(self)
+        self.fitting_process.readyRead.connect(self.on_process_message)
 
 
         self.show()
+
 
 
 
@@ -139,6 +142,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def on_stream_message(self, message):
         self.console.moveCursor(QtGui.QTextCursor.End)
         self.console.insertPlainText(message)
+        self.console.moveCursor(QtGui.QTextCursor.End)
+
+    def on_process_message(self):
+        self.console.moveCursor(QtGui.QTextCursor.End)
+        self.console.insertPlainText(str(self.fitting_process.readAll()))
+        self.console.moveCursor(QtGui.QTextCursor.End)
+
 
     def addmpl(self, fig):
         self.canvas = FigureCanvas(fig)
@@ -164,6 +174,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
         self.menu_export_fittingparams.triggered.connect(self.export_fitting_params)
         self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
+
+        # Fitting Process Options
+        self.menu_start_fit.triggered.connect(self.start_fitting_process)
 
 
     def open_pattern(self):
@@ -502,6 +515,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             print 'Imported CARBON.INP parameters from: %s' % fname
             self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
+
+    def start_fitting_process(self):
+
+        # self.fitting_process.start('ping', ['8.8.8.8'])#os.path.join('carbonxs', 'CARBONXS.exe'), QtCore.QIODevice.ReadOnly)
+
+        import subprocess
+        os.chdir('carbonxs')
+        self.fitting_process.start('CARBONXS.exe')
+        os.chdir('..')
+
 
 def main():
 

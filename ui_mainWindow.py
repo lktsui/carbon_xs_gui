@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 09:43:44 2016
+# Created: Fri Sep 16 09:45:55 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -505,6 +505,8 @@ class Ui_MainWindow(object):
         self.menuImport.setObjectName("menuImport")
         self.menuExport = QtGui.QMenu(self.menuFile)
         self.menuExport.setObjectName("menuExport")
+        self.menuFitting = QtGui.QMenu(self.menuBar)
+        self.menuFitting.setObjectName("menuFitting")
         MainWindow.setMenuBar(self.menuBar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
@@ -532,6 +534,8 @@ class Ui_MainWindow(object):
         self.menu_export_carboninp.setObjectName("menu_export_carboninp")
         self.menu_start_fitting = QtGui.QAction(MainWindow)
         self.menu_start_fitting.setObjectName("menu_start_fitting")
+        self.menu_start_fit = QtGui.QAction(MainWindow)
+        self.menu_start_fit.setObjectName("menu_start_fit")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -543,7 +547,9 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.menu_open_xrd_pattern)
         self.menuFile.addAction(self.menuImport.menuAction())
         self.menuFile.addAction(self.menuExport.menuAction())
+        self.menuFitting.addAction(self.menu_start_fit)
         self.menuBar.addAction(self.menuFile.menuAction())
+        self.menuBar.addAction(self.menuFitting.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -612,6 +618,7 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuImport.setTitle(QtGui.QApplication.translate("MainWindow", "Import", None, QtGui.QApplication.UnicodeUTF8))
         self.menuExport.setTitle(QtGui.QApplication.translate("MainWindow", "Export", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFitting.setTitle(QtGui.QApplication.translate("MainWindow", "Fitting", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_open_xrd_pattern.setText(QtGui.QApplication.translate("MainWindow", "Open XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
@@ -625,4 +632,5 @@ class Ui_MainWindow(object):
         self.menu_import_fittingsettings.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_export_carboninp.setText(QtGui.QApplication.translate("MainWindow", "To CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fitting.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_start_fit.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
 
