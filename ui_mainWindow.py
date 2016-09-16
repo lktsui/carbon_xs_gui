@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 11:28:43 2016
+# Created: Fri Sep 16 11:41:11 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -544,6 +544,8 @@ class Ui_MainWindow(object):
         self.menu_abort_fit = QtGui.QAction(MainWindow)
         self.menu_abort_fit.setEnabled(False)
         self.menu_abort_fit.setObjectName("menu_abort_fit")
+        self.menu_calculate_pattern = QtGui.QAction(MainWindow)
+        self.menu_calculate_pattern.setObjectName("menu_calculate_pattern")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -555,6 +557,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.menu_open_xrd_pattern)
         self.menuFile.addAction(self.menuImport.menuAction())
         self.menuFile.addAction(self.menuExport.menuAction())
+        self.menuFitting.addAction(self.menu_calculate_pattern)
         self.menuFitting.addAction(self.menu_start_fit)
         self.menuFitting.addAction(self.menu_abort_fit)
         self.menuBar.addAction(self.menuFile.menuAction())
@@ -643,4 +646,6 @@ class Ui_MainWindow(object):
         self.menu_start_fitting.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fit.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_abort_fit.setText(QtGui.QApplication.translate("MainWindow", "Abort Fit", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_calculate_pattern.setText(QtGui.QApplication.translate("MainWindow", "Calculate Pattern", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_calculate_pattern.setToolTip(QtGui.QApplication.translate("MainWindow", "Calculates a pattern without performing a fit", None, QtGui.QApplication.UnicodeUTF8))
 

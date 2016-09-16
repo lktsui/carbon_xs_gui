@@ -115,8 +115,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fig = Figure()
         self.ax = self.fig.add_subplot(111)
 
-        self.x_data = None
-        self.y_data = None
+        self.x_data = []
+        self.y_data = []
 
         self.addmpl(self.fig)
 
@@ -124,6 +124,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fitting_process = QtCore.QProcess(self)
         self.fitting_process.readyRead.connect(self.on_process_message)
         self.fitting_process.finished.connect(self.fitting_finished)
+        self.pattern_calc_flag = False
         self.abort_flag = False
 
         self.show()
@@ -179,8 +180,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
 
         # Fitting Process Options
+        self.menu_calculate_pattern.triggered.connect(self.calculate_pattern)
         self.menu_start_fit.triggered.connect(self.start_fitting_process)
         self.menu_abort_fit.triggered.connect(self.abort_fit_process)
+
 
 
     def open_pattern(self):
@@ -208,19 +211,24 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def plot_fit_results(self):
 
-        filename = os.path.join('carbonxs', 'carbon.dat')
-        plot_file = open(filename, 'r')
-        sniffer = csv.Sniffer()
-        dialect = sniffer.sniff(plot_file.readline())
+        pattern_filename = os.path.join('carbonxs', 'carbon.dat')
+        scan_filename = os.path.join('carbonxs', 'SCAN.DAT')
 
-        self.x_data = []
-        self.y_data = []
+        scan_file = open(scan_filename, 'r')
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(scan_file.readline())
+        plot_data = np.loadtxt(scan_file, delimiter=dialect.delimiter)
+
+        self.x_data = plot_data[:,0]
+        self.y_data = plot_data[:,1]
+
+        self.x_fit_data = []
         self.y_fit_data = []
 
-        for line in plot_file.readlines():
+        pattern_file = open(pattern_filename, 'r')
+        for line in pattern_file.readlines():
             data_elements = line.split()
-            self.x_data.append(float(data_elements[0]))
-            self.y_data.append(float(data_elements[1]))
+            self.x_fit_data.append(float(data_elements[0]))
             self.y_fit_data.append(float(data_elements[2]))
 
         colors = sns.color_palette('Set2', 2)
@@ -228,7 +236,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
         self.ax.plot(self.x_data, self.y_data, label="Source", color=colors[0])
-        self.ax.plot(self.x_data, self.y_fit_data, label="Fit", color=colors[1])
+        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", color=colors[1])
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -236,8 +244,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax.legend(fontsize=14, frameon=True)
 
         self.canvas.draw()
-
-
 
 
 
@@ -419,7 +425,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         print 'Exported in CARBON.INP format to: %s'%fname
         self.statusBar.showMessage('Exported in CARBON.INP format to: %s'%fname)
 
-    def write_carboninp(self, destination):
+    def write_carboninp(self, destination, disable_fit = False):
 
         export_file = open(destination, 'w')
 
@@ -450,7 +456,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                                                                                  )
                           +"     Rdens   L0      Wd      Ww      Bw\n")
-        export_file.write("      %d   %6.5f                        "%(self.iterations.value(), self.epsilon.value())+
+
+
+        if not disable_fit:
+            iterations = self.iterations.value()
+        else:
+            iterations = 0
+
+        export_file.write("      %d   %6.5f                        "%(iterations, self.epsilon.value())+
                           "       Itmax   Eps\n")
 
         if self.gradient_check_enable.currentIndex() == 1:
@@ -563,18 +576,81 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
+    def write_scan_data(self, output_file):
+
+        scan_file = open(output_file, 'w')
+
+        for x, y in zip(*(self.x_data, self.y_data)):
+
+            data_line = "%4.2f\t%4.2f\n"%(x, y)
+
+            scan_file.write(data_line)
+
+
+
     def start_fitting_process(self):
 
-        print "Beginning Fitting Process"
+
+        if len(self.x_data) > 0 and len(self.y_data) > 0:
+            print "Beginning Fitting Process"
+
+            os.chdir('carbonxs')
+
+            print "Wrote CARBON.INP to the CarbonXS Directory"
+
+            self.write_carboninp("CARBON.INP")
+            self.write_scan_data("SCAN.DAT")
+            self.pattern_calc_flag = False
+
+            print "Calling CARBONXS.exe"
+            self.fitting_process.start('CARBONXS.exe')
+            self.menu_abort_fit.setEnabled(True)
+            os.chdir('..')
+
+        else:
+
+            reply = QtGui.QMessageBox.question(self, 'No XRD Pattern Loaded',
+                                               "Do you want to load a pattern?", QtGui.QMessageBox.Yes |
+                                               QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+
+            if reply == QtGui.QMessageBox.Yes:
+
+                self.open_pattern()
+
+                if len(self.x_data) > 0 and len(self.y_data) > 0:
+
+                    print "Loaded an XRD pattern"
+
+                    os.chdir('carbonxs')
+
+                    print "Wrote CARBON.INP to the CarbonXS Directory"
+
+                    self.write_carboninp("CARBON.INP")
+                    self.write_scan_data("SCAN.DAT")
+                    self.pattern_calc_flag = False
+
+                    print "Calling CARBONXS.exe"
+                    self.fitting_process.start('CARBONXS.exe')
+                    self.menu_abort_fit.setEnabled(True)
+                    os.chdir('..')
+
+
+
+
+
+
+
+    def calculate_pattern(self):
+        print "Beginning Pattern Calculation Process"
 
         os.chdir('carbonxs')
 
         print "Wrote CARBON.INP to the CarbonXS Directory"
 
-        self.write_carboninp("CARBON.INP")
-
+        self.write_carboninp("CARBON.INP", disable_fit=True)
 
         print "Calling CARBONXS.exe"
+        self.pattern_calc_flag = True
         self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
         os.chdir('..')
@@ -589,11 +665,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         if not self.abort_flag:
 
-            print "Fitting Complete"
-            print "Reading new CARBON.INP data and plotting new data"
+            print "CarbonXS.exe Process Complete"
 
             self.menu_abort_fit.setEnabled(False)
-            self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+
+            if not self.pattern_calc_flag:
+                print "Reading new CARBON.INP data and plotting new data"
+                self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
             self.plot_fit_results()
 
         else:
