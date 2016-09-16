@@ -135,6 +135,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         except IOError:
             print "No previous parameters found in 'carbonxs' directory."
 
+        if 'SCAN.DAT' in os.listdir('carbonxs'):
+            os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
+
+
     def init_ui_elements(self):
 
         self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
@@ -230,15 +234,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def plot_fit_results(self):
 
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
-        scan_filename = os.path.join('carbonxs', 'SCAN.DAT')
-
-        scan_file = open(scan_filename, 'r')
-        sniffer = csv.Sniffer()
-        dialect = sniffer.sniff(scan_file.readline())
-        plot_data = np.loadtxt(scan_file, delimiter=dialect.delimiter)
-
-        self.x_data = plot_data[:,0]
-        self.y_data = plot_data[:,1]
 
         self.x_fit_data = []
         self.y_fit_data = []
