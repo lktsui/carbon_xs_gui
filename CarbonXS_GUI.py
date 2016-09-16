@@ -14,15 +14,11 @@ from matplotlib.backends import qt_compat
 
 import csv
 
-import seaborn as sns
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
 if use_pyside:
     from PySide.QtCore import *
     from PySide.QtGui import *
-else:
-    from PyQt4.QtCore import *
-    from PyQt4.QtGui import *
 
 class ConsoleStream(QtCore.QObject):
 
@@ -38,7 +34,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
 
-        sns.set_style('whitegrid')
+        # sns.set_style('whitegrid')
 
         super(MainWindow, self).__init__()
 
@@ -127,12 +123,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
-        # On startup, read the most recently written carbon.inp file
 
         self.show()
-
-
-
 
 
     def init_ui_elements(self):
@@ -233,12 +225,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.x_fit_data.append(float(data_elements[0]))
             self.y_fit_data.append(float(data_elements[2]))
 
-        colors = sns.color_palette('Set2', 2)
+        # colors = sns.color_palette('Set2', 2)
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_data, self.y_data, label="Source", color=colors[0])
-        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", color=colors[1])
+        self.ax.plot(self.x_data, self.y_data, label="Source",)
+        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit",)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
