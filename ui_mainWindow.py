@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 11:04:44 2016
+# Created: Fri Sep 16 11:06:40 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -394,7 +394,7 @@ class Ui_MainWindow(object):
         self.iterations_label.setObjectName("iterations_label")
         self.fitting_settings.addWidget(self.iterations_label, 2, 2, 1, 1)
         self.iterations = QtGui.QSpinBox(self.gridLayoutWidget_2)
-        self.iterations.setMinimum(1)
+        self.iterations.setMinimum(0)
         self.iterations.setMaximum(999999999)
         self.iterations.setObjectName("iterations")
         self.fitting_settings.addWidget(self.iterations, 3, 2, 1, 1)

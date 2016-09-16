@@ -12,6 +12,8 @@ from matplotlib.backends.backend_qt4agg import (
     NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.backends import qt_compat
 
+import csv
+
 import seaborn as sns
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
@@ -182,9 +184,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def open_pattern(self):
 
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
+
+
         input_file = open(fname, 'r')
 
-        plot_data = np.loadtxt(input_file, delimiter='\t')
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(input_file.readline())
+        plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
 
         self.x_data = plot_data[:,0]
         self.y_data = plot_data[:,1]
@@ -197,6 +203,44 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax.plot(self.x_data, self.y_data)
 
         self.canvas.draw()
+
+    def plot_fit_results(self):
+
+        filename = os.path.join('carbonxs', 'carbon.dat')
+        plot_file = open(filename, 'r')
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(plot_file.readline())
+
+        self.x_data = []
+        self.y_data = []
+        self.y_fit_data = []
+
+        for line in plot_file.readlines():
+            data_elements = line.split()
+            self.x_data.append(float(data_elements[0]))
+            self.y_data.append(float(data_elements[1]))
+            self.y_fit_data.append(float(data_elements[2]))
+
+        colors = sns.color_palette('Set2', 2)
+
+        self.fig.delaxes(self.ax)
+        self.ax = self.fig.add_subplot(111)
+        self.ax.plot(self.x_data, self.y_data, label="Source", color=colors[0])
+        self.ax.plot(self.x_data, self.y_fit_data, label="Fit", color=colors[1])
+
+        self.ax.tick_params(axis='both', which='major', labelsize=14)
+        self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+        self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+        self.ax.legend(fontsize=14, frameon=True)
+
+        self.canvas.draw()
+
+
+
+
+
+
+
 
     def export_diffractometer_params(self):
 
@@ -534,9 +578,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def fitting_finished(self):
 
         print "Fitting Complete"
-        print "Reading new CARBON.INP data"
+        print "Reading new CARBON.INP data and plotting new data"
 
         self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+        self.plot_fit_results()
 
 
 
