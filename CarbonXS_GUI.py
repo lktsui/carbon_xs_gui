@@ -229,6 +229,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax = self.fig.add_subplot(111)
         self.ax.plot(self.x_data, self.y_data)
 
+        self.ax.tick_params(axis='both', which='major', labelsize=14)
+        self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+        self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+        self.ax.legend(fontsize=14, frameon=True)
+        self.ax.grid(True)
         self.canvas.draw()
 
     def plot_fit_results(self):
