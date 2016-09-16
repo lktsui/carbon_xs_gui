@@ -124,6 +124,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fitting_process = QtCore.QProcess(self)
         self.fitting_process.readyRead.connect(self.on_process_message)
         self.fitting_process.finished.connect(self.fitting_finished)
+        self.abort_flag = False
 
         self.show()
 
@@ -179,6 +180,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Fitting Process Options
         self.menu_start_fit.triggered.connect(self.start_fitting_process)
+        self.menu_abort_fit.triggered.connect(self.abort_fit_process)
 
 
     def open_pattern(self):
@@ -571,17 +573,34 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.write_carboninp("CARBON.INP")
 
+
         print "Calling CARBONXS.exe"
         self.fitting_process.start('CARBONXS.exe')
+        self.menu_abort_fit.setEnabled(True)
         os.chdir('..')
+
+    def abort_fit_process(self):
+
+        self.fitting_process.kill()
+        self.menu_abort_fit.setEnabled(False)
+        self.abort_flag = True
 
     def fitting_finished(self):
 
-        print "Fitting Complete"
-        print "Reading new CARBON.INP data and plotting new data"
+        if not self.abort_flag:
 
-        self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
-        self.plot_fit_results()
+            print "Fitting Complete"
+            print "Reading new CARBON.INP data and plotting new data"
+
+            self.menu_abort_fit.setEnabled(False)
+            self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+            self.plot_fit_results()
+
+        else:
+            print "\n\n Fitting process aborted"
+
+            self.abort_flag = False
+
 
 
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 11:06:40 2016
+# Created: Fri Sep 16 11:28:43 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -541,6 +541,9 @@ class Ui_MainWindow(object):
         self.menu_start_fitting.setObjectName("menu_start_fitting")
         self.menu_start_fit = QtGui.QAction(MainWindow)
         self.menu_start_fit.setObjectName("menu_start_fit")
+        self.menu_abort_fit = QtGui.QAction(MainWindow)
+        self.menu_abort_fit.setEnabled(False)
+        self.menu_abort_fit.setObjectName("menu_abort_fit")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -553,6 +556,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.menuImport.menuAction())
         self.menuFile.addAction(self.menuExport.menuAction())
         self.menuFitting.addAction(self.menu_start_fit)
+        self.menuFitting.addAction(self.menu_abort_fit)
         self.menuBar.addAction(self.menuFile.menuAction())
         self.menuBar.addAction(self.menuFitting.menuAction())
 
@@ -638,4 +642,5 @@ class Ui_MainWindow(object):
         self.menu_export_carboninp.setText(QtGui.QApplication.translate("MainWindow", "To CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fitting.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fit.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_abort_fit.setText(QtGui.QApplication.translate("MainWindow", "Abort Fit", None, QtGui.QApplication.UnicodeUTF8))
 
