@@ -121,7 +121,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
         self.fitting_process.readyRead.connect(self.on_process_message)
-
+        self.fitting_process.finished.connect(self.fitting_finished)
 
         self.show()
 
@@ -445,85 +445,99 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter='CARBON.INP')
 
         if fname:
-
-            config_file = open(fname, 'r')
-
-            data_lines = config_file.readlines()
-
-            # Thetamin, theta max, wavelength, nskip
-            data_elements_1 = data_lines[1].split()
-
-            self.theta_min_value.setValue(float(data_elements_1[0]))
-            self.theta_max_value.setValue(float(data_elements_1[1]))
-            self.wavelength.setValue(float(data_elements_1[2]))
-            self.nskip.setValue(int(data_elements_1[3]))
-
-            # TODO: Add readin for fitting parameters Npar, Nphi, Nsg, Nlayer
-            data_elements_2 = data_lines[2].split()
-
-            self.n_phi.setValue(float(data_elements_2[1]))
-            self.n_sg.setValue(float(data_elements_2[2]))
-
-            if int(data_elements_2[3]) == 1:
-                self.number_layers.setCurrentIndex(0)
-            elif int(data_elements_2[3]) == 2:
-                self.number_layers.setCurrentIndex(1)
-            else:
-                print "Number of layers is not 1 or 2. Setting to 1"
-                self.number_layers.setCurrentIndex(0)
-
-            # Diffractometer Parameters
-            data_elements_3 = data_lines[3].split()
-            self.sample_density.setValue(float(data_elements_3[0]))
-            self.goniometer_radius.setValue(float(data_elements_3[1]))
-            self.sample_depth.setValue(float(data_elements_3[2]))
-            self.sample_width.setValue(float(data_elements_3[3]))
-            self.beam_width.setValue(float(data_elements_3[4]))
-
-
-            data_elements_4 = data_lines[4].split()
-
-            self.iterations.setValue(int(data_elements_4[0]))
-            self.epsilon.setValue(float(data_elements_4[1]))
-
-            data_elements_5 = data_lines[5].split()
-            if int(data_elements_5[0]):
-                # Enable Gradient Checking
-                self.number_layers.setCurrentIndex(1)
-            else:
-                # Disable Gradient Checking
-                self.number_layers.setCurrentIndex(1)
-
-
-            self.gradient_check_delta.setValue(float(data_elements_5[1]))
-
-
-
-            for index, line in enumerate(data_lines[6:]):
-                config_elements = line.split()
-
-                param_value = float(config_elements[0])
-
-                if config_elements[1] == '1':
-                    param_enable = True
-                else:
-                    param_enable = False
-
-                self.parameter_list[index].setValue(param_value)
-                self.parameter_enable_list[index].setChecked(param_enable)
-
-
+            self.read_carboninp(fname)
             print 'Imported CARBON.INP parameters from: %s' % fname
             self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
+    def read_carboninp(self, filename):
+
+        config_file = open(filename, 'r')
+
+        data_lines = config_file.readlines()
+
+        # Thetamin, theta max, wavelength, nskip
+        data_elements_1 = data_lines[1].split()
+
+        self.theta_min_value.setValue(float(data_elements_1[0]))
+        self.theta_max_value.setValue(float(data_elements_1[1]))
+        self.wavelength.setValue(float(data_elements_1[2]))
+        self.nskip.setValue(int(data_elements_1[3]))
+
+        data_elements_2 = data_lines[2].split()
+
+        self.n_phi.setValue(float(data_elements_2[1]))
+        self.n_sg.setValue(float(data_elements_2[2]))
+
+        if int(data_elements_2[3]) == 1:
+            self.number_layers.setCurrentIndex(0)
+        elif int(data_elements_2[3]) == 2:
+            self.number_layers.setCurrentIndex(1)
+        else:
+            print "Number of layers is not 1 or 2. Setting to 1"
+            self.number_layers.setCurrentIndex(0)
+
+        # Diffractometer Parameters
+        data_elements_3 = data_lines[3].split()
+        self.sample_density.setValue(float(data_elements_3[0]))
+        self.goniometer_radius.setValue(float(data_elements_3[1]))
+        self.sample_depth.setValue(float(data_elements_3[2]))
+        self.sample_width.setValue(float(data_elements_3[3]))
+        self.beam_width.setValue(float(data_elements_3[4]))
+
+
+        data_elements_4 = data_lines[4].split()
+
+        self.iterations.setValue(int(data_elements_4[0]))
+        self.epsilon.setValue(float(data_elements_4[1]))
+
+        data_elements_5 = data_lines[5].split()
+        if int(data_elements_5[0]):
+            # Enable Gradient Checking
+            self.number_layers.setCurrentIndex(1)
+        else:
+            # Disable Gradient Checking
+            self.number_layers.setCurrentIndex(1)
+
+
+        self.gradient_check_delta.setValue(float(data_elements_5[1]))
+
+
+
+        for index, line in enumerate(data_lines[6:]):
+            config_elements = line.split()
+            param_value = float(config_elements[0])
+
+            if config_elements[1] == '1':
+                param_enable = True
+            else:
+                param_enable = False
+
+            self.parameter_list[index].setValue(param_value)
+            self.parameter_enable_list[index].setChecked(param_enable)
+
+
+
     def start_fitting_process(self):
 
-        # self.fitting_process.start('ping', ['8.8.8.8'])#os.path.join('carbonxs', 'CARBONXS.exe'), QtCore.QIODevice.ReadOnly)
+        print "Beginning Fitting Process"
 
-        import subprocess
         os.chdir('carbonxs')
+
+        print "Wrote CARBON.INP to the CarbonXS Directory"
+
+        self.write_carboninp("CARBON.INP")
+
+        print "Calling CARBONXS.exe"
         self.fitting_process.start('CARBONXS.exe')
         os.chdir('..')
+
+    def fitting_finished(self):
+
+        print "Fitting Complete"
+        print "Reading new CARBON.INP data"
+
+        self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+
 
 
 def main():

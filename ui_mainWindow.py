@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 09:45:55 2016
+# Created: Fri Sep 16 11:04:44 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -174,6 +174,7 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_label_1, 3, 2, 1, 1)
         self.param_3 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_3.setDecimals(6)
+        self.param_3.setMinimum(-9.99999999999e+11)
         self.param_3.setMaximum(99999999.0)
         self.param_3.setObjectName("param_3")
         self.fit_params.addWidget(self.param_3, 5, 0, 1, 1)
@@ -202,11 +203,13 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_17, 19, 0, 1, 1)
         self.param_2 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_2.setDecimals(6)
+        self.param_2.setMinimum(-9.99999999999e+11)
         self.param_2.setMaximum(99999999.0)
         self.param_2.setObjectName("param_2")
         self.fit_params.addWidget(self.param_2, 4, 0, 1, 1)
         self.param_5 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_5.setDecimals(6)
+        self.param_5.setMinimum(-9.99999999999e+11)
         self.param_5.setMaximum(99999999.0)
         self.param_5.setObjectName("param_5")
         self.fit_params.addWidget(self.param_5, 7, 0, 1, 1)
@@ -228,6 +231,7 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_label_15, 17, 2, 1, 1)
         self.param_4 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_4.setDecimals(6)
+        self.param_4.setMinimum(-9.99999999999e+11)
         self.param_4.setMaximum(99999999.0)
         self.param_4.setObjectName("param_4")
         self.fit_params.addWidget(self.param_4, 6, 0, 1, 1)
@@ -297,6 +301,7 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_7, 9, 0, 1, 1)
         self.param_6 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_6.setDecimals(6)
+        self.param_6.setMinimum(-9.99999999999e+11)
         self.param_6.setMaximum(99999999.0)
         self.param_6.setObjectName("param_6")
         self.fit_params.addWidget(self.param_6, 8, 0, 1, 1)
