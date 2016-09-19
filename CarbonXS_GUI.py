@@ -32,7 +32,7 @@ class ConsoleStream(QtCore.QObject):
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
-    def __init__(self):
+    def __init__(self, version):
 
         # sns.set_style('whitegrid')
 
@@ -40,6 +40,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
         self.assignWidgets()
+
+        self.setWindowTitle("CarbonXS GUI v"+version)
 
         self.parameter_list = [
             self.param_0,
@@ -180,6 +182,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def addmpl(self, fig):
+
         self.canvas = FigureCanvas(fig)
         self.mplvl.addWidget(self.canvas)
         self.canvas.draw()
@@ -762,8 +765,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 def main():
 
+    version = "0.1.0"
+
     app = QtGui.QApplication(sys.argv)
-    ex = MainWindow()
+
+
+    ex = MainWindow(version)
 
     console_stream = ConsoleStream()
     console_stream.message.connect(ex.on_stream_message)
