@@ -735,6 +735,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         print "Calling CARBONXS.exe"
         self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
+        self.menu_start_fitting.setEnabled(False)
+        self.menu_calculate_pattern.setEnabled(False)
+        self.calculate_pattern_button.setEnabled(False)
+        self.fit_pattern_button.setEnabled(False)
         self.abort_fit_button.setEnabled(True)
         os.chdir('..')
 
@@ -752,9 +756,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         print "Calling CARBONXS.exe"
         self.pattern_calc_flag = True
+
+        self.menu_start_fitting.setEnabled(False)
+        self.menu_calculate_pattern.setEnabled(False)
+        self.calculate_pattern_button.setEnabled(False)
+        self.fit_pattern_button.setEnabled(False)
+
+
         self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
         self.abort_fit_button.setEnabled(True)
+
         os.chdir('..')
 
     def abort_fit_process(self):
@@ -762,6 +774,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fitting_process.kill()
         self.menu_abort_fit.setEnabled(False)
         self.abort_fit_button.setEnabled(False)
+
+        self.menu_start_fitting.setEnabled(True)
+        self.menu_calculate_pattern.setEnabled(True)
+        self.calculate_pattern_button.setEnabled(True)
+        self.fit_pattern_button.setEnabled(True)
         self.abort_flag = True
 
     def fitting_finished(self):
@@ -772,6 +789,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             self.menu_abort_fit.setEnabled(False)
             self.abort_fit_button.setEnabled(False)
+
+            self.menu_start_fitting.setEnabled(True)
+            self.menu_calculate_pattern.setEnabled(True)
+            self.calculate_pattern_button.setEnabled(True)
+            self.fit_pattern_button.setEnabled(True)
 
             if not self.pattern_calc_flag:
                 print "Reading new CARBON.INP data and plotting new data"
