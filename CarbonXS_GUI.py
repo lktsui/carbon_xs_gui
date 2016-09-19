@@ -256,25 +256,31 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             sniffer = csv.Sniffer()
             dialect = sniffer.sniff(input_file.readline())
-            plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
+            try:
+                plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
 
-            source_color = "#66c2a5"
-            self.x_data = plot_data[:,0]
-            self.y_data = plot_data[:,1]
+                source_color = "#66c2a5"
+                self.x_data = plot_data[:, 0]
+                self.y_data = plot_data[:, 1]
 
-            self.theta_min_value.setValue(np.min(self.x_data))
-            self.theta_max_value.setValue(np.max(self.x_data))
+                self.theta_min_value.setValue(np.min(self.x_data))
+                self.theta_max_value.setValue(np.max(self.x_data))
 
-            self.fig.delaxes(self.ax)
-            self.ax = self.fig.add_subplot(111)
-            self.ax.plot(self.x_data, self.y_data, linewidth = 2, label="Source", color=source_color)
+                self.fig.delaxes(self.ax)
+                self.ax = self.fig.add_subplot(111)
+                self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
 
-            self.ax.tick_params(axis='both', which='major', labelsize=14)
-            self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
-            self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
-            self.ax.legend(fontsize=14, frameon=True)
-            self.ax.grid(True)
-            self.canvas.draw()
+                self.ax.tick_params(axis='both', which='major', labelsize=14)
+                self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+                self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+                self.ax.legend(fontsize=14, frameon=True)
+                self.ax.grid(True)
+                self.canvas.draw()
+
+
+            except ValueError:
+                print "Error: Improperly formatted pattern file in file %s."%fname
+                print "The pattern file should be two columns of data."
 
     def plot_fit_results(self):
 
