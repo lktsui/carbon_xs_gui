@@ -177,8 +177,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def on_process_message(self):
         self.console.moveCursor(QtGui.QTextCursor.End)
-        self.console.insertPlainText(str(self.fitting_process.readAll()))
+
+        message = str(self.fitting_process.readAll())
+        self.console.insertPlainText(message)
         self.console.moveCursor(QtGui.QTextCursor.End)
+
+        if "Singular matrix." in message:
+            reply = QtGui.QMessageBox.question(self, 'Singular matrix detected.',
+                                               "Singular matrix detected. Abort?", QtGui.QMessageBox.Yes |
+                                               QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
+
+            if reply == QtGui.QMessageBox.Yes:
+                self.abort_fit_process()
+
 
 
     def addmpl(self, fig):
