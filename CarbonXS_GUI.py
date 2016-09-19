@@ -352,18 +352,29 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             data_file = open(fname, 'r')
 
-            diffractometer_settings = ujson.load(data_file)
 
-            self.wavelength.setValue(diffractometer_settings['wavelength'])
-            self.beam_width.setValue(diffractometer_settings['beam_width'])
-            self.sample_width.setValue(diffractometer_settings['sample_width'])
-            self.sample_depth.setValue(diffractometer_settings['sample_depth'])
-            self.sample_density.setValue(diffractometer_settings['sample_density'])
-            self.goniometer_radius.setValue(diffractometer_settings['gonio_radius'])
+            try:
+                diffractometer_settings = ujson.load(data_file)
 
-            print 'Imported Diffractometer Settings from: %s'%fname
+                self.wavelength.setValue(diffractometer_settings['wavelength'])
+                self.beam_width.setValue(diffractometer_settings['beam_width'])
+                self.sample_width.setValue(diffractometer_settings['sample_width'])
+                self.sample_depth.setValue(diffractometer_settings['sample_depth'])
+                self.sample_density.setValue(diffractometer_settings['sample_density'])
+                self.goniometer_radius.setValue(diffractometer_settings['gonio_radius'])
 
-            self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
+                print 'Imported Diffractometer Settings from: %s'%fname
+
+                self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
+
+            except ValueError:
+                print "Error in loading JSON file: %s."%(fname)
+                print "Verify that the configuration file is properly formatted."
+
+            except KeyError:
+                import_type = 'diffractometer settings'
+                print 'Error in importing %s from: %s.'%(import_type, fname)
+                print 'Verify that this settings file is the right kind for this import.'
 
 
     def export_fitting_params(self):
@@ -391,19 +402,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         if fname:
 
-            data_file = open(fname, 'r')
+            try:
+                data_file = open(fname, 'r')
 
-            fitting_params = ujson.load(data_file)
+                fitting_params = ujson.load(data_file)
 
-            for index, label in enumerate(self.parameter_labels):
+                for index, label in enumerate(self.parameter_labels):
 
-                param_value, enabled = fitting_params[label]
+                    param_value, enabled = fitting_params[label]
 
-                self.parameter_list[index].setValue(param_value)
-                self.parameter_enable_list[index].setChecked(enabled)
+                    self.parameter_list[index].setValue(param_value)
+                    self.parameter_enable_list[index].setChecked(enabled)
 
-            print 'Imported Fitting Parameters from: %s'%fname
-            self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
+                print 'Imported Fitting Parameters from: %s'%fname
+                self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
+            except ValueError:
+                print "Error in loading JSON file: %s."%(fname)
+                print "Verify that the configuration file is properly formatted."
+
+            except KeyError:
+                import_type = 'fitting parameters'
+                print 'Error in importing %s from: %s.'%(import_type, fname)
+                print 'Verify that this settings file is the right kind for this import.'
 
     def export_fitting_settings(self):
 
@@ -448,38 +468,49 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         if fname:
 
-            data_file = open(fname, 'r')
+            try:
+                data_file = open(fname, 'r')
 
-            fitting_settings = ujson.load(data_file)
+                fitting_settings = ujson.load(data_file)
 
-            self.theta_min_value.setValue(fitting_settings['theta min'])
-            self.theta_max_value.setValue(fitting_settings['theta max'])
+                self.theta_min_value.setValue(fitting_settings['theta min'])
+                self.theta_max_value.setValue(fitting_settings['theta max'])
 
-            self.iterations.setValue(fitting_settings['iterations'])
-            self.nskip.setValue(fitting_settings['nskip'])
+                self.iterations.setValue(fitting_settings['iterations'])
+                self.nskip.setValue(fitting_settings['nskip'])
 
 
-            if fitting_settings['layers'] == 1:
-                self.number_layers.setCurrentIndex(0)
-            elif fitting_settings['layers'] == 2:
-                self.number_layers.setCurrentIndex(1)
-            else:
-                print "Error: Number of layers is not 1 or 2. Setting it to 1."
-                self.number_layers.setCurrentIndex(0)
+                if fitting_settings['layers'] == 1:
+                    self.number_layers.setCurrentIndex(0)
+                elif fitting_settings['layers'] == 2:
+                    self.number_layers.setCurrentIndex(1)
+                else:
+                    print "Error: Number of layers is not 1 or 2. Setting it to 1."
+                    self.number_layers.setCurrentIndex(0)
 
-            self.n_phi.setValue(fitting_settings['nphi'])
-            self.n_sg.setValue(fitting_settings['nsg'])
-            self.epsilon.setValue(fitting_settings['epsilon'])
+                self.n_phi.setValue(fitting_settings['nphi'])
+                self.n_sg.setValue(fitting_settings['nsg'])
+                self.epsilon.setValue(fitting_settings['epsilon'])
 
-            if fitting_settings['enable_gc']:
-                self.gradient_check_enable.setCurrentIndex(1)
-            else:
-                self.gradient_check_enable.setCurrentIndex(0)
+                if fitting_settings['enable_gc']:
+                    self.gradient_check_enable.setCurrentIndex(1)
+                else:
+                    self.gradient_check_enable.setCurrentIndex(0)
 
-            self.gradient_check_delta.setValue(fitting_settings['gc_delta'])
+                self.gradient_check_delta.setValue(fitting_settings['gc_delta'])
 
-            print 'Imported Fitting Settings from: %s'%fname
-            self.statusBar.showMessage('Imported Fitting Settings to: %s'%fname)
+                print 'Imported Fitting Settings from: %s'%fname
+                self.statusBar.showMessage('Imported Fitting Settings to: %s'%fname)
+
+
+            except ValueError:
+                print "Error in loading JSON file: %s."%(fname)
+                print "Verify that the configuration file is properly formatted."
+
+            except KeyError:
+                import_type = 'fitting settings'
+                print 'Error in importing %s from: %s.'%(import_type, fname)
+                print 'Verify that this settings file is the right kind for this import.'
 
 
     def export_to_carboninp(self):
