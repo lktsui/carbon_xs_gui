@@ -578,10 +578,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.n_phi.setValue(float(data_elements_2[1]))
         self.n_sg.setValue(float(data_elements_2[2]))
 
+
+        print "Layers Setting", data_elements_2[3], int(data_elements_2[3])
         if int(data_elements_2[3]) == 1:
             self.number_layers.setCurrentIndex(0)
+            print "Set to 1"
         elif int(data_elements_2[3]) == 2:
             self.number_layers.setCurrentIndex(1)
+            print "Set to 2"
         else:
             print "Number of layers is not 1 or 2. Setting to 1"
             self.number_layers.setCurrentIndex(0)
@@ -603,13 +607,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         data_elements_5 = data_lines[5].split()
         if int(data_elements_5[0]):
             # Enable Gradient Checking
-            self.number_layers.setCurrentIndex(1)
+            self.gradient_check_enable.setCurrentIndex(1)
         else:
             # Disable Gradient Checking
-            self.number_layers.setCurrentIndex(1)
+            self.gradient_check_enable.setCurrentIndex(0)
 
 
         self.gradient_check_delta.setValue(float(data_elements_5[1]))
+
+
 
 
 
@@ -625,6 +631,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.parameter_list[index].setValue(param_value)
             self.parameter_enable_list[index].setChecked(param_enable)
 
+
+        print "Current_setting: ", self.number_layers.currentIndex()
 
 
     def write_scan_data(self, output_file):
@@ -646,6 +654,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "Use Fitting -> Calculate Pattern to perform pattern calculation."
             errors += 1
 
+        if not any([enable.isChecked() for enable in self.parameter_enable_list]):
+            print "Error: No fitting parameters are enabled."
+            errors +=1
 
 
         if self.sample_density.value() > 1.0 or self.sample_density.value() < 0.0:
