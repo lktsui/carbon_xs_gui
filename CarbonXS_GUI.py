@@ -579,13 +579,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.n_sg.setValue(float(data_elements_2[2]))
 
 
-        print "Layers Setting", data_elements_2[3], int(data_elements_2[3])
         if int(data_elements_2[3]) == 1:
             self.number_layers.setCurrentIndex(0)
-            print "Set to 1"
         elif int(data_elements_2[3]) == 2:
             self.number_layers.setCurrentIndex(1)
-            print "Set to 2"
         else:
             print "Number of layers is not 1 or 2. Setting to 1"
             self.number_layers.setCurrentIndex(0)
@@ -621,7 +618,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         for index, line in enumerate(data_lines[6:]):
             config_elements = line.split()
-            param_value = float(config_elements[0])
+
+            if "*" in config_elements[0]:
+                print "Warning: Bad parameter found in "+self.parameter_labels[index]
+                print "Setting parameter value to 0"
+                param_value = 0
+            else:
+
+                param_value = float(config_elements[0])
 
             if config_elements[1] == '1':
                 param_enable = True
@@ -630,9 +634,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             self.parameter_list[index].setValue(param_value)
             self.parameter_enable_list[index].setChecked(param_enable)
-
-
-        print "Current_setting: ", self.number_layers.currentIndex()
 
 
     def write_scan_data(self, output_file):
@@ -786,8 +787,8 @@ def main():
     console_stream = ConsoleStream()
     console_stream.message.connect(ex.on_stream_message)
 
-    sys.stdout = console_stream
-    sys.stderr = console_stream
+    # sys.stdout = console_stream
+    # sys.stderr = console_stream
 
     ex.data_init()
 
