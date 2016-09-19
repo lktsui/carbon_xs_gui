@@ -600,7 +600,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def import_from_carboninp(self):
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter='CARBON.INP')
+        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter="*.inp")
 
         if fname:
             self.read_carboninp(fname)
@@ -824,6 +824,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             print "CarbonXS.exe Process Complete"
 
+
+            if self.fitting_process.exitCode() == 0:
+
+
+
+                if not self.pattern_calc_flag:
+                    print "Reading new CARBON.INP data and plotting new data"
+                    self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+                self.plot_fit_results()
+
+
+            elif self.fitting_process.exitCode() == 1:
+
+                print "Error: Fit failed due to crash in CarbonXS"
+
+            else:
+                print "Other error occurred"
+
+
             self.menu_abort_fit.setEnabled(False)
             self.abort_fit_button.setEnabled(False)
 
@@ -832,10 +851,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.calculate_pattern_button.setEnabled(True)
             self.fit_pattern_button.setEnabled(True)
 
-            if not self.pattern_calc_flag:
-                print "Reading new CARBON.INP data and plotting new data"
-                self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
-            self.plot_fit_results()
 
         else:
             print "\n\n Fitting process aborted"
