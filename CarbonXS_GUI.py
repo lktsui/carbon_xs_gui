@@ -39,7 +39,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
 
         self.setupUi(self)
-        self.assignWidgets()
 
         self.setWindowTitle("CarbonXS GUI v"+version)
 
@@ -130,6 +129,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
+        self.assignWidgets()
         self.show()
 
     def data_init(self):
@@ -202,6 +202,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.mpl_toolbar)
 
 
+        self.plot_buttons_layout = QtGui.QHBoxLayout(self)
+        self.plot_pattern_button = QtGui.QPushButton(self)
+        self.plot_pattern_button.setText("Pattern + Last Fit")
+        self.plot_difference_button = QtGui.QPushButton(self)
+        self.plot_difference_button.setText("Last Fit Difference")
+
+        self.plot_buttons_layout.addWidget(self.plot_pattern_button)
+        self.plot_buttons_layout.addWidget(self.plot_difference_button)
+
+        self.mplvl.addLayout(self.plot_buttons_layout)
 
 
 
@@ -220,8 +230,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
         self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
 
-
-
         # Export Data
         self.menu_export_carboninp.triggered.connect(self.export_to_carboninp)
         self.menu_export_diffsettings.triggered.connect(self.export_diffractometer_params)
@@ -232,6 +240,43 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_calculate_pattern.triggered.connect(self.calculate_pattern)
         self.menu_start_fit.triggered.connect(self.start_fitting_process)
         self.menu_abort_fit.triggered.connect(self.abort_fit_process)
+
+        # Graph buttons
+        self.plot_pattern_button.clicked.connect(self.plot_fit_results)
+        self.plot_difference_button.clicked.connect(self.plot_difference)
+
+
+
+    def plot_difference(self):
+
+        pattern_filename = os.path.join('carbonxs', 'carbon.dat')
+
+        self.x_fit_data = []
+        self.difference = []
+
+        source_color = "#66c2a5"
+        fit_color = "#fc8d62"
+
+
+        pattern_file = open(pattern_filename, 'r')
+        for line in pattern_file.readlines():
+            data_elements = line.split()
+            self.x_fit_data.append(float(data_elements[0]))
+            self.difference.append(float(data_elements[1]) - float(data_elements[2]))
+
+        self.fig.delaxes(self.ax)
+        self.ax = self.fig.add_subplot(111)
+        self.ax.plot(self.x_fit_data, self.difference, label="Source - Fit", linewidth = 2, color=fit_color)
+
+        self.ax.tick_params(axis='both', which='major', labelsize=14)
+        self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+        self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+        self.ax.set_title("Difference Plot")
+        self.ax.legend(fontsize=14, frameon=True)
+        self.ax.grid(True)
+        self.canvas.draw()
+
+
 
     def disable_all_params(self):
         for setting in self.parameter_enable_list:
@@ -287,7 +332,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
-        self.y_fit_data = []
+        self.difference = []
 
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
@@ -297,18 +342,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for line in pattern_file.readlines():
             data_elements = line.split()
             self.x_fit_data.append(float(data_elements[0]))
-            self.y_fit_data.append(float(data_elements[2]))
+            self.difference.append(float(data_elements[2]))
 
         # colors = sns.color_palette('Set2', 2)
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
         self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
-        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
+        self.ax.plot(self.x_fit_data, self.difference, label="Fit", linewidth = 2, color=fit_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
         self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+        self.ax.set_title("Fit Pattern")
         self.ax.legend(fontsize=14, frameon=True)
         self.ax.grid(True)
         self.canvas.draw()
