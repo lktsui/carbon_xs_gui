@@ -787,8 +787,8 @@ def main():
     console_stream = ConsoleStream()
     console_stream.message.connect(ex.on_stream_message)
 
-    # sys.stdout = console_stream
-    # sys.stderr = console_stream
+    sys.stdout = console_stream
+    sys.stderr = console_stream
 
     ex.data_init()
 
