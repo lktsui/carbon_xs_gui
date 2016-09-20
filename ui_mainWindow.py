@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Fri Sep 16 17:11:09 2016
+# Created: Tue Sep 20 12:50:18 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -163,8 +163,8 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_enable_7, 10, 1, 1, 1)
         self.param_3 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_3.setDecimals(6)
-        self.param_3.setMinimum(-9.99999999999e+11)
-        self.param_3.setMaximum(99999999.0)
+        self.param_3.setMinimum(-1e+21)
+        self.param_3.setMaximum(1e+21)
         self.param_3.setObjectName("param_3")
         self.fit_params.addWidget(self.param_3, 6, 0, 1, 1)
         self.param_label_1 = QtGui.QLabel(self.gridLayoutWidget)
@@ -180,13 +180,15 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_enable_11, 14, 1, 1, 1)
         self.param_1 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_1.setDecimals(6)
-        self.param_1.setMaximum(99999999.0)
+        self.param_1.setMinimum(-1e+21)
+        self.param_1.setMaximum(1e+21)
+        self.param_1.setProperty("value", 0.0)
         self.param_1.setObjectName("param_1")
         self.fit_params.addWidget(self.param_1, 4, 0, 1, 1)
         self.param_2 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_2.setDecimals(6)
-        self.param_2.setMinimum(-9.99999999999e+11)
-        self.param_2.setMaximum(99999999.0)
+        self.param_2.setMinimum(-1e+21)
+        self.param_2.setMaximum(1e+21)
         self.param_2.setObjectName("param_2")
         self.fit_params.addWidget(self.param_2, 5, 0, 1, 1)
         self.param_17 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
@@ -209,8 +211,8 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_16, 19, 0, 1, 1)
         self.param_5 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_5.setDecimals(6)
-        self.param_5.setMinimum(-9.99999999999e+11)
-        self.param_5.setMaximum(99999999.0)
+        self.param_5.setMinimum(-1e+21)
+        self.param_5.setMaximum(1e+21)
         self.param_5.setObjectName("param_5")
         self.fit_params.addWidget(self.param_5, 8, 0, 1, 1)
         self.param_label_14 = QtGui.QLabel(self.gridLayoutWidget)
@@ -239,8 +241,8 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_label_15, 18, 2, 1, 1)
         self.param_4 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_4.setDecimals(6)
-        self.param_4.setMinimum(-9.99999999999e+11)
-        self.param_4.setMaximum(99999999.0)
+        self.param_4.setMinimum(-1e+21)
+        self.param_4.setMaximum(1e+21)
         self.param_4.setObjectName("param_4")
         self.fit_params.addWidget(self.param_4, 7, 0, 1, 1)
         self.param_11 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
@@ -306,8 +308,8 @@ class Ui_MainWindow(object):
         self.fit_params.addWidget(self.param_7, 10, 0, 1, 1)
         self.param_6 = QtGui.QDoubleSpinBox(self.gridLayoutWidget)
         self.param_6.setDecimals(6)
-        self.param_6.setMinimum(-9.99999999999e+11)
-        self.param_6.setMaximum(99999999.0)
+        self.param_6.setMinimum(-1e+21)
+        self.param_6.setMaximum(1e+21)
         self.param_6.setObjectName("param_6")
         self.fit_params.addWidget(self.param_6, 9, 0, 1, 1)
         self.label = QtGui.QLabel(self.gridLayoutWidget)

@@ -202,7 +202,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.mpl_toolbar)
 
 
-        self.plot_buttons_layout = QtGui.QHBoxLayout(self)
+        self.plot_buttons_layout = QtGui.QHBoxLayout()
         self.plot_pattern_button = QtGui.QPushButton(self)
         self.plot_pattern_button.setText("Pattern + Last Fit")
         self.plot_difference_button = QtGui.QPushButton(self)
