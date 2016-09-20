@@ -925,13 +925,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results', '.')
 
         if fname:
-            shutil.copy(os.path.join('carbonxs', 'carbon.out'), fname + "_carbonxs_out.txt")
-            print "Copied carbon.out file to %s" % fname + "_carbonxs_out.txt"
-            shutil.copy(os.path.join('carbonxs', 'carbon.dat'), fname + "_carbonxs_pattern.txt")
-            print "Copied carbon.dat file to %s" % fname + "_carbonxs_pattern.txt"
-            shutil.copy(os.path.join('carbonxs', 'CARBON.INP'), fname + "_CARBON.INP")
-            print "Copied CARBON.INP file to %s" % fname + "_CARBON.INP"
+            if 'carbon.out' in os.listdir('carbonxs'):
+                shutil.copy(os.path.join('carbonxs', 'carbon.out'), fname + "_carbonxs_out.txt")
+                print "Copied carbon.out file to %s" % fname + "_carbonxs_out.txt"
+            else:
+                print "No carbon.out file available in carbonxs directory"
 
+            if 'carbon.dat' in os.listdir('carbonxs'):
+
+                shutil.copy(os.path.join('carbonxs', 'carbon.dat'), fname + "_carbonxs_pattern.txt")
+                print "Copied carbon.dat file to %s" % fname + "_carbonxs_pattern.txt"
+            else:
+                print "No carbon.dat file available in carbonxs directory"
+
+
+            if 'CARBON.INP' in os.listdir('carbonxs'):
+                shutil.copy(os.path.join('carbonxs', 'CARBON.INP'), fname + "_CARBON.INP")
+                print "Copied CARBON.INP file to %s" % fname + "_CARBON.INP"
+            else:
+                print "No CARBON.INP file available in carbonxs directory"
 
 def main():
 
