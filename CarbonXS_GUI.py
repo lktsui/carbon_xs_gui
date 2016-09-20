@@ -518,7 +518,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def export_fitting_params(self):
         """
         Exports currently loaded fitting parameters files to a JSON file
-        The default directory is "/config/diffractometer settings"
+        The default directory is "/config/fitting parameters"
 
         :return:
         """
@@ -543,7 +543,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def import_fitting_params(self):
         """
         Imports fitting parameters files from a JSON file
-        The default directory is "/config/diffractometer settings"
+        The default directory is "/config/fitting parameters"
 
         :return:
         """
@@ -577,6 +577,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def export_fitting_settings(self):
 
+        """
+        Exports currently loaded fitting settings files to a JSON file
+        The default directory is "/config/fitting settings"
+
+        :return:
+        """
         fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
 
         if fname:
@@ -613,6 +619,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.statusBar.showMessage('Exported Fitting Settings to: %s'%fname)
 
     def import_fitting_settings(self):
+
+        """
+        Import fitting settings from a JSON file
+        The default directory is "/config/fitting settings"
+
+        :return:
+        """
 
         fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
 
@@ -664,6 +677,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def export_to_carboninp(self):
+        """
+        Exports all current settings to a new CARBON.INP file
+        This method is the part where user selects the destination.
+
+        :return:
+        """
+
 
         fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
                                                           os.path.join('config', 'fitting settings'), filter="CARBON.INP")
@@ -675,6 +695,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.statusBar.showMessage('Exported in CARBON.INP format to: %s'%fname)
 
     def write_carboninp(self, destination, disable_fit = False):
+        """
+        Method which writes the currently loaded data to a Carbon.inp file
+
+        :param destination: - File path to export to
+        :param disable_fit: - Boolean which disables fit and only performs a pattern calculation if true
+
+        :return:
+        """
+
 
         export_file = open(destination, 'w')
 
@@ -743,12 +772,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             export_file.write(param_str)
 
 
-
-
-
-
-
     def import_from_carboninp(self):
+
+        """
+        Method to read all settings from a carbon.inp file
+        This is the method which the user choses the file
+
+        :return:
+        """
 
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter="*.inp")
 
@@ -758,6 +789,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
     def read_carboninp(self, filename):
+        """
+        Method which processes loading of data from carbon.inp file
+
+        :param filename: file path to load data from
+        :return:
+        """
+
 
         config_file = open(filename, 'r')
 
@@ -835,6 +873,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def write_scan_data(self, output_file):
+        """
+        Uses currently loaded XRD pattern data and writes it to a format that carbonxs.exe can read
+
+        :param output_file: file path for the destination
+        :return:
+        """
+
 
         scan_file = open(output_file, 'w')
 
@@ -845,6 +890,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             scan_file.write(data_line)
 
     def sanity_checks(self):
+        """
+        Performs sanity checks on current settings and parameters before a fit is run.
+
+        :return:
+        """
 
         errors = 0
 
@@ -884,14 +934,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def start_fitting_process(self):
+        """
+        Calls the fitting process to begin
+        :return:
+        """
 
 
+        # Verifies that XRD pattern data has been loaded
         if len(self.x_data) > 0 and len(self.y_data) > 0:
             print "Beginning Fitting Process"
 
+            # If all sanity checks pass, proceed with fit
             if self.sanity_checks():
                 self.call_fit_program()
 
+        # If not, prompt the user to load data
         else:
 
             reply = QtGui.QMessageBox.question(self, 'No XRD Pattern Loaded',
@@ -901,12 +958,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if reply == QtGui.QMessageBox.Yes:
 
                 self.open_pattern()
+                # If a pattern has been loaded, proceeed with fit.
                 if len(self.x_data) > 0 and len(self.y_data) > 0 and self.sanity_checks():
-
                     print "Loaded an XRD pattern"
                     self.call_fit_program()
 
     def call_fit_program(self):
+        """
+        Starts the carbonxs.exe fit process
+        :return:
+        """
+
 
         os.chdir('carbonxs')
 
@@ -921,18 +983,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         print "Calling CARBONXS.exe"
         self.fitting_process.start('CARBONXS.exe')
-        self.menu_abort_fit.setEnabled(True)
+
+        # Sets menu flags to disable start of another process and enable aborting fit process
         self.menu_start_fitting.setEnabled(False)
         self.menu_calculate_pattern.setEnabled(False)
         self.calculate_pattern_button.setEnabled(False)
         self.fit_pattern_button.setEnabled(False)
+        self.menu_abort_fit.setEnabled(True)
         self.abort_fit_button.setEnabled(True)
         os.chdir('..')
 
 
-
-
     def calculate_pattern(self):
+        """
+        Calculate a pattern based on the currently loaded parameters without performing a fit
+        :return:
+        """
+
         print "Beginning Pattern Calculation Process"
 
         os.chdir('carbonxs')
@@ -957,6 +1024,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         os.chdir('..')
 
     def abort_fit_process(self):
+        """
+        Kills the currently running carbon.exe process
+        :return:
+        """
 
         self.fitting_process.kill()
         self.menu_abort_fit.setEnabled(False)
@@ -969,42 +1040,43 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.abort_flag = True
 
     def fitting_finished(self):
+        """
+        Method to handle completion of fitting process
+        :return:
+        """
+
 
         if not self.abort_flag:
 
             print "CarbonXS.exe Process Complete"
 
-
+            # Exit Code 0 indicates successful completion
             if self.fitting_process.exitCode() == 0:
-
-
 
                 if not self.pattern_calc_flag:
                     print "Reading new CARBON.INP data and plotting new data"
                     self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
 
-
                 self.plot_fit_results()
 
+                # If in fitting mode, give option to export fitting results
                 if not self.pattern_calc_flag:
 
                     reply = QtGui.QMessageBox.question(self, 'Fit Completed',
                                                        "Export the results?", QtGui.QMessageBox.Yes |
                                                        QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                     if reply == QtGui.QMessageBox.Yes:
-
                         self.export_fit_results()
 
 
-
+            # Exit Code 1 indicates a crash in CarbonXS
+            # Do NOT load any settings the program wrote
             elif self.fitting_process.exitCode() == 1:
-
                 print "Error: Fit failed due to crash in CarbonXS"
-
             else:
                 print "Other error occurred"
 
-
+            # Re-enable buttons to start process and disable buttons that abort process
             self.menu_abort_fit.setEnabled(False)
             self.abort_fit_button.setEnabled(False)
 
@@ -1021,6 +1093,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def export_fit_results(self):
+        """
+        Copies the carbon.out, carbon.dat, and CARBON.INP files currently in the carbonxs
+        directory to a destination of your choice.
+        :return:
+        """
+
 
         fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results', '.')
 
@@ -1028,10 +1106,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
 
+                # Checks if the files exist in the directory
                 if data_file in os.listdir('carbonxs'):
                     destination = fname + export_suffix
+
+                    # Checks if the destination files already exists
                     if os.path.exists(destination):
 
+                        # Prompts user to overwrite if it does
                         _, filename = os.path.split(destination)
                         reply = QtGui.QMessageBox.question(self, 'Fit Completed',
                                                            "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
