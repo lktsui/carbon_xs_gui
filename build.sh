@@ -10,6 +10,7 @@ mkdir "fitting parameters"
 mkdir "fitting settings"
 cd ..
 mkdir results
+cp ../carbonxs/CARBONXS.exe carbonxs/carbonxs.exe
 cd ..
 cp -r icons dist/
-cp ../carbonxs/CARBONXS.exe carbonxs/carbonxs.exe
+7z a new_version.zip ./dist/*
