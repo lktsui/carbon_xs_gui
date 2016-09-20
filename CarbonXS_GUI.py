@@ -11,7 +11,7 @@ from matplotlib.backends.backend_qt4agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.backends import qt_compat
-
+import shutil
 import csv
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
@@ -160,12 +160,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.abort_fit_button.triggered.connect(self.abort_fit_process)
         self.abort_fit_button.setEnabled(False)
 
+        self.export_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','export.png')), 'Export Last Fit', self)
+        self.export_fit_button.setStatusTip('Export Last Fit')
+        self.export_fit_button.triggered.connect(self.export_fit_results)
 
 
         self.toolbar = self.addToolBar('Tools')
         self.toolbar.addAction(self.calculate_pattern_button)
         self.toolbar.addAction(self.fit_pattern_button)
         self.toolbar.addAction(self.abort_fit_button)
+        self.toolbar.addAction(self.export_fit_button)
 
 
 
@@ -878,7 +882,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 if not self.pattern_calc_flag:
                     print "Reading new CARBON.INP data and plotting new data"
                     self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+
+
                 self.plot_fit_results()
+
+                if not self.pattern_calc_flag:
+
+                    reply = QtGui.QMessageBox.question(self, 'Fit Completed',
+                                                       "Export the results?", QtGui.QMessageBox.Yes |
+                                                       QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                    if reply == QtGui.QMessageBox.Yes:
+
+                        self.export_fit_results()
+
 
 
             elif self.fitting_process.exitCode() == 1:
@@ -904,6 +920,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.abort_flag = False
 
 
+    def export_fit_results(self):
+
+        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results', '.')
+
+        if fname:
+            shutil.copy(os.path.join('carbonxs', 'carbon.out'), fname + "_carbonxs_out.txt")
+            print "Copied carbon.out file to %s" % fname + "_carbonxs_out.txt"
+            shutil.copy(os.path.join('carbonxs', 'carbon.dat'), fname + "_carbonxs_pattern.txt")
+            print "Copied carbon.dat file to %s" % fname + "_carbonxs_pattern.txt"
+            shutil.copy(os.path.join('carbonxs', 'CARBON.INP'), fname + "_CARBON.INP")
+            print "Copied CARBON.INP file to %s" % fname + "_CARBON.INP"
 
 
 def main():
