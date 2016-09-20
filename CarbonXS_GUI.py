@@ -35,7 +35,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def __init__(self, version):
 
-        # sns.set_style('whitegrid')
+        """
+        Initializes the main window of the program
+        :param version: String to use in the window header indicating the program version
+        """
 
         super(MainWindow, self).__init__()
 
@@ -134,8 +137,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.show()
 
     def data_init(self):
+        """"
+        On startup, read the last used Carbon.INP file
+        """
 
-        # On startup, read the last used Carbon.INP file
+        # Attempts to load a Carbon.INP file if it exists
         try:
             self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
 
@@ -143,35 +149,34 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         except IOError:
             print "No previous parameters found in 'carbonxs' directory."
 
+        # Clears any SCAN.DAT file already in carbonxs directory
         if 'SCAN.DAT' in os.listdir('carbonxs'):
             os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
 
 
     def init_ui_elements(self):
+        """
+        Initiates the toolbar buttons
+
+        :return:
+        """
+
 
         self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','open.png')), 'Open Pattern', self)
         self.open_pattern_button.setStatusTip('Open Pattern')
-        self.open_pattern_button.triggered.connect(self.open_pattern)
-
 
         self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
         self.calculate_pattern_button.setStatusTip('Calculate Pattern')
-        self.calculate_pattern_button.triggered.connect(self.calculate_pattern)
 
         self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','fit.png')), 'Fit', self)
         self.fit_pattern_button.setStatusTip('Fit Pattern')
-        self.fit_pattern_button.triggered.connect(self.start_fitting_process)
 
         self.abort_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','stop.png')), 'Abort', self)
         self.abort_fit_button.setStatusTip('Abort Fit')
-        self.abort_fit_button.triggered.connect(self.abort_fit_process)
         self.abort_fit_button.setEnabled(False)
 
         self.export_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','export.png')), 'Export Last Fit', self)
         self.export_fit_button.setStatusTip('Export Last Fit')
-        self.export_fit_button.triggered.connect(self.export_fit_results)
-
-
 
         self.toolbar = self.addToolBar('Tools')
         self.toolbar.addAction(self.open_pattern_button)
@@ -182,17 +187,31 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     @QtCore.Slot(str)
     def on_stream_message(self, message):
+        """
+        Method for reading print messages and error messages that are sent to the console
+        :param message:
+        :return:
+        """
+
+
         self.console.moveCursor(QtGui.QTextCursor.End)
         self.console.insertPlainText(message)
         self.console.moveCursor(QtGui.QTextCursor.End)
 
     def on_process_message(self):
+        """
+        Method for reading messages from the carbonxs.exe process
+
+        :return:
+        """
+
         self.console.moveCursor(QtGui.QTextCursor.End)
 
         message = str(self.fitting_process.readAll())
         self.console.insertPlainText(message)
         self.console.moveCursor(QtGui.QTextCursor.End)
 
+        # if a singular matrix is detected raise the option to abort the fit.
         if "Singular matrix." in message:
             reply = QtGui.QMessageBox.question(self, 'Singular matrix detected.',
                                                "Singular matrix detected. Abort?", QtGui.QMessageBox.Yes |
@@ -204,6 +223,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def addmpl(self, fig):
+        """
+        Add a Matplotlib object to the plot
+
+        :param fig:
+        :return:
+        """
+
 
         self.canvas = FigureCanvas(fig)
         self.mplvl.addWidget(self.canvas)
@@ -227,6 +253,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def assignWidgets(self):
+        """
+        Assigns buttons and menu items to functions
+
+        :return:
+        """
+
+
+        # Toolbar buttons
+        self.open_pattern_button.triggered.connect(self.open_pattern)
+        self.calculate_pattern_button.triggered.connect(self.calculate_pattern)
+        self.fit_pattern_button.triggered.connect(self.start_fitting_process)
+        self.abort_fit_button.triggered.connect(self.abort_fit_process)
+        self.export_fit_button.triggered.connect(self.export_fit_results)
 
         # Enable/Disable/Invert All Parameter Buttons
         self.enable_all_button.clicked.connect(self.enable_all_params)
@@ -260,6 +299,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def plot_difference(self):
 
+        """
+        Loads the current carbon.dat and plots the difference between source and fit data.
+
+        :return:
+        """
+
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
@@ -290,20 +335,40 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def disable_all_params(self):
+        """
+        Turns off all fitting parameters
+        :return:
+        """
+
         for setting in self.parameter_enable_list:
             setting.setChecked(False)
 
     def enable_all_params(self):
+        """
+        Turns on all fitting parameters
+        :return:
+        """
+
         for setting in self.parameter_enable_list:
             setting.setChecked(True)
 
     def invert_all_params(self):
+        """
+        Inverts all fitting parameters. Enabled becomes disabled and disabled becomes enabled.
+        :return:
+        """
+
         for setting in self.parameter_enable_list:
             setting.setChecked(not setting.isChecked())
 
 
 
     def open_pattern(self):
+
+        """
+        Method to call up a file dialog and ask the user to load an XRD pattern
+        :return:
+        """
 
         fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
 
@@ -339,6 +404,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 print "The pattern file should be two columns of data."
 
     def plot_fit_results(self):
+        """
+        Load the most recently generated carbon.dat file and plot the fit results
+
+        :return:
+        """
+
 
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
@@ -372,10 +443,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
-
-
-
     def export_diffractometer_params(self):
+        """
+        Exports currently loaded diffractometer files to a JSON file
+        The default directory is "/config/diffractometer settings"
+
+        :return:
+        """
+
 
         fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'diffractometer settings'), filter="*.json")
 
@@ -402,6 +477,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def import_diffractometer_params(self):
+        """
+        Imports diffractometer files from a JSON file
+        The default directory is "/config/diffractometer settings"
+
+        :return:
+        """
 
         fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings', os.path.join('config','diffractometer settings'), filter="*.json")
 
@@ -435,8 +516,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
     def export_fitting_params(self):
+        """
+        Exports currently loaded fitting parameters files to a JSON file
+        The default directory is "/config/diffractometer settings"
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Import Diffractometer Settings', os.path.join('config', 'fitting parameters'), filter="*.json")
+        :return:
+        """
+
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters', os.path.join('config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -454,6 +541,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.statusBar.showMessage('Exported Fitting Parameters to: %s'%fname)
 
     def import_fitting_params(self):
+        """
+        Imports fitting parameters files from a JSON file
+        The default directory is "/config/diffractometer settings"
+
+        :return:
+        """
 
         fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters', os.path.join('config','fitting parameters'), filter="*.json")
 
