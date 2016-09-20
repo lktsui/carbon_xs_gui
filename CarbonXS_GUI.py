@@ -925,29 +925,31 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results', '.')
 
         if fname:
-            if 'carbon.out' in os.listdir('carbonxs'):
-                shutil.copy(os.path.join('carbonxs', 'carbon.out'), fname + "_carbonxs_out.txt")
-                print "Copied carbon.out file to %s" % fname + "_carbonxs_out.txt"
-            else:
-                print "No carbon.out file available in carbonxs directory"
 
-            if 'carbon.dat' in os.listdir('carbonxs'):
+            for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
 
-                shutil.copy(os.path.join('carbonxs', 'carbon.dat'), fname + "_carbonxs_pattern.txt")
-                print "Copied carbon.dat file to %s" % fname + "_carbonxs_pattern.txt"
-            else:
-                print "No carbon.dat file available in carbonxs directory"
+                if data_file in os.listdir('carbonxs'):
+                    destination = fname + export_suffix
+                    if os.path.exists(destination):
 
+                        _, filename = os.path.split(destination)
+                        reply = QtGui.QMessageBox.question(self, 'Fit Completed',
+                                                           "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
+                                                           QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                        if reply == QtGui.QMessageBox.Yes:
+                            shutil.copy(os.path.join('carbonxs', data_file), fname + export_suffix)
+                            print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
+                        else:
+                            print "%s already exists. Did not overwrite." % destination
 
-            if 'CARBON.INP' in os.listdir('carbonxs'):
-                shutil.copy(os.path.join('carbonxs', 'CARBON.INP'), fname + "_CARBON.INP")
-                print "Copied CARBON.INP file to %s" % fname + "_CARBON.INP"
-            else:
-                print "No CARBON.INP file available in carbonxs directory"
+                    else:
+
+                        shutil.copy(os.path.join('carbonxs', data_file), destination)
+                        print "Copied %s file to %s" %(data_file, destination)
 
 def main():
 
-    version = "0.1.0"
+    version = "0.1.1"
 
     app = QtGui.QApplication(sys.argv)
 
