@@ -9,6 +9,5 @@ Dependencies:
 * Python 2.7
 * PySide
 * Numpy
-* Seaborn
 * Matplotlib
 * uJSON
