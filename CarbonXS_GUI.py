@@ -961,7 +961,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 # If a pattern has been loaded, proceeed with fit.
                 if len(self.x_data) > 0 and len(self.y_data) > 0 and self.sanity_checks():
                     print "Loaded an XRD pattern"
-                    self.call_fit_program()
+                    if self.sanity_checks():
+                        self.call_fit_program()
 
     def call_fit_program(self):
         """
