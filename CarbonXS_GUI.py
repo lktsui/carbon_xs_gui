@@ -24,6 +24,7 @@ class ConsoleStream(QtCore.QObject):
 
     message = QtCore.Signal(str)
     def __init__(self, parent=None):
+
         super(ConsoleStream, self).__init__(parent)
 
     def write(self, message):
@@ -148,9 +149,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def init_ui_elements(self):
 
+        self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','open.png')), 'Open Pattern', self)
+        self.open_pattern_button.setStatusTip('Open Pattern')
+        self.open_pattern_button.triggered.connect(self.open_pattern)
+
+
         self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
         self.calculate_pattern_button.setStatusTip('Calculate Pattern')
         self.calculate_pattern_button.triggered.connect(self.calculate_pattern)
+
         self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','fit.png')), 'Fit', self)
         self.fit_pattern_button.setStatusTip('Fit Pattern')
         self.fit_pattern_button.triggered.connect(self.start_fitting_process)
@@ -165,13 +172,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.export_fit_button.triggered.connect(self.export_fit_results)
 
 
+
         self.toolbar = self.addToolBar('Tools')
+        self.toolbar.addAction(self.open_pattern_button)
         self.toolbar.addAction(self.calculate_pattern_button)
         self.toolbar.addAction(self.fit_pattern_button)
         self.toolbar.addAction(self.abort_fit_button)
         self.toolbar.addAction(self.export_fit_button)
-
-
 
     @QtCore.Slot(str)
     def on_stream_message(self, message):
@@ -946,6 +953,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                         shutil.copy(os.path.join('carbonxs', data_file), destination)
                         print "Copied %s file to %s" %(data_file, destination)
+
+
 
 def main():
 

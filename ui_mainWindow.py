@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Tue Sep 20 12:50:18 2016
+# Created: Tue Sep 20 15:17:26 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -560,6 +560,12 @@ class Ui_MainWindow(object):
         self.menu_abort_fit.setObjectName("menu_abort_fit")
         self.menu_calculate_pattern = QtGui.QAction(MainWindow)
         self.menu_calculate_pattern.setObjectName("menu_calculate_pattern")
+        self.actionDocumentation = QtGui.QAction(MainWindow)
+        self.actionDocumentation.setObjectName("actionDocumentation")
+        self.actionAbout = QtGui.QAction(MainWindow)
+        self.actionAbout.setObjectName("actionAbout")
+        self.actionOn_Github = QtGui.QAction(MainWindow)
+        self.actionOn_Github.setObjectName("actionOn_Github")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -665,4 +671,7 @@ class Ui_MainWindow(object):
         self.menu_abort_fit.setText(QtGui.QApplication.translate("MainWindow", "Abort Fit", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_calculate_pattern.setText(QtGui.QApplication.translate("MainWindow", "Calculate Pattern", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_calculate_pattern.setToolTip(QtGui.QApplication.translate("MainWindow", "Calculates a pattern without performing a fit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDocumentation.setText(QtGui.QApplication.translate("MainWindow", "Documentation", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOn_Github.setText(QtGui.QApplication.translate("MainWindow", "On Github", None, QtGui.QApplication.UnicodeUTF8))
 
