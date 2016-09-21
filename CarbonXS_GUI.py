@@ -164,19 +164,24 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','open.png')), 'Open Pattern', self)
         self.open_pattern_button.setStatusTip('Open Pattern')
+        self.open_pattern_button.setToolTip("Opens a new XRD pattern.")
 
         self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
         self.calculate_pattern_button.setStatusTip('Calculate Pattern')
+        self.calculate_pattern_button.setToolTip("Calculates pattern using current parameters without performing a fit.")
 
         self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','fit.png')), 'Fit', self)
         self.fit_pattern_button.setStatusTip('Fit Pattern')
+        self.fit_pattern_button.setToolTip("Uses current parameters to perform a fit.")
 
         self.abort_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','stop.png')), 'Abort', self)
         self.abort_fit_button.setStatusTip('Abort Fit')
         self.abort_fit_button.setEnabled(False)
+        self.abort_fit_button.setToolTip("Aborts current fit by killing CarbonXS process.")
 
         self.export_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','export.png')), 'Export Last Fit', self)
         self.export_fit_button.setStatusTip('Export Last Fit')
+        self.export_fit_button.setToolTip("Export the carbon.out, carbon.dat, and new CARBON.INP files of the most recent fit run by CarbonXS.")
 
         self.toolbar = self.addToolBar('Tools')
         self.toolbar.addAction(self.open_pattern_button)
