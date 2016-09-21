@@ -14,6 +14,8 @@ from matplotlib.backends import qt_compat
 import shutil
 import csv
 
+import webbrowser
+
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
 if use_pyside:
@@ -302,6 +304,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Graph buttons
         self.plot_pattern_button.clicked.connect(self.plot_fit_results)
         self.plot_difference_button.clicked.connect(self.plot_difference)
+
+        # Help Menu
+        self.menu_tutorial.triggered.connect(self.open_documentation)
 
 
 
@@ -1184,6 +1189,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                         print "Copied %s file to %s" %(data_file, destination)
 
 
+    # Help Menu Methods
+    def open_documentation(self):
+
+        """
+        Opens the documentation in /docs/index.html
+        :return:
+        """
+        os.startfile(os.path.join('docs', 'index.html'))
 
 def main():
 

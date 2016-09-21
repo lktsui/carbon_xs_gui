@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Wed Sep 21 13:06:48 2016
+# Created: Wed Sep 21 13:29:06 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -526,6 +526,8 @@ class Ui_MainWindow(object):
         self.menuExport.setObjectName("menuExport")
         self.menuFitting = QtGui.QMenu(self.menuBar)
         self.menuFitting.setObjectName("menuFitting")
+        self.menuHelp = QtGui.QMenu(self.menuBar)
+        self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menuBar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
@@ -566,6 +568,12 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName("actionAbout")
         self.actionOn_Github = QtGui.QAction(MainWindow)
         self.actionOn_Github.setObjectName("actionOn_Github")
+        self.menu_tutorial = QtGui.QAction(MainWindow)
+        self.menu_tutorial.setObjectName("menu_tutorial")
+        self.menu_bugreport = QtGui.QAction(MainWindow)
+        self.menu_bugreport.setObjectName("menu_bugreport")
+        self.menu_github = QtGui.QAction(MainWindow)
+        self.menu_github.setObjectName("menu_github")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -580,8 +588,12 @@ class Ui_MainWindow(object):
         self.menuFitting.addAction(self.menu_calculate_pattern)
         self.menuFitting.addAction(self.menu_start_fit)
         self.menuFitting.addAction(self.menu_abort_fit)
+        self.menuHelp.addAction(self.menu_tutorial)
+        self.menuHelp.addAction(self.menu_bugreport)
+        self.menuHelp.addAction(self.menu_github)
         self.menuBar.addAction(self.menuFile.menuAction())
         self.menuBar.addAction(self.menuFitting.menuAction())
+        self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -681,6 +693,7 @@ class Ui_MainWindow(object):
         self.menuImport.setTitle(QtGui.QApplication.translate("MainWindow", "Import", None, QtGui.QApplication.UnicodeUTF8))
         self.menuExport.setTitle(QtGui.QApplication.translate("MainWindow", "Export", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFitting.setTitle(QtGui.QApplication.translate("MainWindow", "Fitting", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_open_xrd_pattern.setText(QtGui.QApplication.translate("MainWindow", "Open XRD Pattern", None, QtGui.QApplication.UnicodeUTF8))
@@ -695,10 +708,15 @@ class Ui_MainWindow(object):
         self.menu_export_carboninp.setText(QtGui.QApplication.translate("MainWindow", "To CARBON.INP", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fitting.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_start_fit.setText(QtGui.QApplication.translate("MainWindow", "Start Fitting", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_start_fit.setToolTip(QtGui.QApplication.translate("MainWindow", "Starts fitting process with CarbonXS", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_abort_fit.setText(QtGui.QApplication.translate("MainWindow", "Abort Fit", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_abort_fit.setToolTip(QtGui.QApplication.translate("MainWindow", "Kill CarbonXS Process.", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_calculate_pattern.setText(QtGui.QApplication.translate("MainWindow", "Calculate Pattern", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_calculate_pattern.setToolTip(QtGui.QApplication.translate("MainWindow", "Calculates a pattern without performing a fit", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDocumentation.setText(QtGui.QApplication.translate("MainWindow", "Documentation", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOn_Github.setText(QtGui.QApplication.translate("MainWindow", "On Github", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_tutorial.setText(QtGui.QApplication.translate("MainWindow", "Tutorial", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_bugreport.setText(QtGui.QApplication.translate("MainWindow", "Report a Bug", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_github.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
 
