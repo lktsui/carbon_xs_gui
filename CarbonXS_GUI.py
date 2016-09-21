@@ -242,8 +242,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.plot_buttons_layout = QtGui.QHBoxLayout()
         self.plot_pattern_button = QtGui.QPushButton(self)
         self.plot_pattern_button.setText("Pattern + Last Fit")
+        self.plot_pattern_button.setToolTip("Plots the currently loaded pattern and the last fit result.")
+
         self.plot_difference_button = QtGui.QPushButton(self)
         self.plot_difference_button.setText("Last Fit Difference")
+        self.plot_difference_button.setToolTip("Plots the difference between source and fit data for the last fit result.")
 
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
