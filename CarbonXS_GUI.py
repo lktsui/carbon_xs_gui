@@ -381,15 +381,60 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
 
                 source_color = "#66c2a5"
+
+
+
                 self.x_data = plot_data[:, 0]
                 self.y_data = plot_data[:, 1]
 
                 self.theta_min_value.setValue(np.min(self.x_data))
                 self.theta_max_value.setValue(np.max(self.x_data))
 
+                data_pts = len(self.x_data)
+
+                if data_pts > 3000:
+
+
+                    new_dps = data_pts
+                    divisor = 1
+                    while new_dps > 3000:
+                        divisor += 1
+                        new_dps = data_pts / divisor
+
+                    if divisor == 2:
+                        divisor_str = '2nd'
+                    elif divisor == 3:
+                        divisor_str = '3rd'
+                    else:
+                        divisor_str = "%d th"%divisor
+
+
+                    reply = QtGui.QMessageBox.question(self, 'Too many data points.',
+                                                       "CarbonXS cannot process > 3000 data points. Do you want to truncate to every %s point?"%divisor_str, QtGui.QMessageBox.Yes |
+                                                       QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+
+                    if reply == QtGui.QMessageBox.Yes:
+
+                        self.x_data = self.x_data[0::divisor]
+                        self.y_data = self.y_data[0::divisor]
+
+                        new_length = len(self.x_data)
+                        print "Data reduced from %d data points to %s data points by taking every %s point."%(data_pts, new_length, divisor_str)
+
+                    else:
+
+                        print "Warning: CarbonXS cannot process datasets larger than 3000 data points and will not fit the full pattern."
+
+
+
                 self.fig.delaxes(self.ax)
                 self.ax = self.fig.add_subplot(111)
                 self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
+
+
+
+
+
 
                 self.ax.tick_params(axis='both', which='major', labelsize=14)
                 self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
