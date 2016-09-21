@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Tue Sep 20 15:17:26 2016
+# Created: Wed Sep 21 12:59:19 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -589,6 +589,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_10.setText(QtGui.QApplication.translate("MainWindow", "M, Number of Layers", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_13.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Del</i> - inter plane strain per layer", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_11.setText(QtGui.QApplication.translate("MainWindow", "SM, Width of M Distribution", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_0.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_9.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
@@ -604,27 +605,44 @@ class Ui_MainWindow(object):
         self.param_enable_1.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_16.setText(QtGui.QApplication.translate("MainWindow", "Debye Waller Temperature Factor, (Angstrom^2)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_2.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_14.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Pr</i> - probability of random stacking per layer. Must be between 0 and 1.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_2.setText(QtGui.QApplication.translate("MainWindow", "Background S", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_5.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_10.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_3.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_4.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_0.setToolTip(QtGui.QApplication.translate("MainWindow", "Multiplicative scaling factor for the diffraction pattern.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_13.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_7.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_3.setToolTip(QtGui.QApplication.translate("MainWindow", "Background quadratic factor. (BG = Z + A*S + <b>B</b>*S^2 + C*S^3 + D*S^4 + F/S)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_1.setText(QtGui.QApplication.translate("MainWindow", "Background Constant", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_11.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_1.setToolTip(QtGui.QApplication.translate("MainWindow", "Background constant factor. (BG = <b>Z</b> + A*S + B*S^2 + C*S^3 + D*S^4 + F/S)", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_2.setToolTip(QtGui.QApplication.translate("MainWindow", "Background linear factor. (BG = Z + <b>A</b>*S + B*S^2 + C*S^3 + D*S^4 + F/S)", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_17.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>PO</i> Preferential orientation factor", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_3.setText(QtGui.QApplication.translate("MainWindow", "Background S^2", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_16.setToolTip(QtGui.QApplication.translate("MainWindow", "Debye Waller Temperature Factor, (Angstrom^2)", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_5.setToolTip(QtGui.QApplication.translate("MainWindow", "Background S**4 factor (BG = Z + A*S + B*S^2 + C*S^3 + <b>D</b>*S^4 + F/S)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_14.setText(QtGui.QApplication.translate("MainWindow", "Pr, Probability of Random Stacking", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_9.setText(QtGui.QApplication.translate("MainWindow", "La, Coherence Length", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_15.setText(QtGui.QApplication.translate("MainWindow", "Pt, Probability of 3R Stacking", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_4.setToolTip(QtGui.QApplication.translate("MainWindow", "Background cubic factor. (BG = Z + A*S + B*S^2 + <b>C</b>*S^3 + D*S^4 + F/S)", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_11.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>SM</i> - Width of the M distribution", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_12.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>D<sub>ab</sub></i> - in-plane strain", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_8.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_15.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Pt</i> - probability of 3R stacking in 2 layer model. Must be between 0 and 1.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_17.setText(QtGui.QApplication.translate("MainWindow", "PO, Preferential Orientation Factor", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_0.setText(QtGui.QApplication.translate("MainWindow", "Scale Factor (a.u.)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_14.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_17.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_15.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.param_enable_12.setText(QtGui.QApplication.translate("MainWindow", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_9.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>L<sub>a</sub></i> - in-plane coherence length (Angstrom)", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_10.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>M</i> - Total number of layers.", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_7.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>a</i> direction lattice constant.", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_6.setToolTip(QtGui.QApplication.translate("MainWindow", "Background inverse factor. (BG = Z + AS + BS^2 + CS^3 + D*S^4 + <b>F</b>/S)", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_8.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>d<sub>002</sub></i> interlayer spacing (Angstrom)", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_all_button.setText(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_none_button.setText(QtGui.QApplication.translate("MainWindow", "None", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_invert_button.setText(QtGui.QApplication.translate("MainWindow", "Invert", None, QtGui.QApplication.UnicodeUTF8))
