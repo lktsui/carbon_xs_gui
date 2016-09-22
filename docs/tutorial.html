@@ -76,13 +76,13 @@
             
             <h3>Fitting Parameters</h3>
             
-            <p><img src="img/fit_params.png" class="img-responsive" alt="Fit Params Screenshot"/></p>
+            <p><img src="img/fit_params.png" class="img-responsive center-block" alt="Fit Params Screenshot"/></p>
             <p>The Fitting Parameters are the values to be refined. They include a scale term, terms for a polynomial background fit, and the physical parameters for the carbon system. 
             The "Enable" boxes indicate whether the parameter is to be refined or left fixed.</p>
             
             <h3>Fitting Settings</h3>
             
-            <p><img src="img/fit_settings.png" class="img-responsive" alt="Fit Settings Screenshot"/></p>
+            <p><img src="img/fit_settings.png" class="img-responsive center-block" alt="Fit Settings Screenshot"/></p>
             <p>The Fitting Settings control the fit process.</p>
             <ul>
                 <li><strong>Theta Min / Theta Max</strong> - Angle window that the refinement will be performed on. If a pattern is loaded, these values will be automatically set for the end points of the pattern.</li>
@@ -106,7 +106,7 @@
             
             <h3>Diffractometer Settings</h3>
             
-            <p><img src="img/diffract_settings.png" class="img-responsive" alt="Fit Settings Screenshot"/></p>
+            <p><img src="img/diffract_settings.png" class="img-responsive center-block" alt="Fit Settings Screenshot"/></p>
             <p>The Diffractometer Settings define the geometry of the instrument and sample.</p>
             <ul>
                 <li><strong>Wavelength (&#8491;)</strong> - Wavelength of x-ray radiation used.</li>
@@ -120,13 +120,13 @@
             <h3>Importing and Exporting Settings</h3>
             
             
-            <p><img src="img/export.png" class="img-responsive" alt="Export Settings Screenshot"/></p>
+            <p><img src="img/export.png" class="img-responsive center-block" alt="Export Settings Screenshot"/></p>
             
             <p>The original CarbonXS program coupled the above three types of settings into one CARBON.INP file. In this program, we are able to export sets of Diffractometer Settings, Fitting Settings, and Fitting Parameters. The file format is JSON and is human and machine readable. This is useful if you want to have a set of settings for your own diffractometer and need to mix and match fitting parameters with another setting. You are able to both import from and export to JSON files and from existing CARBON.INP configuration files.</p>
             
             <h2>Loading an XRD Pattern</h2>
             
-            <p><img src="img/open_pattern.png" class="img-responsive" alt="Open Pattern Screenshot"/></p>
+            <p><img src="img/open_pattern.png" class="img-responsive center-block" alt="Open Pattern Screenshot"/></p>
             
             <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern must be a text file in a two column format separated by spaces, tabs,
             or commas. If the pattern is incorrectly formatted, the following error will be shown in the message console.</p>
@@ -144,7 +144,7 @@ The pattern file should be two columns of data.</div>
             
             <h3>Note: Dataset Size Limit</h3>
             
-            <p><img src="img/toomanypts.png" class="img-responsive" alt="Too Many Points Error"/></p>
+            <p><img src="img/toomanypts.png" class="img-responsive center-block" alt="Too Many Points Error"/></p>
             
             <p>Because of limitations hard coded into the CarbonXS program, fitting cannot be performed on datasets larger than 3000 points. If a dataset has greater than this limit, the program gives the user the option to cull the number of data points by taking the smallest n-th interval. If the user elects not to cull the data, the fit will be performed on the first 3000 data points.</p>
             
@@ -165,14 +165,18 @@ The pattern file should be two columns of data.</div>
                 Pressing the <strong>Pattern + Last Fit</strong> button causes the currently loaded pattern and the most recently fit or calculated pattern to be displayed.</p>
                 
                 
-                <p><img src="img/export_results.png" class="img-responsive" alt="Too Many Points Error"/></p>
+                <p><img src="img/export_results.png" class="img-responsive center-block" alt="Export Results Message"/></p>
+                
+                
+                <li><img src="img/export_icon.png" width="32" height="32" alt="Calculator Icon"/> - Press this button to export the most recently performed fit results.</li>
+                </ul>
                 
                 <p>After a fit is completed, the user may also export the results. The carbon.out (Information about fitting process including covariance matrix), the carbon.dat (angle, original data, and fit pattern), and a new CARBON.INP file are copied to a user-selected destination.</p>
                 
                 <h3>Known Problem Scenarios in the Fit Process</h3>
 
                 <ul>
-                <p><img src="img/singular_matrix.png" class="img-responsive" alt="Singular Matrix Error"/></p>
+                <p><img src="img/singular_matrix.png" class="img-responsive center-block" alt="Singular Matrix Error"/></p>
                 <li><p>A <strong>Singular Matrix</strong> error is encountered when parameters result in a singular matrix that the program cannot solve. It may be possible to identify
                 the parameter that is responsible and adjust its value or disable it. An SM, Width of the M Distribution parameter that is zero is known to cause this.
                 If the user does not abort the calculation, CarbonXS freezes and the process will have to be killed manually by the abort option.</li>                
@@ -186,9 +190,15 @@ The pattern file should be two columns of data.</div>
                 </ul>
                 
             
-            
+      <hr>
+      <div class="footer">
+        <p>Built with <a href="http://getbootstrap.com/getting-started/">Bootstrap</a> and icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></p>
+      </div>
             
           </div>
+          
+          
+      
         </div>
         </div>
         </body>
