@@ -425,7 +425,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                         divisor_str = "%d th"%divisor
 
 
-                    reply = QtGui.QMessageBox.question(self, 'Too many data points.',
+                    reply = QtGui.QMessageBox.warning(self, 'Too many data points.',
                                                        "CarbonXS cannot process > 3000 data points. Do you want to truncate to every %s point?"%divisor_str, QtGui.QMessageBox.Yes |
                                                        QtGui.QMessageBox.No, QtGui.QMessageBox.No)
 
