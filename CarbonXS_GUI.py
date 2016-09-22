@@ -43,6 +43,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
         super(MainWindow, self).__init__()
+        self.version = version
 
         self.setupUi(self)
 
@@ -308,6 +309,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Help Menu
         self.menu_tutorial.triggered.connect(self.open_documentation)
         self.menu_bugreport.triggered.connect(self.open_bug_report_page)
+        self.menu_about.triggered.connect(self.open_about_dialog)
 
 
 
@@ -1206,6 +1208,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
         os.startfile(os.path.join('docs', 'bug_report.url'))
+
+
+    def open_about_dialog(self):
+        """
+        Opens the a link to the bug report page
+        :return:
+        """
+
+        reply = QtGui.QMessageBox.information(self, 'About',
+        "Version %s.\nGUI by Lok-kun Tsui.\nCarbonXS by H. Shi, J.N. Reimers, and J.R. Dahn."%self.version,
+                                              QtGui.QMessageBox.Close)
+
+
 
 def main():
 

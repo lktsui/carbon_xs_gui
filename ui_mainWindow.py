@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/mainwindow.ui'
 #
-# Created: Thu Sep 22 14:02:37 2016
+# Created: Thu Sep 22 14:21:55 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -572,8 +572,8 @@ class Ui_MainWindow(object):
         self.menu_tutorial.setObjectName("menu_tutorial")
         self.menu_bugreport = QtGui.QAction(MainWindow)
         self.menu_bugreport.setObjectName("menu_bugreport")
-        self.menu_github = QtGui.QAction(MainWindow)
-        self.menu_github.setObjectName("menu_github")
+        self.menu_about = QtGui.QAction(MainWindow)
+        self.menu_about.setObjectName("menu_about")
         self.menuImport.addAction(self.menu_import_carboninp)
         self.menuImport.addAction(self.menu_import_diffsettings)
         self.menuImport.addAction(self.menu_import_fittingparams)
@@ -590,7 +590,7 @@ class Ui_MainWindow(object):
         self.menuFitting.addAction(self.menu_abort_fit)
         self.menuHelp.addAction(self.menu_tutorial)
         self.menuHelp.addAction(self.menu_bugreport)
-        self.menuHelp.addAction(self.menu_github)
+        self.menuHelp.addAction(self.menu_about)
         self.menuBar.addAction(self.menuFile.menuAction())
         self.menuBar.addAction(self.menuFitting.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
@@ -718,5 +718,5 @@ class Ui_MainWindow(object):
         self.actionOn_Github.setText(QtGui.QApplication.translate("MainWindow", "On Github", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_tutorial.setText(QtGui.QApplication.translate("MainWindow", "Documentation", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_bugreport.setText(QtGui.QApplication.translate("MainWindow", "Report a Bug", None, QtGui.QApplication.UnicodeUTF8))
-        self.menu_github.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_about.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
 
