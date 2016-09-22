@@ -221,7 +221,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # if a singular matrix is detected raise the option to abort the fit.
         if "Singular matrix." in message:
-            reply = QtGui.QMessageBox.question(self, 'Singular matrix detected.',
+            reply = QtGui.QMessageBox.critical(self, 'Singular matrix detected.',
                                                "Singular matrix detected. Abort?", QtGui.QMessageBox.Yes |
                                                QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
 
