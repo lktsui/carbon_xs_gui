@@ -50,12 +50,143 @@
           </div>
           <!-- main content area -->
           <div class="col-sm-9">
-            <h1>Overview of Fitting Procedure</h1>
-            <h1>Defining Parameters</h1>
-            <h1>Loading an XRD Pattern</h1>
-            <h1>Performing a Calculation</h1>
-            <h1>Performing a Fit</h1>
-            <h1>Exporting the Results</h1>
+            <h2>Overview of Fitting Procedure</h2>
+            
+            <ul>
+                <li>User defines settings.</li>
+                <li>User loads XRD Pattern.</li>
+                <li>Program take settings and writes a CARBON.INP file to the carbonxs folder.</li>
+                <li>Program takes the currently loaded pattern and writes a SCAN.DAT file to the carbonxs folder.</li>
+                <li>Program calls the compiled CarbonXS program.</li>
+                <ul>
+                    <li><strong>Pattern Calculation Mode</strong>: The CarbonXS calculates a pattern given the current fitting parameters without a fit</li>
+                    <li><strong>Fitting Mode</strong>: The CarbonXS program performs an optimization of the fitting parameters with the Levenberg-Marquardt algorithm.</li>
+                </ul>
+                <li>A plot is generated of the fit results, if calculation / fitting is successful.</li>
+                <li>In Fitting Mode, the user is given the option to export the fitting results at the end of the run.</li>
+                
+            </ul>
+            
+            
+            <h2>Settings</h2>
+            
+            
+            <p>The values that need to be defined are the <strong>Fitting Parameters</strong>, the <strong>Fitting Settings</strong>, and the <strong>Diffractometer Settings.</strong>.
+            
+            <h3>Fitting Parameters</h3>
+            
+            <p><img src="img/fit_params.png" class="img-responsive" alt="Fit Params Screenshot"/></p>
+            <p>The Fitting Parameters are the values to be refined. They include a scale term, terms for a polynomial background fit, and the physical parameters for the carbon system. 
+            The "Enable" boxes indicate whether the parameter is to be refined or left fixed.</p>
+            
+            <h3>Fitting Settings</h3>
+            
+            <p><img src="img/fit_settings.png" class="img-responsive" alt="Fit Settings Screenshot"/></p>
+            <p>The Fitting Settings control the fit process.</p>
+            <ul>
+                <li><strong>Theta Min / Theta Max</strong> - Angle window that the refinement will be performed on. If a pattern is loaded, these values will be automatically set for the end points of the pattern.</li>
+                <li><strong>Iterations</strong> - Maximum number of iterations to perform optimization.</li>
+                <li><strong>Stop Criteria (&epsilon;)</strong> - Minimum change in &Chi;<sup>2</sup> to continue optimization.</li>
+                <li><strong>Data Point Multiple</strong> - Use 1 to use all data points. Use n > 1 to use every n-th point.</li>
+                <li><strong>Model Layers</strong> - Use the 1 or 2 layer model.</li>
+                <li><strong>TCI Points (N &Phi;)</strong> - Number of points to use in the Tangent Cylinder Integral (TCI).</li>
+                <li><strong>Integration Width (NSG)</strong> - Number of standard deviations to integrate with about the Bragg rods. Recommended >= 3.</li>
+                <li><strong>Gradient Checking</strong> - Debug parameter to enable or disable gradient checking. Leave off for most applications.</li>
+                <li><strong>Gradient Checking Delta</strong> - Perturbation used in numerical gradient checking.</li>
+            </ul>
+            <p>Three buttons above the fit parameters enable the user to toggle the fitting of multiple parameters at once:</p>
+            <ul>
+                <li><strong>All</strong> - Enable fitting of all parameters.</li>
+                <li><strong>None</strong> - Disable fitting of all parameters.</li>
+                <li><strong>Invert</strong> - Invert the fitting state all parameters. Enabled parameters become disabled and disabled parameters become enabled. </li>
+            
+            </ul>
+            
+            
+            <h3>Diffractometer Settings</h3>
+            
+            <p><img src="img/diffract_settings.png" class="img-responsive" alt="Fit Settings Screenshot"/></p>
+            <p>The Diffractometer Settings define the geometry of the instrument and sample.</p>
+            <ul>
+                <li><strong>Wavelength (&#8491;)</strong> - Wavelength of x-ray radiation used.</li>
+                <li><strong>Sample depth (mm)</strong>.</li>
+                <li><strong>Sample width (mm)</strong>.</li>
+                <li><strong>Goniometer radius (mm)</strong>.</li>
+                <li><strong>Beam Width (mm)</strong>.</li>
+                <li><strong>Sample Density Fraction</strong> - The ratio of the sample to the bulk density. Must be between 0 and 1.</li>
+            
+            </ul>
+            <h3>Importing and Exporting Settings</h3>
+            
+            
+            <p><img src="img/export.png" class="img-responsive" alt="Export Settings Screenshot"/></p>
+            
+            <p>The original CarbonXS program coupled the above three types of settings into one CARBON.INP file. In this program, we are able to export sets of Diffractometer Settings, Fitting Settings, and Fitting Parameters. The file format is JSON and is human and machine readable. This is useful if you want to have a set of settings for your own diffractometer and need to mix and match fitting parameters with another setting. You are able to both import from and export to JSON files and from existing CARBON.INP configuration files.</p>
+            
+            <h2>Loading an XRD Pattern</h2>
+            
+            <p><img src="img/open_pattern.png" class="img-responsive" alt="Open Pattern Screenshot"/></p>
+            
+            <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern must be a text file in a two column format separated by spaces, tabs,
+            or commas. If the pattern is incorrectly formatted, the following error will be shown in the message console.</p>
+            
+            <div class='well'>Error: Improperly formatted pattern file in file {filename}
+The pattern file should be two columns of data.</div>
+
+
+            <p>After loading a pattern, the graph will be cleared, and the newly loaded data will be plotted. For how to use the graph toolbar, this is covered in <a href="http://matplotlib.org/users/navigation_toolbar.html">Matplotlib's Toolbar Documentation.</a></p>
+            
+            <div class='well'><p><img src="img/scan_example.png" class="img-responsive" alt="Plot of an Opened XRD pattern"/></p></div>
+            
+            
+            
+            
+            <h3>Note: Dataset Size Limit</h3>
+            
+            <p><img src="img/toomanypts.png" class="img-responsive" alt="Too Many Points Error"/></p>
+            
+            <p>Because of limitations hard coded into the CarbonXS program, fitting cannot be performed on datasets larger than 3000 points. If a dataset has greater than this limit, the program gives the user the option to cull the number of data points by taking the smallest n-th interval. If the user elects not to cull the data, the fit will be performed on the first 3000 data points.</p>
+            
+            <h2>Performing a Calculation or Fit</h2>
+            
+                <ul>
+                <li><img src="img/calculator.png" width="32" height="32" alt="Calculator Icon"/> - Press this button to perform a pattern calculation without running a fit.</li>
+                <li><img src="img/fit.png" width="32" height="32" alt="Calculator Icon"/> - Press this button to perform a fit using the Levenberg-Marquardt algorithm.</li>
+                <li><img src="img/stop.png" width="32" height="32" alt="Calculator Icon"/> - Press this button to abort a fit in progress or if the fitting program freezes.</li>
+                </ul>
+            
+                <p>All of these options are available under the fitting menu. Only one fitting and calculation process may run at a time. To perform a fit, a pattern must have been loaded. If a user attempts to begin a fit without a loaded pattern, they will
+                be prompted to load a pattern. Pattern calculation without fitting may be performed without a loaded pattern. When a fit is started, sanity checks on the values and settings are performed and the fit will only proceed when all are satisfied.
+                Fix any erors that appear in the console if sanity checks fail.</p>
+               
+                <div class='well'><p><a href="img/fit_complete.png"><img src="img/fit_complete.png" class="img-responsive"  alt="Plot of an XRD pattern and its fit."/></a> <a href="img/difference.png"><img src="img/difference.png" class="img-responsive"  alt="Fit difference plot."/></a></p></div>
+                <p>After the fit or calculation has been successfully completed, a plot of the calculated pattern and the original data is displayed. Pressing the <strong>Last Fit Difference</strong> button under the graph causes the most recent fit's difference trace to be plotted.
+                Pressing the <strong>Pattern + Last Fit</strong> button causes the currently loaded pattern and the most recently fit or calculated pattern to be displayed.</p>
+                
+                
+                <p><img src="img/export_results.png" class="img-responsive" alt="Too Many Points Error"/></p>
+                
+                <p>After a fit is completed, the user may also export the results. The carbon.out (Information about fitting process including covariance matrix), the carbon.dat (angle, original data, and fit pattern), and a new CARBON.INP file are copied to a user-selected destination.</p>
+                
+                <h3>Known Problem Scenarios in the Fit Process</h3>
+
+                <ul>
+                <p><img src="img/singular_matrix.png" class="img-responsive" alt="Singular Matrix Error"/></p>
+                <li><p>A <strong>Singular Matrix</strong> error is encountered when parameters result in a singular matrix that the program cannot solve. It may be possible to identify
+                the parameter that is responsible and adjust its value or disable it. An SM, Width of the M Distribution parameter that is zero is known to cause this.
+                If the user does not abort the calculation, CarbonXS freezes and the process will have to be killed manually by the abort option.</li>                
+                
+                <div class="well">"Error: Fit failed due to crash in CarbonXS"</div>
+                <li><p>A <strong>Crash in CarbonXS</strong> error is encountered when an internal error in CarbonXS causes it to quit prematurely. Scenarios include floating point over and underflow errors. This is detected by the GUI program by CarbonXS emitting exit code 1.</li>
+                <li>Unknown conditions may cause a <strong>Freeze Condition</strong> in CarbonXS where it becomes unresponsive and does not make any further progress in the fit. In this case, the user must stop the process with the abort option. Optimizing too many variables at once may result in this condition.</li>
+              
+
+              
+                </ul>
+                
+            
+            
+            
           </div>
         </div>
         </div>
