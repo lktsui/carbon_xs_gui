@@ -307,6 +307,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Help Menu
         self.menu_tutorial.triggered.connect(self.open_documentation)
+        self.menu_bugreport.triggered.connect(self.open_bug_report_page)
 
 
 
@@ -1197,6 +1198,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
         os.startfile(os.path.join('docs', 'index.html'))
+
+
+    def open_bug_report_page(self):
+        """
+        Opens the a link to the bug report page
+        :return:
+        """
+        os.startfile(os.path.join('docs', 'bug_report.url'))
 
 def main():
 
