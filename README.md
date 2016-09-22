@@ -1,6 +1,7 @@
 # CarbonXS_GUI
 
 Developed by Lok-kun Tsui (lktsui@unm.edu)
+CarbonXS (Fortran Program) by Hang Shi, J.N. Reimers, and J.R. Dahn
 
 Center for Micro-Engineered Materials | University of New Mexico
 
