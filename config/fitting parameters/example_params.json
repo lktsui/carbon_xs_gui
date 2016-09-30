@@ -1,0 +1,74 @@
+{
+    "DAB, In plane strain":[
+        0.0,
+        true
+    ],
+    "Background S^4":[
+        0.0,
+        true
+    ],
+    "Background S^3":[
+        0.0,
+        true
+    ],
+    "Background S^2":[
+        -353.58762,
+        true
+    ],
+    "M, Number of Layers":[
+        141.692927,
+        true
+    ],
+    "del, Inter Plane Strain":[
+        0.024387,
+        true
+    ],
+    "Pt, Probability of 3R Stacking":[
+        0.061821,
+        true
+    ],
+    "Pr, Probability of Random Stacking":[
+        0.066073,
+        true
+    ],
+    "Background Constant":[
+        116.78451,
+        true
+    ],
+    "PO, Preferential Orientation Factor":[
+        0.378041,
+        true
+    ],
+    "Scale Factor (a.u.)":[
+        33800.0,
+        true
+    ],
+    "d002, Interlayer Spacing (Angstrom)":[
+        3.361148,
+        true
+    ],
+    "SM, Width of M Distribution":[
+        2.0,
+        true
+    ],
+    "A, In Plane Cell Constant (Angstrom)":[
+        2.461549,
+        true
+    ],
+    "La, Coherence Length":[
+        293.510682,
+        true
+    ],
+    "Background S":[
+        483.094468,
+        true
+    ],
+    "Debye Waller Temperature Factor, (Angstrom^2)":[
+        1.370831,
+        true
+    ],
+    "Background 1\/S":[
+        0.0,
+        true
+    ]
+}

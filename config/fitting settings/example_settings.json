@@ -1,0 +1,12 @@
+{
+    "layers":2,
+    "theta max":120.0,
+    "theta min":15.0,
+    "nskip":1,
+    "nsg":3,
+    "iterations":8,
+    "epsilon":0.001,
+    "enable_gc":false,
+    "gc_delta":0.0001,
+    "nphi":10
+}
