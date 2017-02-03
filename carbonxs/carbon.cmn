@@ -1,0 +1,15 @@
+
+C**********************************************************************
+C
+C  Common Block for Carbon Fitting Program
+C
+C  NPARX    - Maximum number of refinable parameters
+C
+	INTEGER NPARX,NDATX
+	PARAMETER (NPARX=18,NDATX=3000)
+	INTEGER NSG,NPHI,NLAYER
+	LOGICAL	DERIV
+	REAL*8	LAM,RDENS,L0,WD,WW,BW,MU,PI
+	COMMON  /LOWTR/NSG,NPHI,NLAYER,DERIV,LAM,RDENS,L0,WD,WW,BW,
+     *  MU,PI
+
