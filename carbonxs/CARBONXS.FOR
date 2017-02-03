@@ -64,7 +64,7 @@ C
           READ(1,10) A(I),RA(I),ANAME(I)
           AOLD(I)=A(I)
         ENDDO
-10      FORMAT(F12.6,T15,I1,T20,A50)
+10      FORMAT(E12.6,T15,I1,T20,A50)
 11      FORMAT(E12.3,T15,I1,T20,A50)
         CLOSE(1)
 C
@@ -1229,7 +1229,7 @@ C
       
       CHISQ = CHISQ
       OCHISQ = OCHISQ
-      WRITE(*,*) "3 C: ", CHISQ, "O: ", OCHISQ
+C     WRITE(*,*) "3 C: ", CHISQ, "O: ", OCHISQ
       
       RETURN
       END
