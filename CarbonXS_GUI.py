@@ -14,6 +14,7 @@ from matplotlib.backends import qt_compat
 import shutil
 import csv
 
+
 import webbrowser
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
@@ -1044,7 +1045,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
 
         print "Calling CARBONXS.exe"
-        self.fitting_process.start('CARBONXS.exe')
+        self.fitting_process.start('carbonxs_gfortran.exe')
 
         # Sets menu flags to disable start of another process and enable aborting fit process
         self.menu_start_fitting.setEnabled(False)
@@ -1068,7 +1069,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         print "Wrote CARBON.INP to the CarbonXS Directory"
 
-        self.write_carboninp("CARBON.INP", disable_fit=True)
+        self.write_carboninp("carbon.inp", disable_fit=True)
 
         print "Calling CARBONXS.exe"
         self.pattern_calc_flag = True
@@ -1078,8 +1079,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.calculate_pattern_button.setEnabled(False)
         self.fit_pattern_button.setEnabled(False)
 
+        if "win" in sys.platform:
+            self.fitting_process.start('carbonxs_gfortran.exe')
+        elif 'linux' in sys.platform:
+            self.fitting_process.start('./carbonxs_app')
+        else:
+            print "WARNING UNSUPPORTED PLATFORM"
 
-        self.fitting_process.start('CARBONXS.exe')
         self.menu_abort_fit.setEnabled(True)
         self.abort_fit_button.setEnabled(True)
 
@@ -1117,7 +1123,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 if not self.pattern_calc_flag:
                     print "Reading new CARBON.INP data and plotting new data"
-                    self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+                    self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
 
                 self.plot_fit_results()
 
