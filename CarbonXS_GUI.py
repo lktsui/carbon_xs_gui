@@ -1035,17 +1035,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         os.chdir('carbonxs')
 
-        print "Wrote CARBON.INP to the CarbonXS Directory"
+        print "Wrote carbon.inp to the CarbonXS Directory"
 
-        self.write_carboninp("CARBON.INP")
+        self.write_carboninp("carbon.inp")
 
         print "Wrote SCAN.DAT to the CarbonXS Directory"
 
         self.write_scan_data("SCAN.DAT")
         self.pattern_calc_flag = False
 
-        print "Calling CARBONXS.exe"
-        self.fitting_process.start('carbonxs_gfortran.exe')
+        print "Calling CarbonXS"
+
+        if "win" in sys.platform:
+            print "Windows Detected"
+            self.fitting_process.start('carbonxs_gfortran.exe')
+        elif 'linux' in sys.platform:
+            print "Linux Detected"
+            self.fitting_process.start('./carbonxs_app')
+        else:
+            print "WARNING UNSUPPORTED PLATFORM"
 
         # Sets menu flags to disable start of another process and enable aborting fit process
         self.menu_start_fitting.setEnabled(False)
@@ -1067,11 +1075,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         os.chdir('carbonxs')
 
-        print "Wrote CARBON.INP to the CarbonXS Directory"
+        print "Wrote carbon.inp to the CarbonXS Directory"
 
         self.write_carboninp("carbon.inp", disable_fit=True)
 
-        print "Calling CARBONXS.exe"
+        print "Calling CarbonXS"
         self.pattern_calc_flag = True
 
         self.menu_start_fitting.setEnabled(False)
