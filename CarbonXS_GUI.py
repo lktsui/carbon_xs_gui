@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qt4agg import (
 from matplotlib.backends import qt_compat
 import shutil
 import csv
-
+import subprocess
 
 import webbrowser
 
@@ -1213,8 +1213,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         Opens the documentation in /docs/index.html
         :return:
         """
-        os.startfile(os.path.join('docs', 'index.html'))
+        filename = os.path.join('docs', 'index.html')
 
+        if sys.platform == "win32":
+            os.startfile(filename)
+        else:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, filename])
 
     def open_bug_report_page(self):
         """
