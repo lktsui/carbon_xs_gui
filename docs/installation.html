@@ -33,22 +33,43 @@
         <ul class="nav nav-pills pull-right">
           <li><a href="index.html">Home</a></li>
           <li><a href="tutorial.html">Tutorial</a></li>
-          <li><a href="installation.html">Installation</a></li>
-          <li class="active"><a href="#">References</a></li>
+          <li class="active"><a href="installation.html">Installation</a></li>
+          <li><a href="references.html">References</a></li>
           <li><a href="https://github.com/lktsui/carbon_xs_gui/"><i class="fa fa-github" aria-hidden="true"></i> On Github</a></li>
         </ul>
         <h1 class="text-muted">CarbonXS GUI</h1>
       </div>
       
-        <h3>References</h3>
+        <h3>Installation</h3>
+        
+        <h4>Windows</h4>
         
         <ul>
-            <li><a href="http://summit.sfu.ca/system/files/iritems1/5690/b1523325x.pdf"><i><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Disordered Carbons and Battery Applications</i></a> (1993) - Hang Shi's dissertation which describes the model CarbonXS uses in the context of carbon materials for Li-ion batteries</li>
-            <li><a href="http://journals.iucr.org/j/issues/1993/06/00/hw0018/hw0018.pdf"><i><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Structure-refinement program for disordered carbons</i></a> (1993) - A <i>J. App. Cryst.</i> paper describing the carbon fitting program</li>
-            <li><a href="manual.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"/></i> Manual</a> - Original manual for using CarbonXS.</li>
-            
+            <li>Download the latest release from the <a href="https://github.com/lktsui/carbon_xs_gui/releases">Releases</a> page.</li>
+            <li>Install <a href="https://www.microsoft.com/en-us/download/details.aspx?id=29">Microsoft Visual C++ 2008 Redistributable Package (x86)</a>.</li>
+            <li>Unzip the files you downloaded from the release page.</li>
+            <li>Run CarbonXS_GUI.exe</li>
         </ul>
         
+        <h4>Linux (Ubuntu Distribution)</h4>
+        
+        <ul>
+            <li>Install GCC: <code>sudo apt-get install gcc</code></li>
+            <li>Install Git: <code>sudo apt-get install git</code></li>
+            <li>Clone the repository: <code>git clone https://github.com/lktsui/carbon_xs_gui/</code></li>
+            <li>Navigate to carbonxs directory: <code>cd carbon_xs_gui/carbonxs</code></li>
+            <li>Compile CarbonXS: <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>
+            <li>Install Python dependencies
+                <ul>
+                <li><code>pip install ujson</code></li>
+                <li><code>pip install matplotlib</code></li>
+                <li><code>sudo apt-get install python-pyside</code></li>
+                </ul>
+            </li>
+            <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
+            
+         </ul>
+            
         
         
 
