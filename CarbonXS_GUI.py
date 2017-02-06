@@ -14,7 +14,6 @@ from matplotlib.backends import qt_compat
 import shutil
 import csv
 import subprocess
-
 import webbrowser
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
@@ -1214,26 +1213,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
         filename = os.path.join('docs', 'index.html')
-
-        if sys.platform == "win32":
-            os.startfile(filename)
-        else:
-            opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, filename])
+        webbrowser.open(filename)
 
     def open_bug_report_page(self):
         """
         Opens the a link to the bug report page
         :return:
         """
-        filename = os.path.join('docs', 'bug_report.url')
-        
-        if sys.platform == "win32":
-            os.startfile(filename)
-        else:
-            opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, filename])
-
+        webbrowser.open("https://github.com/lktsui/carbon_xs_gui/issues")
 
     def open_about_dialog(self):
         """
