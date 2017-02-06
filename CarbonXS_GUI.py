@@ -1257,4 +1257,15 @@ def main():
 
 if __name__ == '__main__':
 
+    # Check if carbon program is present
+    print "Checking if programs are available"
+
+    if 'linux' in sys.platform:
+        if 'carbonxs_app' not in os.listdir('carbonxs'):
+            print "ERROR: carbonxs_app is not present in the carbonxs directory"
+            print "This indicates that a version of the carbonxs program has not yet been compiled"
+            print "Please compile (see compiling.txt) the Fortran program using GCC."
+            print "Alternately, run compile.sh"
+            sys.exit()
+
     main()
