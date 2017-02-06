@@ -1,8 +1,8 @@
 Compilation Instructions 
 
-Currently able to install with GCC 4.8.4
+Currently able to install with GCC 4.8.4 (Ubuntu Linux 14 LTS), 5.8.0 (OSX, Windows)
 
-Install the GNU COmpiler Collection (GCC) 
+Install the GNU Compiler Collection (GCC) 
 
 [Ubuntu Linux]
 sudo apt-get install gcc 
@@ -15,6 +15,6 @@ Download and install the MinGW package from - http://www.mingw.org/
 
 Compiling:
 
-gfortran CARBONXS.FOR -fno-automatic -staticlibgcc -std=legacy -O3 -o carbonxs_app
+gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app{.app / .exe for OSX and Windows respectively}
 
 
