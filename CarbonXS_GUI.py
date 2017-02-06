@@ -1124,13 +1124,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         if not self.abort_flag:
 
-            print "CarbonXS.exe Process Complete"
+            print "CarbonXS Process Complete"
 
             # Exit Code 0 indicates successful completion
             if self.fitting_process.exitCode() == 0:
 
                 if not self.pattern_calc_flag:
-                    print "Reading new CARBON.INP data and plotting new data"
+                    print "Reading new carbon.inp data and plotting new data"
                     self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
 
                 self.plot_fit_results()
