@@ -1226,7 +1226,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         Opens the a link to the bug report page
         :return:
         """
-        os.startfile(os.path.join('docs', 'bug_report.url'))
+        filename = os.path.join('docs', 'bug_report.url')
+        
+        if sys.platform == "win32":
+            os.startfile(filename)
+        else:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, filename])
 
 
     def open_about_dialog(self):
