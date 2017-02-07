@@ -51,9 +51,10 @@
             <li>Run CarbonXS_GUI.exe</li>
         </ul>
         
-        <h4>Linux (Ubuntu Distribution)</h4>
+        <h4>Linux (Ubuntu Distribution, Tested on 16.04 LTS)</h4>
         
         <ul>
+            <li>The directions written here are for Debian based distributions. Please use your distribution's appropriate package manager tools.</li>
             <li>Install GCC: <code>sudo apt-get install gcc</code></li>
             <li>Install Git: <code>sudo apt-get install git</code></li>
             <li>Clone the repository: <code>git clone https://github.com/lktsui/carbon_xs_gui/</code></li>
@@ -70,9 +71,42 @@
             
          </ul>
             
+         <h4>MacOSX (Tested on macOS 10.12 Sierra)</h4>
         
-        
-
+            <ul>
+                <li>Open a terminal</li>
+                <li>Install Xcode tools: <code>xcode-select --install</code></li>
+                <li>Install the Homebrew package manager: <code>/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</code></li>
+                <li>Install GCC: <code>brew install gcc</code></li>
+                <li>Install Git: <code>brew install git</code></li>
+                <li>Install Homebrew Python: <code>brew install python</code></li>
+                <li>Make the Homebrew Python default: <code>brew link --overwrite python</code></li>
+                <li>Clone the repository: <code>git clone https://github.com/lktsui/carbon_xs_gui/</code></li>
+                <li>Navigate to carbonxs directory: <code>cd carbon_xs_gui/carbonxs</code></li>
+                <li>Compile CarbonXS: <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>
+                <li>Install Python dependencies
+                    <ul>
+                    <li><code>pip install ujson</code></li>
+                    <li><code>pip install matplotlib</code></li>
+                    <li><code>brew tap cartr/qt4</code></li>
+                    <li><code>brew tap-pin cartr/qt4</code></li>
+                    <li><code>brew install qt</code></li>
+                    <li>Follow these instructions to compile Pyside: <a href="http://pyside.readthedocs.io/en/latest/building/macosx.html">Building PySide on a Mac OSX System</a>. Briefly:</li>
+                    <ul>
+                        <li><code>wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.4.tar.gz</code></li>
+                        <li><code>tar -xvzf PySide-1.2.4.tar.gz</code></li>
+                        <li><code>cd PySide-1.2.4</code></li>
+                        <li><code>python setup.py bdist_wheel</code> - <b>Note!</b> This may take up to an hour to complete.</li>
+                        <li><code>pip install dist/PySide-1.2.4-cp27-none-{Your version of OSX}-x86_64.whl</code></li>
+                    </ul>
+                <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
+                
+             </ul>
+                
+            </br>
+            </br>
+                
+                
       <div class="footer">
         <p>Built with <a href="http://getbootstrap.com/getting-started/">Bootstrap</a> and icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></p>
       </div>
