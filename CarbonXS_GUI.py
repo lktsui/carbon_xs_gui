@@ -1220,8 +1220,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         Opens the documentation in /docs/index.html
         :return:
         """
-        filename = os.path.join('docs', 'index.html')
-        webbrowser.open(filename)
+        webbrowser.open("https://lktsui.github.io/carbon_xs_gui/")
+
 
     def open_bug_report_page(self):
         """
