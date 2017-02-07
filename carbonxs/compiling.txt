@@ -15,6 +15,10 @@ Download and install the MinGW package from - http://www.mingw.org/
 
 Compiling:
 
-gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app{.app / .exe for OSX and Windows respectively}
+gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app
+
+
+Expected names for Linux/OSX: carbonxs_app
+Expected name for Windows: carbonxs_gfortran.exe
 
 
