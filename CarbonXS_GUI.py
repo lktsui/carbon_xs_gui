@@ -1053,7 +1053,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if "win32" in sys.platform:
             print "Windows Detected"
             self.fitting_process.start('carbonxs_gfortran.exe')
-        elif 'linux' or 'darwin' in sys.platform:
+        elif 'linux' in sys.platform or 'darwin' in sys.platform:
             print "Linux/OSX Detected"
             self.fitting_process.start('./carbonxs_app')
         else:
@@ -1094,7 +1094,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if "win32" in sys.platform:
             print "Windows detected"
             self.fitting_process.start('carbonxs_gfortran.exe')
-        elif 'linux' or 'darwin' in sys.platform:
+        elif 'linux' in sys.platform or 'darwin' in sys.platform:
 
             print "Linux/OSX detected"
             self.fitting_process.start('./carbonxs_app')
@@ -1266,12 +1266,15 @@ if __name__ == '__main__':
     # Check if carbon program is present
     print "Checking if programs are available"
 
-    if 'linux' or 'darwin' in sys.platform:
+    if  'darwin' in sys.platform or 'linux' in sys.platform:
         if 'carbonxs_app' not in os.listdir('carbonxs'):
             print "ERROR: carbonxs_app is not present in the carbonxs directory"
             print "This indicates that a version of the carbonxs program has not yet been compiled"
             print "Please compile (see compiling.txt) the Fortran program using GCC."
             print "Alternately, run compile.sh"
             sys.exit()
+        else:
+            print "Found CarbonXS!"
+
 
     main()
