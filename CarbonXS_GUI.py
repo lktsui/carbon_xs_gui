@@ -1,6 +1,5 @@
 import sys
 from PySide import QtGui, QtCore
-from ui_mainWindow import Ui_MainWindow
 import ujson
 import sys
 import os
@@ -15,6 +14,9 @@ import shutil
 import csv
 import subprocess
 import webbrowser
+
+from ui_mainWindow import Ui_MainWindow
+
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
@@ -42,7 +44,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :param version: String to use in the window header indicating the program version
         """
 
+
+
         super(MainWindow, self).__init__()
+
         self.version = version
 
         self.setupUi(self)
@@ -1086,9 +1091,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.calculate_pattern_button.setEnabled(False)
         self.fit_pattern_button.setEnabled(False)
 
-        if "win" in sys.platform:
+        if "win32" in sys.platform:
+
             self.fitting_process.start('carbonxs_gfortran.exe')
-        elif 'linux' in sys.platform:
+        elif 'linux' or 'darwin' in sys.platform:
+
+            print "DETECT LINUX/OSX"
             self.fitting_process.start('./carbonxs_app')
         else:
             print "WARNING UNSUPPORTED PLATFORM"
@@ -1258,7 +1266,7 @@ if __name__ == '__main__':
     # Check if carbon program is present
     print "Checking if programs are available"
 
-    if 'linux' in sys.platform:
+    if 'linux' or 'darwin' in sys.platform:
         if 'carbonxs_app' not in os.listdir('carbonxs'):
             print "ERROR: carbonxs_app is not present in the carbonxs directory"
             print "This indicates that a version of the carbonxs program has not yet been compiled"
