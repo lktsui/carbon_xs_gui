@@ -1050,11 +1050,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         print "Calling CarbonXS"
 
-        if "win" in sys.platform:
+        if "win32" in sys.platform:
             print "Windows Detected"
             self.fitting_process.start('carbonxs_gfortran.exe')
-        elif 'linux' in sys.platform:
-            print "Linux Detected"
+        elif 'linux' or 'darwin' in sys.platform:
+            print "Linux/OSX Detected"
             self.fitting_process.start('./carbonxs_app')
         else:
             print "WARNING UNSUPPORTED PLATFORM"
@@ -1092,11 +1092,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fit_pattern_button.setEnabled(False)
 
         if "win32" in sys.platform:
-
+            print "Windows detected"
             self.fitting_process.start('carbonxs_gfortran.exe')
         elif 'linux' or 'darwin' in sys.platform:
 
-            print "DETECT LINUX/OSX"
+            print "Linux/OSX detected"
             self.fitting_process.start('./carbonxs_app')
         else:
             print "WARNING UNSUPPORTED PLATFORM"
