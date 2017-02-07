@@ -23,3 +23,6 @@ CarbonXS_GUI is a GUI front-end for CarbonXS, a Fortran X-ray diffraction patter
 * Unzip the file
 * Run CarbonXS_GUI.exe
 
+**Installation (Linux / Mac OSX)**
+* See [Installation instructions for Linux and Mac OSX](https://lktsui.github.io/carbon_xs_gui/installation.html)
+
