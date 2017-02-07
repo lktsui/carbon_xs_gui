@@ -8,6 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
+import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -515,7 +516,13 @@ class Ui_MainWindow(object):
         self.statusBar = QtGui.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
-        self.menuBar = QtGui.QMenuBar(MainWindow)
+
+        if 'darwin' in sys.platform:
+            self.menuBar = QtGui.QMenuBar()
+        else:
+            self.menuBar = QtGui.QMenuBar(MainWindow)
+
+
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 1473, 21))
         self.menuBar.setObjectName("menuBar")
         self.menuFile = QtGui.QMenu(self.menuBar)
