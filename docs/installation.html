@@ -42,7 +42,7 @@
       
         <h3>Installation</h3>
         
-        <h4>Windows</h4>
+        <h4>Windows (Tested on Windows 10)</h4>
         
         <ul>
             <li>Download the latest release from the <a href="https://github.com/lktsui/carbon_xs_gui/releases">Releases</a> page.</li>
@@ -51,10 +51,11 @@
             <li>Run CarbonXS_GUI.exe</li>
         </ul>
         
-        <h4>Linux (Ubuntu Distribution, Tested on 16.04 LTS)</h4>
+        <h4>Linux (Tested on Ubuntu Distribution 16.04 LTS)</h4>
         
         <ul>
             <li>The directions written here are for Debian based distributions. Please use your distribution's appropriate package manager tools.</li>
+            <li>Open a terminal</li>
             <li>Install GCC: <code>sudo apt-get install gcc</code></li>
             <li>Install Git: <code>sudo apt-get install git</code></li>
             <li>Clone the repository: <code>git clone https://github.com/lktsui/carbon_xs_gui/</code></li>
@@ -99,9 +100,30 @@
                         <li><code>python setup.py bdist_wheel</code> - <b>Note!</b> This may take up to an hour to complete.</li>
                         <li><code>pip install dist/PySide-1.2.4-cp27-none-{Your version of OSX}-x86_64.whl</code></li>
                     </ul>
+                    </ul>
                 <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
                 
              </ul>
+                
+                
+                
+            
+         <h3>Compiling CarbonXS</h3>
+      
+            <ul>
+            <li>If you ever need to modify the CarbonXS program. Follow these instructions. CarbonXS is written in Fortran 77 and requires these compilation flags to work on a modern compiler like GCC.</li>
+            <li>Install the GNU Compiler Collection (GCC)</li>
+            <ul>
+                <li>Ubuntu Linux: <code>sudo apt-get install gcc</code>. For other distributions, follow your package management instructions</li>
+                <li>Mac OSX (with Homebrew installed): <code>brew install gcc</code>
+                <li>Download and install the <a href=http://www.mingw.org/>MinGW package.</a>
+             </ul>
+             <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
+             <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
+            </ul>
+         
+                
+                
                 
             </br>
             </br>
