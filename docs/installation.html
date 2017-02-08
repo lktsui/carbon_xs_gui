@@ -79,6 +79,8 @@
                 <li>Install Xcode tools: <code>xcode-select --install</code></li>
                 <li>Install the Homebrew package manager: <code>/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</code></li>
                 <li>Install GCC: <code>brew install gcc</code></li>
+                <li>Install wget: <code>brew install wget</code></li>
+                <li>Install cmake: <code>brew install cmake</code></li>
                 <li>Install Git: <code>brew install git</code></li>
                 <li>Install Homebrew Python: <code>brew install python</code></li>
                 <li>Make the Homebrew Python default: <code>brew link --overwrite python</code></li>
@@ -89,16 +91,18 @@
                     <ul>
                     <li><code>pip install ujson</code></li>
                     <li><code>pip install matplotlib</code></li>
-                    <li><code>brew tap cartr/qt4</code></li>
-                    <li><code>brew tap-pin cartr/qt4</code></li>
-                    <li><code>brew install qt</code></li>
-                    <li>Follow these instructions to compile Pyside: <a href="http://pyside.readthedocs.io/en/latest/building/macosx.html">Building PySide on a Mac OSX System</a>. Briefly:</li>
+                    <li><b>Option 1:</b> <code> pip install pyside</code>
+                    <li><b>Option 2:</b> If Option 1 fails, follow these instructions to compile Pyside: <a href="http://pyside.readthedocs.io/en/latest/building/macosx.html">Building PySide on a Mac OSX System</a>. Briefly:</li>
                     <ul>
+                    
+                        <li><code>brew tap cartr/qt4</code></li>
+                        <li><code>brew tap-pin cartr/qt4</code></li>
+                        <li><code>brew install cartr/qt4/qt</code></li>
                         <li><code>wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.4.tar.gz</code></li>
                         <li><code>tar -xvzf PySide-1.2.4.tar.gz</code></li>
                         <li><code>cd PySide-1.2.4</code></li>
                         <li><code>python setup.py bdist_wheel</code> - <b>Note!</b> This may take up to an hour to complete.</li>
-                        <li><code>pip install dist/PySide-1.2.4-cp27-none-{Your version of OSX}-x86_64.whl</code></li>
+                        <li><code>pip install dist/PySide-1.2.4-cp27-{Your version of OSX}-x86_64.whl</code></li>
                     </ul>
                     </ul>
                 <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
@@ -114,9 +118,12 @@
                 <li>Ubuntu Linux: <code>sudo apt-get install gcc</code>. For other distributions, follow your package management instructions</li>
                 <li>Mac OSX (with Homebrew installed): <code>brew install gcc</code>
                 <li>Download and install the <a href=http://www.mingw.org/>MinGW package.</a>
+                <li>In Windows, include the following files from the MinGW package located in the mingw64/bin directory to use the compiled version on a different computer.</li>
+
              </ul>
              <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
-             <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
+             <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -static-libgfortran -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
+             
             </ul>
          
                 
