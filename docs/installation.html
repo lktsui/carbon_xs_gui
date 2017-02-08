@@ -118,8 +118,13 @@
                 <li>Ubuntu Linux: <code>sudo apt-get install gcc</code>. For other distributions, follow your package management instructions</li>
                 <li>Mac OSX (with Homebrew installed): <code>brew install gcc</code>
                 <li>Download and install the <a href=http://www.mingw.org/>MinGW package.</a>
-                <li>In Windows, include the following files from the MinGW package located in the mingw64/bin directory to use the compiled version on a different computer.</li>
-
+                <li>In Windows, include the following files from the MinGW package located in the <code>mingw64/bin</code> directory to use the compiled version on a different computer.</li>
+                <ul>
+                    <li><code>libgcc_s_seh-1.dll</code></li>
+                    <li><code>libquadmath-0.dll</code></li>
+                    <li><code>libwinpthread-1.dll</code></li>
+                </ul>
+                
              </ul>
              <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
              <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -static-libgfortran -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
