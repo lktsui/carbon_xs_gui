@@ -293,9 +293,33 @@ C
 95      FORMAT(F6.2,3(1X,F12.5))
 C
 C  Write a data file
-C
+
+C  Rescales Parameters M, SM, del, Pr, Pt for 2 layer model calculation mode 
+
+        IF (NLAYER .EQ. 2 .AND. ITMAX .EQ. 0) THEN
+          A(11)=A(11)/2.0D0        !M
+          A(12)=A(12)/2.0D0        !SM
+          A(14)=A(14)*2.0D0        !del
+          A(15)=A(15)*2.0D0        !Pr
+          A(16)=A(16)*2.0D0        !Pt
+        ENDIF
+
         OPEN(UNIT=1,FILE='carbon.dat')
         IF (ITMAX .EQ. 0) CALL ALLINTEN(S,A,YFIT,DYDA,NPAR,NDAT)
+C
+C  Undoes Rescalling of  Parameters M, SM, del, Pr, Pt for 2 layer model calculation mode 
+C
+
+
+        IF (NLAYER .EQ. 2 .AND. ITMAX .EQ. 0) THEN
+          A(11)=A(11)*2.0D0                !M
+          A(12)=A(12)*2.0D0                !SM
+          A(14)=A(14)/2.0D0                !del
+          A(15)=A(15)/2.0D0                !Pr
+          A(16)=A(16)/2.0D0                !pt
+        ENDIF        
+
+
         DO I=1,NDAT
           WRITE(1,90) X(I),INT(Y(I)),YFIT(I)
         ENDDO
