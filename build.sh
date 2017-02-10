@@ -1,16 +1,17 @@
 rm -r build
 rm -r dist
 python setup.py py2exe
-cd dist
-mkdir carbonxs
-mkdir config
-cd config
-mkdir "diffractometer settings"
-mkdir "fitting parameters"
-mkdir "fitting settings"
-cd ..
-mkdir results
-cp ../carbonxs/CARBONXS.exe carbonxs/carbonxs.exe
-cd ..
-cp -r icons dist/
-7z a new_version.zip ./dist/*
+cp -r examples dist
+cp -r icons dist
+mkdir dist/carbonxs
+cp carbonxs/carbonxs_gfortran.exe dist/carbonxs
+cp carbonxs/compiling.txt dist/carbonxs
+cp carbonxs/CARBONXS.FOR dist/carbonxs
+cp carbonxs/carbon.cmn dist/carbonxs
+cp -r docs dist
+cp -r config dist
+cp -r README.md dist
+cp winlib/*.dll dist/carbonxs
+
+
+
