@@ -451,7 +451,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.fig.delaxes(self.ax)
                 self.ax = self.fig.add_subplot(111)
                 self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
-
+                self.ax.set_yscale('log')
 
 
 
