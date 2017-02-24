@@ -451,7 +451,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.fig.delaxes(self.ax)
                 self.ax = self.fig.add_subplot(111)
                 self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
-
+                self.ax.set_yscale('log')
 
 
 
@@ -503,6 +503,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
         self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
         self.ax.set_title("Fit Pattern")
+        self.ax.set_yscale('log')
         self.ax.legend(fontsize=14, frameon=True)
         self.ax.grid(True)
         self.canvas.draw()
