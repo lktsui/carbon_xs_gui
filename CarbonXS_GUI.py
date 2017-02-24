@@ -330,7 +330,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
-        self.difference = []
+        self.y_fit_data = []
 
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
@@ -340,11 +340,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for line in pattern_file.readlines():
             data_elements = line.split()
             self.x_fit_data.append(float(data_elements[0]))
-            self.difference.append(float(data_elements[1]) - float(data_elements[2]))
+            self.y_fit_data.append(float(data_elements[1]) - float(data_elements[2]))
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_fit_data, self.difference, label="Source - Fit", linewidth = 2, color=fit_color)
+        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Source - Fit", linewidth = 2, color=fit_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -506,7 +506,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
-        self.difference = []
+        self.y_fit_data = []
 
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
@@ -516,14 +516,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for line in pattern_file.readlines():
             data_elements = line.split()
             self.x_fit_data.append(float(data_elements[0]))
-            self.difference.append(float(data_elements[2]))
+            self.y_fit_data.append(float(data_elements[2]))
 
         # colors = sns.color_palette('Set2', 2)
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
         self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
-        self.ax.plot(self.x_fit_data, self.difference, label="Fit", linewidth = 2, color=fit_color)
+        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -1210,34 +1210,40 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
-        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results', '.')
+        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results','.', "Full Export (.);; Jade MDI Format (*.mdi)")
 
         if fname:
 
-            for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
+            if fname.endswith('.mdi'):
+                print "Exporting fit results to Jade MDI Format"
 
-                # Checks if the files exist in the directory
-                if data_file in os.listdir('carbonxs'):
-                    destination = fname + export_suffix
+                data_io.write_mdi_file(fname, self.x_fit_data, self.y_fit_data, wavelength=self.wavelength.value())
 
-                    # Checks if the destination files already exists
-                    if os.path.exists(destination):
+            else:
+                for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
 
-                        # Prompts user to overwrite if it does
-                        _, filename = os.path.split(destination)
-                        reply = QtGui.QMessageBox.question(self, 'Fit Completed',
-                                                           "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
-                                                           QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-                        if reply == QtGui.QMessageBox.Yes:
-                            shutil.copy(os.path.join('carbonxs', data_file), fname + export_suffix)
-                            print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
+                    # Checks if the files exist in the directory
+                    if data_file in os.listdir('carbonxs'):
+                        destination = fname + export_suffix
+
+                        # Checks if the destination files already exists
+                        if os.path.exists(destination):
+
+                            # Prompts user to overwrite if it does
+                            _, filename = os.path.split(destination)
+                            reply = QtGui.QMessageBox.question(self, 'Fit Completed',
+                                                               "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
+                                                               QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                            if reply == QtGui.QMessageBox.Yes:
+                                shutil.copy(os.path.join('carbonxs', data_file), fname + export_suffix)
+                                print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
+                            else:
+                                print "%s already exists. Did not overwrite." % destination
+
                         else:
-                            print "%s already exists. Did not overwrite." % destination
 
-                    else:
-
-                        shutil.copy(os.path.join('carbonxs', data_file), destination)
-                        print "Copied %s file to %s" %(data_file, destination)
+                            shutil.copy(os.path.join('carbonxs', data_file), destination)
+                            print "Copied %s file to %s" %(data_file, destination)
 
 
     # Help Menu Methods
