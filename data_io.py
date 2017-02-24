@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import datetime
-import matplotlib.pyplot as plt
 """
 Read and Write data from various XRD data formats
 """
