@@ -409,12 +409,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     return
 
+            elif fname.endswith('.ras'):
 
+                try:
+                    print "Attempting to load RAS file"
+                    self.x_data, self.y_data = data_io.read_ras_file(fname)
 
+                except ValueError:
+                    print "Error: Improperly formatted pattern file in file %s."%fname
+                    print "The pattern file should conform to the RAS format."
+
+                    return
 
 
             else:
-                print "Attempting CSV loading process"
+                print "Attempting to load 2 column data loading process"
 
 
                 sniffer = csv.Sniffer()

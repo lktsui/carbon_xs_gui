@@ -6,6 +6,44 @@ import matplotlib.pyplot as plt
 Read and Write data from various XRD data formats
 """
 
+def read_ras_file(filename):
+
+    # Reads a data file from the .ras format
+
+    input_file = open(filename, 'r')
+
+    data_lines = input_file.readlines()
+
+    x_data = []
+    y_data = []
+
+    recording = False
+    for line in data_lines:
+
+        if "RAS_INT_END" in line:
+            recording = False
+
+        # RAS Data format is a 3 column space separated data file with 2theta in first column
+        # and intensity in second column
+        if recording:
+
+
+            data_elements = line.split()
+            x_data.append(float(data_elements[0]))
+            y_data.append(float(data_elements[1]))
+
+        if "RAS_INT_START" in line:
+            recording = True
+
+    x_data =  np.array(x_data)
+
+    y_data = np.array(y_data)
+
+    return x_data, y_data
+
+
+
+
 
 def read_mdi_file(filename):
 
