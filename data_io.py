@@ -1,14 +1,38 @@
 import numpy as np
 import os
 import datetime
+import matplotlib.pyplot as plt
 """
 Read and Write data from various XRD data formats
 """
 
 
+def read_mdi_file(filename):
 
-def load_mdi_file(filename):
-    pass
+    input_file = open(filename, 'r')
+
+    data_lines = list(input_file.readlines())
+
+    metadata_line = data_lines[1].split()
+
+    start_angle = float(metadata_line[0])
+    end_angle = float(metadata_line[5])
+    data_points = int(metadata_line[6])
+
+    # Generate the 2-theta values
+    x_data = np.linspace(start_angle, end_angle, data_points)
+
+    y_data = []
+
+    # Load the intensity values
+    for line in data_lines[2:]:
+        for element in line.split():
+           y_data.append(float(element))
+
+    # Cast to numpy array
+    y_data = np.array(y_data)
+
+    return x_data, y_data
 
 def write_mdi_file(filename, x_data, y_data, wavelength = 1.54056):
 
@@ -67,8 +91,10 @@ if __name__ == '__main__':
 
     # generate synthetic data
 
-    x_data = np.linspace(20, 120, 200)
-    y_data = 100*np.sin(x_data)+1000000000000
+    x_data = np.linspace(20, 120, 2000)
+    y_data = 100*np.sin(x_data)+100
     write_mdi_file(os.path.join('export_test', 'test_export.mdi'), x_data, y_data)
+
+    read_mdi_file(os.path.join('export_test', 'test_export.mdi'))
 
 
