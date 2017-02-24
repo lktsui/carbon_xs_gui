@@ -131,12 +131,20 @@
                 <li><img src="img/open_pattern.png" width="32" height="32" alt="Folder Icon"/> - Press this button to open a new XRD pattern for fitting.</li>
             </ul>
             
-            <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern must be a text file in a two column format separated by spaces, tabs,
+            <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern may be a text file in a two column format separated by spaces, tabs,
             or commas. The first column is the 2&theta; values in degrees and the second column is intensity. If the pattern is incorrectly formatted, the following error will be shown in the message console.</p>
             
             <div class='well'>Error: Improperly formatted pattern file in file {filename}
 The pattern file should be two columns of data.</div>
 
+              <p>The following data formats from x-ray diffractometers are also supported:
+                <ul>
+                    <li>Jade MDI format: *.mdi</li>
+                    <li>Rikgaku RAS format: *.ras</li>
+                    <li>X-Y format: *.xy</li>
+                </ul>
+
+              </p>
 
             <p>After loading a pattern, the graph will be cleared, and the newly loaded data will be plotted. For how to use the graph toolbar, this is covered in <a href="http://matplotlib.org/users/navigation_toolbar.html">Matplotlib's Toolbar Documentation.</a></p>
             
@@ -174,7 +182,7 @@ The pattern file should be two columns of data.</div>
                 <li><img src="img/export_icon.png" width="32" height="32" alt="Calculator Icon"/> - Press this button to export the most recently performed fit results.</li>
                 </ul>
                 
-                <p>After a fit is completed, the user may also export the results. The carbon.out (Information about fitting process including covariance matrix), the carbon.dat (angle, original data, and fit pattern), and a new CARBON.INP file are copied to a user-selected destination.</p>
+                <p>After a fit is completed, the user may also export the results. The carbon.out (Information about fitting process including covariance matrix), the carbon.dat (angle, original data, and fit pattern) are copied to a user-selected destination. The user may also export a Jade .mdi file to performed a combined fit using Jade and CarbonXS together.</p>
                 
                 <h3>Known Problem Scenarios in the Fit Process</h3>
 
