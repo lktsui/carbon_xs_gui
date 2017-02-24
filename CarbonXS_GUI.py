@@ -14,6 +14,7 @@ import shutil
 import csv
 import subprocess
 import webbrowser
+import data_io
 
 from ui_mainWindow import Ui_MainWindow
 
@@ -396,24 +397,44 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if fname:
             input_file = open(fname, 'r')
 
-            sniffer = csv.Sniffer()
-            dialect = sniffer.sniff(input_file.readline())
-            try:
-                plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
+            if fname.endswith('.mdi'):
 
-                source_color = "#66c2a5"
+                try:
+                    print "Attempting to load MDI file"
+                    self.x_data, self.y_data = data_io.read_mdi_file(fname)
+
+                except ValueError:
+                    print "Error: Improperly formatted pattern file in file %s."%fname
+                    print "The pattern file should conform to the JADE MDI format."
+
+                    return
 
 
 
-                self.x_data = plot_data[:, 0]
-                self.y_data = plot_data[:, 1]
 
-                self.theta_min_value.setValue(np.min(self.x_data))
-                self.theta_max_value.setValue(np.max(self.x_data))
 
-                data_pts = len(self.x_data)
+            else:
+                print "Attempting CSV loading process"
 
-                if data_pts > 3000:
+
+                sniffer = csv.Sniffer()
+                dialect = sniffer.sniff(input_file.readline())
+                try:
+                    plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
+
+                    self.x_data = plot_data[:, 0]
+                    self.y_data = plot_data[:, 1]
+                    self.theta_min_value.setValue(np.min(self.x_data))
+                    self.theta_max_value.setValue(np.max(self.x_data))
+                except ValueError:
+                    print "Error: Improperly formatted pattern file in file %s."%fname
+                    print "The pattern file should be two columns of data."
+
+                    return
+
+            source_color = "#66c2a5"
+            data_pts = len(self.x_data)
+            if data_pts > 3000:
 
 
                     new_dps = data_pts
@@ -448,26 +469,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
-                self.fig.delaxes(self.ax)
-                self.ax = self.fig.add_subplot(111)
-                self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
-                self.ax.set_yscale('log')
+            self.fig.delaxes(self.ax)
+            self.ax = self.fig.add_subplot(111)
+            self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
+            self.ax.set_yscale('log')
 
 
 
 
 
-                self.ax.tick_params(axis='both', which='major', labelsize=14)
-                self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
-                self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
-                self.ax.legend(fontsize=14, frameon=True)
-                self.ax.grid(True)
-                self.canvas.draw()
+            self.ax.tick_params(axis='both', which='major', labelsize=14)
+            self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+            self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
+            self.ax.legend(fontsize=14, frameon=True)
+            self.ax.grid(True)
+            self.canvas.draw()
 
-
-            except ValueError:
-                print "Error: Improperly formatted pattern file in file %s."%fname
-                print "The pattern file should be two columns of data."
 
     def plot_fit_results(self):
         """
