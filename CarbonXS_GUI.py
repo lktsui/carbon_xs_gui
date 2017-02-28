@@ -76,6 +76,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_17,
         ]
 
+        for item in self.parameter_list:
+            item.setMaximum(1e21)
+            item.setMinimum(-1e21)
+
         self.parameter_labels = [
             self.param_label_0.text(),
             self.param_label_1.text(),
@@ -956,6 +960,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 param_value = float(config_elements[0])
 
+
+            print config_elements[1]
             if config_elements[1] == '1':
                 param_enable = True
             else:
