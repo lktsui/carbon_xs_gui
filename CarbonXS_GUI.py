@@ -663,6 +663,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 print 'Imported Fitting Parameters from: %s'%fname
                 self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
+                self.parameter_load_check()
             except ValueError:
                 print "Error in loading JSON file: %s."%(fname)
                 print "Verify that the configuration file is properly formatted."
@@ -960,8 +961,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 param_value = float(config_elements[0])
 
-
-            print config_elements[1]
             if config_elements[1] == '1':
                 param_enable = True
             else:
@@ -969,6 +968,41 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             self.parameter_list[index].setValue(param_value)
             self.parameter_enable_list[index].setChecked(param_enable)
+
+        self.parameter_load_check()
+
+
+    def parameter_load_check(self):
+        """
+        Performs sanity check and alerts the user if values may potentially be out of bounds
+
+        :return:
+        """
+
+        print "Performing checks on fitting parameters."
+
+        errors = 0
+        if self.param_14.value() > 1 or  self.param_14.value() < 0:
+            print "ERROR: Pr must be between 0 and 1."
+            errors += 1
+        if self.param_15.value() > 1 or  self.param_15.value() < 0:
+            print "ERROR: Pt must be between 0 and 1."
+            errors += 1
+        if self.param_12.value() < 0:
+            print "ERROR: Dab (In plane strain) must be greater than 0."
+            errors += 1
+        if self.param_13.value() < 0:
+            print "ERROR: Del (Interplanar strain) must be greater than 0."
+            errors += 1
+        if self.param_14.value() < 0:
+            print "Warning: Debye Waller Temperature factor is less than 0."
+            errors += 1
+        if self.param_14.value() < 0:
+            print "Warning: Preferential Orientation Factor is less than 0."
+            errors += 1
+
+        if errors > 0:
+            print "Encountered %d errors or warnings. Please ensure that these values are physically meaningful."%errors
 
 
     def write_scan_data(self, output_file):
@@ -1022,6 +1056,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.param_13.value() < 0:
             print "Del (Interplanar strain) must be greater than 0"
             errors += 1
+
+
+
 
         if errors > 0:
             print "Found %d errors. Aborting Fit."%errors
