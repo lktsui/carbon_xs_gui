@@ -1357,6 +1357,7 @@ if __name__ == '__main__':
         if 'carbonxs_gfortran.exe' not in os.listdir('carbonxs'):
             print "ERROR! carbonxs_gfortran.exe is not in the carbonxs directory"
             print "Please make sure this program has been correctly extracted."
+            sys.exit()
         else:
             print "Found CarbonXS!"
     main()
