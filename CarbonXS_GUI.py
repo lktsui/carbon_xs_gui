@@ -163,6 +163,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax.grid(True)
         self.addmpl(self.fig)
 
+        self.y_axis_lim = None
+        self.x_axis_lim = None
+
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -282,6 +285,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.mpl_toolbar)
 
 
+
         self.plot_buttons_layout = QtGui.QHBoxLayout()
         self.plot_pattern_button = QtGui.QPushButton(self)
         self.plot_pattern_button.setText("Pattern + Last Fit")
@@ -291,8 +295,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.plot_difference_button.setText("Last Fit Difference")
         self.plot_difference_button.setToolTip("Plots the difference between source and fit data for the last fit result.")
 
+        self.lock_y_axis = QtGui.QCheckBox(self)
+        self.lock_y_axis.setText("Lock Pattern/Fit Y-Axis")
+        self.lock_y_axis.setToolTip("Locks the Y-Axis during pattern/fit plotting.")
+
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
+
+        self.plot_buttons_layout.addWidget(self.lock_y_axis)
 
 
 
@@ -371,16 +381,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.x_fit_data.append(float(data_elements[0]))
             self.y_fit_data.append(float(data_elements[1]) - float(data_elements[2]))
 
-        self.fig.delaxes(self.ax)
-        self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Source - Fit", linewidth = 2, color=fit_color)
+        self.fig.clf()
+        self.ax_diff = self.fig.add_subplot(111)
+        self.ax_diff.plot(self.x_fit_data, self.y_fit_data, label="Source - Fit", linewidth = 2, color=fit_color)
 
-        self.ax.tick_params(axis='both', which='major', labelsize=14)
-        self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
-        self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
-        self.ax.set_title("Difference Plot")
-        self.ax.legend(fontsize=14, frameon=True)
-        self.ax.grid(True)
+        self.ax_diff.tick_params(axis='both', which='major', labelsize=14)
+        self.ax_diff.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
+        self.ax_diff.set_ylabel(r'Intensity / a.u.', fontsize=14)
+        self.ax_diff.set_title("Difference Plot")
+        self.ax_diff.legend(fontsize=14, frameon=True)
+        self.ax_diff.grid(True)
         self.canvas.draw()
 
 
@@ -562,7 +572,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
 
-        self.fig.delaxes(self.ax)
+        # If the lock y axis option is enabled, preserve the current axis limits
+        # However, only do this if there is already some data that has been plotted
+        if self.lock_y_axis.checkState():
+            if len(self.x_fit_data) > 0 or len(self.x_data) > 0:
+                self.y_limit = self.ax.get_ylim()
+
+        self.fig.clf()
         self.ax = self.fig.add_subplot(111)
 
         if len(self.x_data) > 0:
@@ -577,6 +593,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax.set_yscale('log')
         self.ax.legend(fontsize=14, frameon=True)
         self.ax.grid(True)
+
+        if self.lock_y_axis.checkState():
+            self.ax.set_ylim(self.y_limit)
+
+
         self.canvas.draw()
 
 
