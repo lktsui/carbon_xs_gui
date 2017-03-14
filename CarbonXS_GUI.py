@@ -154,6 +154,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.x_data = []
         self.y_data = []
+        self.x_fit_data = []
+        self.y_fit_data = []
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -292,6 +294,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
 
+
+
+
         self.mplvl.addLayout(self.plot_buttons_layout)
 
 
@@ -359,10 +364,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.x_fit_data = []
         self.y_fit_data = []
 
-        source_color = "#66c2a5"
         fit_color = "#fc8d62"
-
-
         pattern_file = open(pattern_filename, 'r')
         for line in pattern_file.readlines():
             data_elements = line.split()
@@ -494,7 +496,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     return
 
-            source_color = "#66c2a5"
             data_pts = len(self.x_data)
             if data_pts > 3000:
 
@@ -529,24 +530,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                         print "Warning: CarbonXS cannot process datasets larger than 3000 data points and will not fit the full pattern."
 
-
-
-            self.fig.delaxes(self.ax)
-            self.ax = self.fig.add_subplot(111)
-            self.ax.plot(self.x_data, self.y_data, linewidth=2, label="Source", color=source_color)
-            self.ax.set_yscale('log')
-
-
-
-
-
-            self.ax.tick_params(axis='both', which='major', labelsize=14)
-            self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
-            self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
-            self.ax.legend(fontsize=14, frameon=True)
-            self.ax.grid(True)
-            self.canvas.draw()
-
+            self.plot_loaded_data()
 
     def plot_fit_results(self):
         """
@@ -554,16 +538,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         :return:
         """
-
-
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
         self.y_fit_data = []
-
-        source_color = "#66c2a5"
-        fit_color = "#fc8d62"
-
 
         pattern_file = open(pattern_filename, 'r')
         for line in pattern_file.readlines():
@@ -572,11 +550,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.y_fit_data.append(float(data_elements[2]))
 
         # colors = sns.color_palette('Set2', 2)
+        self.plot_loaded_data()
+
+    def plot_loaded_data(self):
+        """
+        Plots the loaded source and fit data
+
+        :return:
+        """
+
+        source_color = "#66c2a5"
+        fit_color = "#fc8d62"
 
         self.fig.delaxes(self.ax)
         self.ax = self.fig.add_subplot(111)
-        self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
-        self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
+
+        if len(self.x_data) > 0:
+            self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
+        if len(self.x_fit_data) > 0:
+            self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
