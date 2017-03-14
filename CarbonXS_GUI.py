@@ -369,6 +369,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if len(self.x_data) == 0:
+
+            reply = QtGui.QMessageBox.information(self, 'Warning',
+                                              "No pattern data loaded. Cannot calculate a difference.",
+                                              QtGui.QMessageBox.Close)
+
+            return
+
+
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
