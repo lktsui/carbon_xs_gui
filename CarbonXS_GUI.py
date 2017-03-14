@@ -396,6 +396,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax_diff = self.fig.add_subplot(111)
         self.ax_diff.plot(self.x_data, np.array(self.y_data) - interpolated_y_data, label="Source - Fit", linewidth = 2, color=fit_color)
 
+        self.ax_diff.ticklabel_format(style='sci', scilimits=(-3,4), axis='y')
         self.ax_diff.tick_params(axis='both', which='major', labelsize=14)
         self.ax_diff.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
         self.ax_diff.set_ylabel(r'Intensity / a.u.', fontsize=14)
