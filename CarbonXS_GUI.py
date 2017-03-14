@@ -42,6 +42,7 @@ class TextFileViewer(QtGui.QDialog, Ui_Dialog):
 
         self.ok_button.clicked.connect(self.accept)
         self.cancel_button.clicked.connect(self.reject)
+        self.setWindowTitle('Load a Text File')
 
     def load_contents(self, filename):
         text = open(filename).read()
