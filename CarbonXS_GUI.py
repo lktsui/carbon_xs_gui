@@ -388,11 +388,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for line in pattern_file.readlines():
             data_elements = line.split()
             self.x_fit_data.append(float(data_elements[0]))
-            self.y_fit_data.append(float(data_elements[1]) - float(data_elements[2]))
+            self.y_fit_data.append(float(data_elements[2]))
+
+        interpolated_y_data = np.interp(np.array(self.x_data), np.array(self.x_fit_data), np.array(self.y_fit_data))
 
         self.fig.clf()
         self.ax_diff = self.fig.add_subplot(111)
-        self.ax_diff.plot(self.x_fit_data, self.y_fit_data, label="Source - Fit", linewidth = 2, color=fit_color)
+        self.ax_diff.plot(self.x_data, np.array(self.y_data) - interpolated_y_data, label="Source - Fit", linewidth = 2, color=fit_color)
 
         self.ax_diff.tick_params(axis='both', which='major', labelsize=14)
         self.ax_diff.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
