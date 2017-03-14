@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\text_file_viewer.ui'
 #
-# Created: Tue Mar 14 14:14:28 2017
+# Created: Tue Mar 14 14:47:24 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -63,7 +63,7 @@ class Ui_Dialog(object):
         self.header_lines_label.setText(QtGui.QApplication.translate("Dialog", "Header Lines", None, QtGui.QApplication.UnicodeUTF8))
         self.separator_label.setText(QtGui.QApplication.translate("Dialog", "Data Separator", None, QtGui.QApplication.UnicodeUTF8))
         self.separator_selector.setItemText(0, QtGui.QApplication.translate("Dialog", "Whitespace (Space, Tab)", None, QtGui.QApplication.UnicodeUTF8))
-        self.separator_selector.setItemText(1, QtGui.QApplication.translate("Dialog", "Comma (.)", None, QtGui.QApplication.UnicodeUTF8))
+        self.separator_selector.setItemText(1, QtGui.QApplication.translate("Dialog", "Comma (,)", None, QtGui.QApplication.UnicodeUTF8))
         self.ok_button.setText(QtGui.QApplication.translate("Dialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
         self.cancel_button.setText(QtGui.QApplication.translate("Dialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
 
