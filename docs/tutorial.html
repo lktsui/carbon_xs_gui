@@ -132,10 +132,10 @@
             </ul>
             
             <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern may be a text file in a two column format separated by spaces, tabs,
-            or commas. The first column is the 2&theta; values in degrees and the second column is intensity. If the pattern is incorrectly formatted, the following error will be shown in the message console.</p>
+            or commas. An arbitrary number of header lines is supported. The first column is the 2&theta; values in degrees and the second column is intensity. The user is prompted to select the number of header lines in their file and select the separator for their data. 
+            If the incorrect settings are applied, the following message may occur.</p>
             
-            <div class='well'>Error: Improperly formatted pattern file in file {filename}
-The pattern file should be two columns of data.</div>
+            <div class='well'>Error: loading data from {filename}. Please check that the number of header lines and the separator is correct.</div>
 
               <p>The following data formats from x-ray diffractometers are also supported:
                 <ul>
