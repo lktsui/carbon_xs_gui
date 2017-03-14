@@ -17,13 +17,35 @@ import webbrowser
 import data_io
 
 from ui_mainWindow import Ui_MainWindow
-
+from text_file_viewer import Ui_Dialog
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
 if use_pyside:
     from PySide.QtCore import *
     from PySide.QtGui import *
+
+class TextFileViewer(QtGui.QDialog, Ui_Dialog):
+
+    def __init__(self, parent=None):
+        """
+        Text File Viewer
+
+        Displays the contents of a text file so that the user may specify 
+
+        :param parent:
+        """
+
+
+        super(TextFileViewer, self).__init__(parent)
+        self.setupUi(self)
+
+        self.ok_button.clicked.connect(self.accept)
+        self.cancel_button.clicked.connect(self.reject)
+
+    def load_contents(self, filename):
+        text = open(filename).read()
+        self.text_display.setPlainText(text)
 
 class ConsoleStream(QtCore.QObject):
 
@@ -427,21 +449,47 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
             else:
-                print "Attempting to load 2 column data loading process"
+                # Pops up dialog with
+                loadtxt_dialog = TextFileViewer(self)
+                loadtxt_dialog.load_contents(fname)
+                header_dialog_accepted = loadtxt_dialog.exec_()
+                header_lines = 0
+
+                if header_dialog_accepted:
+                    header_lines = loadtxt_dialog.header_lines.value()
+                    separator_selection = loadtxt_dialog.separator_selector.currentIndex()
+
+                    if separator_selection == 1:
+                        separator = ','
+                    elif separator_selection == 0:
+                        separator = None
+
+                    else:
+                        print "Some other separator not currently implemented is selected"
 
 
-                sniffer = csv.Sniffer()
-                dialect = sniffer.sniff(input_file.readline())
+
+                else:
+                    # User cancelled
+                    return
+
+                if header_lines:
+                    print "Skipping first %d lines as header."%header_lines
+                print "Attempting to load data from text file"
+
                 try:
-                    plot_data = np.loadtxt(input_file, delimiter=dialect.delimiter)
+                    if separator:
+                        plot_data = np.loadtxt(input_file, skiprows=header_lines, delimiter=separator)
+                    else:
+                        plot_data = np.loadtxt(input_file, skiprows=header_lines)
 
                     self.x_data = plot_data[:, 0]
                     self.y_data = plot_data[:, 1]
                     self.theta_min_value.setValue(np.min(self.x_data))
                     self.theta_max_value.setValue(np.max(self.x_data))
                 except ValueError:
-                    print "Error: Improperly formatted pattern file in file %s."%fname
-                    print "The pattern file should be two columns of data."
+                    print "Error: loading data from %s"%fname
+                    print "Please check that the number of header lines and the separator is correct."
 
                     return
 
