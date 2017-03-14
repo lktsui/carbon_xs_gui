@@ -299,10 +299,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.lock_y_axis.setText("Lock Pattern/Fit Y-Axis")
         self.lock_y_axis.setToolTip("Locks the Y-Axis during pattern/fit plotting.")
 
+        self.lock_x_axis = QtGui.QCheckBox(self)
+        self.lock_x_axis.setText("Lock Pattern/Fit X-Axis")
+        self.lock_x_axis.setToolTip("Locks the X-Axis during pattern/fit plotting.")
+
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
 
         self.plot_buttons_layout.addWidget(self.lock_y_axis)
+        self.plot_buttons_layout.addWidget(self.lock_x_axis)
 
 
 
@@ -586,9 +591,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # If the lock y axis option is enabled, preserve the current axis limits
         # However, only do this if there is already some data that has been plotted
-        if self.lock_y_axis.checkState():
-            if len(self.x_fit_data) > 0 or len(self.x_data) > 0:
+        if len(self.x_fit_data) > 0 or len(self.x_data) > 0:
+
+            if self.lock_y_axis.checkState():
                 self.y_limit = self.ax.get_ylim()
+            if self.lock_x_axis.checkState():
+                self.x_limit = self.ax.get_xlim()
 
         self.fig.clf()
         self.ax = self.fig.add_subplot(111)
@@ -609,6 +617,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.lock_y_axis.checkState():
             self.ax.set_ylim(self.y_limit)
 
+        if self.lock_x_axis.checkState():
+            self.ax.set_xlim(self.x_limit)
 
         self.canvas.draw()
 
