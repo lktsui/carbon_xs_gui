@@ -937,12 +937,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for index, label in enumerate(self.parameter_labels):
 
             param_value = self.parameter_list[index].value()
-            if index == 0:
-                param_str = ("%4.3E"%param_value).rjust(12)
-            else:
-
-                param_str = ("%10.6f"%param_value).rjust(12)
-
+            param_str = ("%5.4E"%param_value).rjust(12)
             if self.parameter_enable_list[index].isChecked():
                 param_str += "  1    "
             else:
