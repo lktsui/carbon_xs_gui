@@ -166,6 +166,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.y_axis_lim = None
         self.x_axis_lim = None
 
+        self.current_filename = None
+
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -405,7 +407,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.ax_diff.tick_params(axis='both', which='major', labelsize=14)
         self.ax_diff.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
         self.ax_diff.set_ylabel(r'Intensity / a.u.', fontsize=14)
-        self.ax_diff.set_title("Difference Plot")
+
+
+        if self.current_filename:
+            self.ax_diff.set_title("Difference - %s"%self.current_filename)
+        else:
+            self.ax_diff.set_title("Difference")
+
+
         self.ax_diff.legend(fontsize=14, frameon=True)
         self.ax_diff.grid(True)
         self.canvas.draw()
@@ -448,40 +457,52 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
+        full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
 
-        if fname:
-            input_file = open(fname, 'r')
 
-            if fname.endswith('.mdi'):
+        previous_filename = self.current_filename
+
+        if full_path:
+            input_file = open(full_path, 'r')
+
+            _, filename = os.path.split(full_path)
+            if full_path.endswith('.mdi'):
 
                 try:
                     print "Attempting to load MDI file"
-                    self.x_data, self.y_data = data_io.read_mdi_file(fname)
+                    self.x_data, self.y_data = data_io.read_mdi_file(full_path)
 
+
+                    self.current_filename = filename
                 except ValueError:
-                    print "Error: Improperly formatted pattern file in file %s."%fname
+                    print "Error: Improperly formatted pattern file in file %s."%full_path
                     print "The pattern file should conform to the JADE MDI format."
+
+
+                    self.current_filename = previous_filename
 
                     return
 
-            elif fname.endswith('.ras'):
+            elif full_path.endswith('.ras'):
 
                 try:
                     print "Attempting to load RAS file"
-                    self.x_data, self.y_data = data_io.read_ras_file(fname)
+                    self.x_data, self.y_data = data_io.read_ras_file(full_path)
+
+                    self.current_filename = filename
 
                 except ValueError:
-                    print "Error: Improperly formatted pattern file in file %s."%fname
+                    print "Error: Improperly formatted pattern file in file %s."%full_path
                     print "The pattern file should conform to the RAS format."
 
+                    self.current_filename = previous_filename
                     return
 
 
             else:
                 # Pops up dialog with
                 loadtxt_dialog = TextFileViewer(self)
-                loadtxt_dialog.load_contents(fname)
+                loadtxt_dialog.load_contents(full_path)
                 header_dialog_accepted = loadtxt_dialog.exec_()
                 header_lines = 0
 
@@ -501,6 +522,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 else:
                     # User cancelled
+                    self.current_filename = previous_filename
                     return
 
                 if header_lines:
@@ -517,10 +539,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     self.y_data = plot_data[:, 1]
                     self.theta_min_value.setValue(np.min(self.x_data))
                     self.theta_max_value.setValue(np.max(self.x_data))
+                    self.current_filename = filename
                 except ValueError:
-                    print "Error: loading data from %s"%fname
+                    print "Error: loading data from %s"%full_path
                     print "Please check that the number of header lines and the separator is correct."
 
+                    self.current_filename = previous_filename
                     return
 
             data_pts = len(self.x_data)
@@ -606,10 +630,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if len(self.x_fit_data) > 0:
             self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
 
+
+
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
         self.ax.set_ylabel(r'Intensity / a.u.', fontsize=14)
-        self.ax.set_title("Fit Pattern")
+        if self.current_filename:
+            self.ax.set_title("Fit Pattern - %s"%self.current_filename)
+        else:
+            self.ax.set_title("Fit Pattern")
+
         self.ax.set_yscale('log')
         self.ax.legend(fontsize=14, frameon=True)
         self.ax.grid(True)
