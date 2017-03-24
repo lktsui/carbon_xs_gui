@@ -390,6 +390,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.x_fit_data = []
         self.y_fit_data = []
 
+
+
         fit_color = "#fc8d62"
         pattern_file = open(pattern_filename, 'r')
         for line in pattern_file.readlines():
@@ -469,7 +471,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if full_path.endswith('.mdi'):
 
                 try:
-                    print "Attempting to load MDI file"
+                    print "Attempting to load MDI file: %s"%full_path
                     self.x_data, self.y_data = data_io.read_mdi_file(full_path)
 
 
@@ -486,7 +488,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             elif full_path.endswith('.ras'):
 
                 try:
-                    print "Attempting to load RAS file"
+                    print "Attempting to load RAS file: %s"%full_path
                     self.x_data, self.y_data = data_io.read_ras_file(full_path)
 
                     self.current_filename = filename
@@ -527,7 +529,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 if header_lines:
                     print "Skipping first %d lines as header."%header_lines
-                print "Attempting to load data from text file"
+                print "Attempting to load data from text file: %s"%full_path
 
                 try:
                     if separator:
@@ -595,6 +597,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.y_fit_data = []
 
         pattern_file = open(pattern_filename, 'r')
+
         for line in pattern_file.readlines():
             data_elements = line.split()
             self.x_fit_data.append(float(data_elements[0]))
@@ -1318,6 +1321,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 if not self.pattern_calc_flag:
                     print "Reading new carbon.inp data and plotting new data"
                     self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
+
+
 
                 self.plot_fit_results()
 
