@@ -156,6 +156,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.y_data = []
         self.x_fit_data = []
         self.y_fit_data = []
+        self.prev_x_fit = []
+        self.prev_y_fit = []
 
         self.ax.tick_params(axis='both', which='major', labelsize=14)
         self.ax.set_xlabel('2 $\\theta$ / Degrees', fontsize=14)
@@ -305,12 +307,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.lock_x_axis.setText("Lock Pattern/Fit X-Axis")
         self.lock_x_axis.setToolTip("Locks the X-Axis during pattern/fit plotting.")
 
+        self.show_previous = QtGui.QCheckBox(self)
+        self.show_previous.setText("Show Previous Fit")
+        self.show_previous.setToolTip("Shows the Previous Iteration's Fit Result")
+        self.show_previous.setChecked(True)
+
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
 
         self.plot_buttons_layout.addWidget(self.lock_y_axis)
         self.plot_buttons_layout.addWidget(self.lock_x_axis)
-
+        self.plot_buttons_layout.addWidget(self.show_previous)
 
 
 
@@ -358,7 +365,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_abort_fit.triggered.connect(self.abort_fit_process)
 
         # Graph buttons
-        self.plot_pattern_button.clicked.connect(self.plot_fit_results)
+        self.plot_pattern_button.clicked.connect(self.plot_loaded_data)
         self.plot_difference_button.clicked.connect(self.plot_difference)
 
         # Help Menu
@@ -593,6 +600,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
         pattern_filename = os.path.join('carbonxs', 'carbon.dat')
 
+        self.prev_x_fit = self.x_fit_data
+        self.prev_y_fit = self.y_fit_data
+
         self.x_fit_data = []
         self.y_fit_data = []
 
@@ -615,6 +625,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
+        prev_color = "#8da0cb"
 
         # If the lock y axis option is enabled, preserve the current axis limits
         # However, only do this if there is already some data that has been plotted
@@ -632,6 +643,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
         if len(self.x_fit_data) > 0:
             self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
+        if len(self.prev_x_fit) > 0 and self.show_previous.checkState():
+            self.ax.plot(self.prev_x_fit, self.prev_y_fit,'--', label="Previous Fit", linewidth = 2, color=prev_color)
 
 
 
