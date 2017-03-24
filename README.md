@@ -1,5 +1,7 @@
 # CarbonXS_GUI
 
+[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui)
+
 Developed by Lok-kun Tsui (lktsui@unm.edu)
 
 CarbonXS (Fortran Program) by Hang Shi, J.N. Reimers, and J.R. Dahn
