@@ -25,6 +25,14 @@ if use_pyside:
     from PySide.QtCore import *
     from PySide.QtGui import *
 
+class FittingParams(object):
+    # Fitting Parameters object to store current FPs in buffer
+
+    def __init__(self, parameter_list, param_enable):
+
+        self.param_values = [param.value() for param in parameter_list]
+        self.param_flags = [pe.isChecked() for pe in param_enable]
+
 class TextFileViewer(QtGui.QDialog, Ui_Dialog):
 
     def __init__(self, parent=None):
@@ -181,6 +189,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.assignWidgets()
         self.show()
 
+        # Undo Buffer
+        self.append_to_buffer = True
+        self.undo_buffer = []
+        self.undo_index = 0
+
+
     def data_init(self):
         """"
         On startup, read the last used Carbon.INP file
@@ -197,6 +211,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Clears any SCAN.DAT file already in carbonxs directory
         if 'SCAN.DAT' in os.listdir('carbonxs'):
             os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
+
+        self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
+
 
 
     def init_ui_elements(self):
@@ -228,12 +245,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.export_fit_button.setStatusTip('Export Last Fit')
         self.export_fit_button.setToolTip("Export the carbon.out, carbon.dat, and new CARBON.INP files of the most recent fit run by CarbonXS.")
 
+        self.back_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','back_button.png')), 'Previous Fit/Calc', self)
+        self.back_button.setStatusTip('Go to Previous Fit or Calculation')
+        self.back_button.setToolTip("Go to Previous Fit or Calculation")
+
+        self.forward_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','forward_button.png')), 'Next Fit/Calc', self)
+        self.forward_button.setStatusTip('Go to Next Fit or Calculation')
+        self.forward_button.setToolTip("Go to Next Fit or Calculation")
+
         self.toolbar = self.addToolBar('Tools')
         self.toolbar.addAction(self.open_pattern_button)
         self.toolbar.addAction(self.calculate_pattern_button)
         self.toolbar.addAction(self.fit_pattern_button)
         self.toolbar.addAction(self.abort_fit_button)
         self.toolbar.addAction(self.export_fit_button)
+        self.toolbar.addAction(self.back_button)
+        self.toolbar.addAction(self.forward_button)
 
     @QtCore.Slot(str)
     def on_stream_message(self, message):
@@ -335,10 +362,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Toolbar buttons
         self.open_pattern_button.triggered.connect(self.open_pattern)
-        self.calculate_pattern_button.triggered.connect(self.calculate_pattern)
+        self.calculate_pattern_button.triggered.connect(lambda: self.calculate_pattern(append_to_buffer=True))
         self.fit_pattern_button.triggered.connect(self.start_fitting_process)
         self.abort_fit_button.triggered.connect(self.abort_fit_process)
         self.export_fit_button.triggered.connect(self.export_fit_results)
+        self.back_button.triggered.connect(self.go_back)
 
         # Enable/Disable/Invert All Parameter Buttons
         self.enable_all_button.clicked.connect(self.enable_all_params)
@@ -360,7 +388,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_export_fittingsettings.triggered.connect(self.export_fitting_settings)
 
         # Fitting Process Options
-        self.menu_calculate_pattern.triggered.connect(self.calculate_pattern)
+        self.menu_calculate_pattern.triggered.connect(lambda: self.calculate_pattern(append_to_buffer=True))
         self.menu_start_fit.triggered.connect(self.start_fitting_process)
         self.menu_abort_fit.triggered.connect(self.abort_fit_process)
 
@@ -1192,8 +1220,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "Parameter check passed with 0 errors. Proceeding with fit."
             return True
 
-
-
     def start_fitting_process(self):
         """
         Calls the fitting process to begin
@@ -1264,11 +1290,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         os.chdir('..')
 
 
-    def calculate_pattern(self):
+    def calculate_pattern(self, append_to_buffer=True):
         """
         Calculate a pattern based on the currently loaded parameters without performing a fit
         :return:
         """
+
+        self.append_to_buffer = append_to_buffer
 
         print "Beginning Pattern Calculation Process"
 
@@ -1317,12 +1345,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fit_pattern_button.setEnabled(True)
         self.abort_flag = True
 
-    def fitting_finished(self):
+    def fitting_finished(self, append_to_buffer):
         """
         Method to handle completion of fitting process
         :return:
         """
-
 
         if not self.abort_flag:
 
@@ -1348,6 +1375,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     if reply == QtGui.QMessageBox.Yes:
                         self.export_fit_results()
 
+                if self.append_to_buffer:
+                    # Truncate buffer at current index
+                    self.undo_buffer = self.undo_buffer[:self.undo_index]
+                    self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
+                    self.undo_index += 1
+
+                    print "Undo Buffer Size", len(self.undo_buffer)
+                    print "Undo Index", self.undo_index
 
             # Exit Code 1 indicates a crash in CarbonXS
             # Do NOT load any settings the program wrote
@@ -1415,6 +1450,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                             shutil.copy(os.path.join('carbonxs', data_file), destination)
                             print "Copied %s file to %s" %(data_file, destination)
 
+    def go_back(self):
+
+        if self.undo_index - 1 >= 0:
+
+            load_params = self.undo_buffer[self.undo_index-1]
+            for index, value in enumerate(load_params.param_values):
+                self.parameter_list[index].setValue(value)
+            for en_index, enabled in enumerate(load_params.param_values):
+                self.parameter_enable_list[en_index].setChecked(enabled)
+
+            self.undo_index -= 1
+
+            self.calculate_pattern(append_to_buffer=False)
+
+        else:
+
+            print "Cannot go further back"
 
     # Help Menu Methods
     def open_documentation(self):
