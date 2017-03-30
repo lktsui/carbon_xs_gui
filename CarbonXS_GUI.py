@@ -1147,10 +1147,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.param_13.value() < 0:
             print "ERROR: Del (Interplanar strain) must be greater than 0."
             errors += 1
-        if self.param_14.value() < 0:
+        if self.param_16.value() < 0:
             print "Warning: Debye Waller Temperature factor is less than 0."
             errors += 1
-        if self.param_14.value() < 0:
+        if self.param_17.value() < 0:
             print "Warning: Preferential Orientation Factor is less than 0."
             errors += 1
 
