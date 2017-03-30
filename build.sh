@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 rm -r build
 rm -r dist
 python setup.py py2exe
@@ -11,7 +12,5 @@ cp carbonxs/carbon.cmn dist/carbonxs
 cp -r docs dist
 cp -r config dist
 cp -r README.md dist
+cp LICENSE dist
 cp winlib/*.dll dist/carbonxs
-
-
-
