@@ -1388,9 +1388,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     self.check_undo_index()
 
-                    print "Undo Buffer Size", len(self.undo_buffer)
-                    print "Undo Index", self.undo_index
-
             # Exit Code 1 indicates a crash in CarbonXS
             # Do NOT load any settings the program wrote
             elif self.fitting_process.exitCode() == 1:
@@ -1471,13 +1468,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             self.calculate_pattern(append_to_buffer=False)
             self.check_undo_index()
-
-            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
-
         else:
-
             print "Cannot go further back"
-            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
 
     def go_forward(self):
 
@@ -1492,11 +1484,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.undo_index += 1
             self.calculate_pattern(append_to_buffer=False)
             self.check_undo_index()
-
-            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
         else:
-
-            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
             print "Cannot go further forward"
 
     def check_undo_index(self):
