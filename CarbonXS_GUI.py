@@ -1455,6 +1455,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                             print "Copied %s file to %s" %(data_file, destination)
 
     def go_back(self):
+        """
+        Go to the previous item in the data buffer and plot the result
+        
+        :return: 
+        """
 
         if self.undo_index - 1 >= 0:
 
@@ -1472,6 +1477,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "Cannot go further back"
 
     def go_forward(self):
+        """
+        Go to the next item in the data buffer and plot the result
+        
+        :return: 
+        """
 
         if self.undo_index + 1 < len(self.undo_buffer):
 
