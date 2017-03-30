@@ -1378,7 +1378,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     # Truncate buffer at current index
 
                     if self.undo_index < len(self.undo_buffer) - 1 and self.undo_buffer:
-                        self.undo_buffer = self.undo_buffer[:self.undo_index]
+                        self.undo_buffer = self.undo_buffer[:self.undo_index+1]
 
 
                     self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
