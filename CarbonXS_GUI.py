@@ -212,9 +212,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if 'SCAN.DAT' in os.listdir('carbonxs'):
             os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
 
-        self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
-
-
+        self.check_undo_index()
 
     def init_ui_elements(self):
         """
@@ -367,6 +365,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.abort_fit_button.triggered.connect(self.abort_fit_process)
         self.export_fit_button.triggered.connect(self.export_fit_results)
         self.back_button.triggered.connect(self.go_back)
+        self.forward_button.triggered.connect(self.go_forward)
 
         # Enable/Disable/Invert All Parameter Buttons
         self.enable_all_button.clicked.connect(self.enable_all_params)
@@ -1377,9 +1376,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 if self.append_to_buffer:
                     # Truncate buffer at current index
-                    self.undo_buffer = self.undo_buffer[:self.undo_index]
+
+                    if self.undo_index < len(self.undo_buffer) - 1 and self.undo_buffer:
+                        self.undo_buffer = self.undo_buffer[:self.undo_index]
+
+
                     self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
-                    self.undo_index += 1
+                    self.undo_index = len(self.undo_buffer)-1
+
+                    self.check_undo_index()
 
                     print "Undo Buffer Size", len(self.undo_buffer)
                     print "Undo Index", self.undo_index
@@ -1463,10 +1468,52 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.undo_index -= 1
 
             self.calculate_pattern(append_to_buffer=False)
+            self.check_undo_index()
+
+            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
 
         else:
 
             print "Cannot go further back"
+            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
+
+    def go_forward(self):
+
+        if self.undo_index + 1 < len(self.undo_buffer):
+
+            load_params = self.undo_buffer[self.undo_index+1]
+            for index, value in enumerate(load_params.param_values):
+                self.parameter_list[index].setValue(value)
+            for en_index, enabled in enumerate(load_params.param_values):
+                self.parameter_enable_list[en_index].setChecked(enabled)
+
+            self.undo_index += 1
+            self.calculate_pattern(append_to_buffer=False)
+            self.check_undo_index()
+
+            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
+        else:
+
+            print "Buffer index is now %d of %d"%(self.undo_index, len(self.undo_buffer))
+            print "Cannot go further forward"
+
+    def check_undo_index(self):
+        """
+        Checks whether the undo index is at the beginning or end of its limits and disable the buttons respectively
+        :return: 
+        
+        """
+
+        if self.undo_index == 0:
+            self.back_button.setEnabled(False)
+        else:
+            self.back_button.setEnabled(True)
+
+        if self.undo_index == len(self.undo_buffer)-1 or not self.undo_buffer:
+            self.forward_button.setEnabled(False)
+        else:
+            self.forward_button.setEnabled(True)
+
 
     # Help Menu Methods
     def open_documentation(self):
