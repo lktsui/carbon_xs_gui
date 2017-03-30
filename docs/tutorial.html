@@ -131,16 +131,23 @@
                 <li><img src="img/open_pattern.png" width="32" height="32" alt="Folder Icon"/> - Press this button to open a new XRD pattern for fitting.</li>
             </ul>
             
-            <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option. The XRD pattern may be a text file in a two column format separated by spaces, tabs,
+            
+            
+            <p>Click the folder icon to open an XRD pattern or access this option from the <em>File</em>-<em>Open XRD Pattern</em> menu option.
+
+            <p><img src="img/data_load_window.png"  class="img-responsive center-block" alt="Load Pattern Dialog"></p>
+            
+
+            The XRD pattern may be a text file in a two column format separated by spaces, tabs,
             or commas. An arbitrary number of header lines is supported. The first column is the 2&theta; values in degrees and the second column is intensity. The user is prompted to select the number of header lines in their file and select the separator for their data. 
-            If the incorrect settings are applied, the following message may occur.</p>
+            If the incorrect settings are applied, the following message will be emitted at the console:</p>
             
             <div class='well'>Error: loading data from {filename}. Please check that the number of header lines and the separator is correct.</div>
 
               <p>The following data formats from x-ray diffractometers are also supported:
                 <ul>
                     <li>Jade MDI format: *.mdi</li>
-                    <li>Rikgaku RAS format: *.ras</li>
+                    <li>Rigaku RAS format: *.ras</li>
                     <li>X-Y format: *.xy</li>
                 </ul>
 
