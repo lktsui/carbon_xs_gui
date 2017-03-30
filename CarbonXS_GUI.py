@@ -33,8 +33,6 @@ class FittingParams(object):
         self.param_values = [param.value() for param in parameter_list]
 
         self.param_flags = [pe.isChecked() for pe in param_enable]
-        print self.param_flags
-
 
 class TextFileViewer(QtGui.QDialog, Ui_Dialog):
 
@@ -1466,7 +1464,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             load_params = self.undo_buffer[self.undo_index-1]
             for index, value in enumerate(load_params.param_values):
                 self.parameter_list[index].setValue(value)
-            for en_index, enabled in enumerate(load_params.param_values):
+            for en_index, enabled in enumerate(load_params.param_flags):
                 self.parameter_enable_list[en_index].setChecked(enabled)
 
             self.undo_index -= 1
@@ -1488,7 +1486,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             load_params = self.undo_buffer[self.undo_index+1]
             for index, value in enumerate(load_params.param_values):
                 self.parameter_list[index].setValue(value)
-            for en_index, enabled in enumerate(load_params.param_values):
+            for en_index, enabled in enumerate(load_params.param_flags):
                 self.parameter_enable_list[en_index].setChecked(enabled)
 
             self.undo_index += 1
