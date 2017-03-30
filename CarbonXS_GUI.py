@@ -195,6 +195,32 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.undo_buffer = []
         self.undo_index = 0
 
+    def write_config(self):
+
+        """
+        Exports the current program configuration to JSON
+        
+        
+        :return: 
+        """
+
+        configuration = {'program_config':
+                             {'last_header_lines':self.last_header_lines_used,
+                              'last_separator':self.last_separator_used,
+                              'lock_x':bool(self.lock_x_axis.checkState()),
+                              'lock_y':bool(self.lock_y_axis.checkState()),
+                              'show_previous_fit':bool(self.show_previous.checkState()),
+
+                              }
+
+
+                         }
+
+        config_file = open(os.path.join('config','config.json'), 'w')
+
+        ujson.dump(configuration, config_file, indent=4)
+
+
 
     def data_init(self):
         """"
@@ -212,6 +238,42 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Clears any SCAN.DAT file already in carbonxs directory
         if 'SCAN.DAT' in os.listdir('carbonxs'):
             os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
+
+        # Read in the previously written configuration file
+        if 'config.json' in os.listdir('config'):
+            config_file = open(os.path.join('config', 'config.json'),'r')
+            config = ujson.load(config_file)
+
+            try:
+                self.lock_y_axis.setChecked(config['program_config']['lock_y'])
+            except KeyError:
+                print "No configuration found for Y Axis Lock in config.json. Setting to default of False."
+                self.lock_y_axis.setChecked(False)
+
+            try:
+                self.lock_x_axis.setChecked(config['program_config']['lock_x'])
+            except KeyError:
+                print "No configuration found for X Axis Lock in config.json. Setting to default of False."
+                self.lock_x_axis.setChecked(False)
+
+            try:
+                self.show_previous.setChecked(config['program_config']['show_previous_fit'])
+            except KeyError:
+                print "No configuration found for Show Previous in config.json. Setting to default of False."
+                self.show_previous.setChecked(False)
+
+            try:
+                self.last_separator_used = config['program_config']['last_separator']
+            except KeyError:
+                print "No configuration found for Last Separator Type used. Defaulting to Whitespace"
+                self.last_separator_used = 0
+
+            try:
+                self.last_header_lines_used = config['program_config']['last_header_lines']
+            except KeyError:
+                print "No configuration found for Last Number of Header Lines used. Defaulting to 0 Header Lines"
+                self.last_header_lines_used = 0
+
 
         self.check_undo_index()
 
@@ -336,7 +398,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.show_previous = QtGui.QCheckBox(self)
         self.show_previous.setText("Show Previous Fit")
         self.show_previous.setToolTip("Shows the Previous Iteration's Fit Result")
-        self.show_previous.setChecked(True)
 
         self.plot_buttons_layout.addWidget(self.plot_pattern_button)
         self.plot_buttons_layout.addWidget(self.plot_difference_button)
@@ -1548,6 +1609,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         "Version %s.\nGUI by Lok-kun Tsui.\nCarbonXS by H. Shi, J.N. Reimers, and J.R. Dahn."%self.version,
                                               QtGui.QMessageBox.Close)
 
+
+    def closeEvent(self, event):
+        print "Closing program"
+        self.write_config()
 
 
 def main():
