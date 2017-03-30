@@ -1,18 +1,14 @@
-import sys
 from PySide import QtGui, QtCore
 import ujson
 import sys
 import os
 import numpy as np
 from matplotlib.figure import Figure
-from matplotlib.backend_bases import key_press_handler
 from matplotlib.backends.backend_qt4agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.backends import qt_compat
 import shutil
-import csv
-import subprocess
 import webbrowser
 import data_io
 
@@ -178,6 +174,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.x_axis_lim = None
 
         self.current_filename = None
+
+        # Remember the last header lines / separator used
+        self.last_header_lines_used = 0
+        self.last_separator_used = 0
 
 
         # Fitting Process
@@ -540,6 +540,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 # Pops up dialog with
                 loadtxt_dialog = TextFileViewer(self)
                 loadtxt_dialog.load_contents(full_path)
+                loadtxt_dialog.header_lines.setValue(self.last_header_lines_used)
+                loadtxt_dialog.separator_selector.setCurrentIndex(self.last_separator_used)
                 header_dialog_accepted = loadtxt_dialog.exec_()
                 header_lines = 0
 
@@ -577,6 +579,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     self.theta_min_value.setValue(np.min(self.x_data))
                     self.theta_max_value.setValue(np.max(self.x_data))
                     self.current_filename = filename
+
+                    self.last_header_lines_used = header_lines
+                    self.last_separator_used = separator_selection
+
                 except ValueError:
                     print "Error: loading data from %s"%full_path
                     print "Please check that the number of header lines and the separator is correct."
