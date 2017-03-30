@@ -31,7 +31,10 @@ class FittingParams(object):
     def __init__(self, parameter_list, param_enable):
 
         self.param_values = [param.value() for param in parameter_list]
+
         self.param_flags = [pe.isChecked() for pe in param_enable]
+        print self.param_flags
+
 
 class TextFileViewer(QtGui.QDialog, Ui_Dialog):
 
@@ -1267,6 +1270,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.write_scan_data("SCAN.DAT")
         self.pattern_calc_flag = False
+        self.append_to_buffer = True
 
         print "Calling CarbonXS"
 
