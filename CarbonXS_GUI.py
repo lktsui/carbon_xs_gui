@@ -483,6 +483,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
 
 
+        self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip() +" "+ QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open)))
+        self.calculate_pattern_button.setToolTip(self.calculate_pattern_button.toolTip() +" "+ QtGui.QKeySequence.toString(QtGui.QKeySequence(Qt.CTRL+Qt.Key_R)))
+
 
     def plot_difference(self):
 
