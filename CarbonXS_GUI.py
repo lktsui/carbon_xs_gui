@@ -476,11 +476,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.menu_open_xrd_pattern.setShortcut(QtGui.QKeySequence.Open)
         self.menu_tutorial.setShortcut(QtGui.QKeySequence.HelpContents)
-        self.calculate_pattern_button.setShortcut(Qt.CTRL+Qt.Key_R)
-        self.fit_pattern_button.setShortcut(Qt.CTRL+Qt.SHIFT+Qt.Key_R)
-        self.abort_fit_button.setShortcut(Qt.CTRL+Qt.Key_D)
+        self.menu_calculate_pattern.setShortcut(Qt.CTRL+Qt.Key_R)
+        self.menu_start_fit.setShortcut(Qt.CTRL+Qt.SHIFT+Qt.Key_R)
+        self.menu_abort_fit.setShortcut(Qt.CTRL+Qt.Key_D)
         self.back_button.setShortcut(QtGui.QKeySequence.Back)
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
+
 
 
     def plot_difference(self):
