@@ -466,10 +466,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_bugreport.triggered.connect(self.open_bug_report_page)
         self.menu_about.triggered.connect(self.open_about_dialog)
 
+        self.set_shortcut_keys()
 
-        # Set Shortcut keys
+    def set_shortcut_keys(self):
+        """
+        Sets the shortcut keys for widgets
+        :return: 
+        """
+
         self.menu_open_xrd_pattern.setShortcut(QtGui.QKeySequence.Open)
         self.menu_tutorial.setShortcut(QtGui.QKeySequence.HelpContents)
+        self.calculate_pattern_button.setShortcut(Qt.CTRL+Qt.Key_R)
+        self.fit_pattern_button.setShortcut(Qt.CTRL+Qt.SHIFT+Qt.Key_R)
+
 
     def plot_difference(self):
 
