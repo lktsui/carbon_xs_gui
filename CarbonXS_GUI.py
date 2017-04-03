@@ -437,6 +437,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # self.import_data.clicked.connect(self.load_parameters)
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
+        self.menu_open_xrd_pattern.setShortcut(QtGui.QKeySequence.Open)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
