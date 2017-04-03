@@ -483,8 +483,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
 
 
-        self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip() +" "+ QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open), format=QKeySequence.NativeText))
-        self.calculate_pattern_button.setToolTip(self.calculate_pattern_button.toolTip() +" "+ QtGui.QKeySequence.toString(QtGui.QKeySequence(Qt.CTRL+Qt.Key_R), format=QKeySequence.NativeText))
+        self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open),
+                                                                                                                 format=QKeySequence.NativeText))
+        self.calculate_pattern_button.setToolTip(self.calculate_pattern_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(Qt.CTRL+Qt.Key_R),
+                                                                                                                           format=QKeySequence.NativeText))
+        self.fit_pattern_button.setToolTip(self.fit_pattern_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(Qt.CTRL+Qt.SHIFT+Qt.Key_R),
+                                                                                                                           format=QKeySequence.NativeText))
+        self.abort_fit_button.setToolTip(self.abort_fit_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(Qt.CTRL+Qt.Key_D),
+                                                                                                             format=QKeySequence.NativeText))
+        self.back_button.setToolTip(self.back_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Back),
+                                                                                                         format=QKeySequence.NativeText))
+        self.forward_button.setToolTip(self.forward_button.toolTip()+" "+QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Forward),
+                                                                                                    format=QKeySequence.NativeText))
 
 
     def plot_difference(self):
