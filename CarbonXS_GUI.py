@@ -479,6 +479,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.calculate_pattern_button.setShortcut(Qt.CTRL+Qt.Key_R)
         self.fit_pattern_button.setShortcut(Qt.CTRL+Qt.SHIFT+Qt.Key_R)
         self.abort_fit_button.setShortcut(Qt.CTRL+Qt.Key_D)
+        self.back_button.setShortcut(QtGui.QKeySequence.Back)
+        self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
+
 
     def plot_difference(self):
 
