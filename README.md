@@ -1,6 +1,6 @@
 # CarbonXS_GUI
 
-[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui)
+[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui) - Last Release: March 31, 2017
 
 Developed by Lok-kun Tsui (lktsui@unm.edu)
 
