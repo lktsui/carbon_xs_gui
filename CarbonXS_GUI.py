@@ -285,6 +285,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
+
+
         self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','open.png')), 'Open Pattern', self)
         self.open_pattern_button.setStatusTip('Open Pattern')
         self.open_pattern_button.setToolTip("Opens a new XRD pattern.")
@@ -420,6 +422,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
+
+
         # Toolbar buttons
         self.open_pattern_button.triggered.connect(self.open_pattern)
         self.calculate_pattern_button.triggered.connect(lambda: self.calculate_pattern(append_to_buffer=True))
@@ -437,7 +441,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # self.import_data.clicked.connect(self.load_parameters)
         self.menu_open_xrd_pattern.triggered.connect(self.open_pattern)
-        self.menu_open_xrd_pattern.setShortcut(QtGui.QKeySequence.Open)
         self.menu_import_carboninp.triggered.connect(self.import_from_carboninp)
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
@@ -464,6 +467,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_about.triggered.connect(self.open_about_dialog)
 
 
+        # Set Shortcut keys
+        self.menu_open_xrd_pattern.setShortcut(QtGui.QKeySequence.Open)
+        self.menu_tutorial.setShortcut(QtGui.QKeySequence.HelpContents)
 
     def plot_difference(self):
 
