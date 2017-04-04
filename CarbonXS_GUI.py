@@ -229,7 +229,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Attempts to load a Carbon.INP file if it exists
         try:
-            self.read_carboninp(os.path.join('carbonxs', 'CARBON.INP'))
+            self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
 
             print "Loaded most recently used parameters successfully from 'carbonxs' directory."
         except IOError:
