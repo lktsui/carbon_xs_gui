@@ -1095,14 +1095,14 @@ C
 
         WRITE(IU,*)
         WRITE(IU,*)'Final Parameters'
-        WRITE(IU,*)'Old Value    New Value     (esd)',
+        WRITE(IU,*)'Old Value      New Value        (esd)',
      *                  '          Description'
         DO I=1,N
           IF (SA(I) .NE. 0) THEN
             FMT = "(E12.6,'    ',E12.6,'   ','(',E12.6,')',' ',A50)"
             WRITE(IU,FMT) AO(I),A(I),SA(I),AN(I)
           ELSE
-            FMT = "(E12.6,'    ',E12.6,'                 ',A50)"
+            FMT = "(E12.6,'    ',E12.6,'                  ',A50)"
             WRITE(IU,FMT) AO(I),A(I),AN(I)
           ENDIF
         ENDDO
