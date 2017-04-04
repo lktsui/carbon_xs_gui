@@ -1331,7 +1331,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Verifies that XRD pattern data has been loaded
         if len(self.x_data) > 0 and len(self.y_data) > 0:
-            print "Beginning Fitting Process"
+            print "Beginning fitting process."
 
             # If all sanity checks pass, proceed with fit
             if self.sanity_checks():
@@ -1359,26 +1359,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-
         os.chdir('carbonxs')
 
-        print "Wrote carbon.inp to the CarbonXS Directory"
+        print "Writing carbon.inp to the carbonxs directory."
 
         self.write_carboninp("carbon.inp")
 
-        print "Wrote SCAN.DAT to the CarbonXS Directory"
+        print "Writing SCAN.DAT to the carbonxs directory."
 
         self.write_scan_data("SCAN.DAT")
         self.pattern_calc_flag = False
         self.append_to_buffer = True
 
-        print "Calling CarbonXS"
+        print "Calling CarbonXS."
 
         if "win32" in sys.platform:
-            print "Windows Detected"
+            print "Windows detected - calling carbonxs_gfortran.exe"
             self.fitting_process.start('carbonxs_gfortran.exe')
         elif 'linux' in sys.platform or 'darwin' in sys.platform:
-            print "Linux/OSX Detected"
+            print "Linux/OSX detected - calling carbonxs_app"
             self.fitting_process.start('./carbonxs_app')
         else:
             print "WARNING UNSUPPORTED PLATFORM"
@@ -1401,15 +1400,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.append_to_buffer = append_to_buffer
 
-        print "Beginning Pattern Calculation Process"
+        print "Beginning pattern calculation process."
 
         os.chdir('carbonxs')
 
-        print "Wrote carbon.inp to the CarbonXS Directory"
+        print "Wrote carbon.inp to the carbonxs directory."
 
         self.write_carboninp("carbon.inp", disable_fit=True)
 
-        print "Calling CarbonXS"
+        print "Calling CarbonXS."
         self.pattern_calc_flag = True
 
         self.menu_start_fitting.setEnabled(False)
@@ -1418,11 +1417,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fit_pattern_button.setEnabled(False)
 
         if "win32" in sys.platform:
-            print "Windows detected"
+            print "Windows detected - calling carbonxs_gfortran.exe"
             self.fitting_process.start('carbonxs_gfortran.exe')
         elif 'linux' in sys.platform or 'darwin' in sys.platform:
 
-            print "Linux/OSX detected"
+            print "Linux/OSX detected - calling carbonxs_app"
             self.fitting_process.start('./carbonxs_app')
         else:
             print "WARNING UNSUPPORTED PLATFORM"
