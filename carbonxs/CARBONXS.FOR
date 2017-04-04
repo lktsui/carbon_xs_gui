@@ -1092,52 +1092,20 @@ C
         REAL*8  LS,TA,SARND
         CHARACTER*50 AN(N),FMT
 
-        OPEN (UNIT=20,FILE='carbon.scr')
 
         WRITE(IU,*)
         WRITE(IU,*)'Final Parameters'
-        WRITE(IU,*)'Old Value    New Value(esd)',
+        WRITE(IU,*)'Old Value    New Value     (esd)',
      *                  '          Description'
         DO I=1,N
           IF (SA(I) .NE. 0) THEN
-            SARND=SA(I)+0.5*10.0**INT(LOG10(SA(I)))
-             LS=LOG10(SARND)
-            ILS=INT(LS)
-            IF (LS .LT. 0) ILS=ILS-1
-            IF (ILS .LT. 0) THEN
-              FMT="(F12.0,T13,F12.0,'(',I1,')',T30,A50)"
-              IS=INT(SARND*10.0**(-ILS))
-              TA=A(I)
-              REWIND(20)
-              WRITE(20,'(I1)') -ILS
-              REWIND(20)
-              READ(20,'(A1)') FMT(6:6)
-              REWIND(20)
-              READ(20,'(A1)') FMT(16:16)
-              REWIND(20)
-              WRITE(20,'(I2)') 9-ILS
-              REWIND(20)
-              READ(20,'(A2)') FMT(3:4)
-              REWIND(20)
-              READ(20,'(A2)') FMT(13:14)
-              WRITE(IU,FMT) AO(I),TA,IS,AN(I)
-             ELSE
-              FMT="(I8,'.',T13,I8,'.(',I1,')',T30,A50)"
-              IS=INT(SARND)
-              TA=INT(A(I)+0.5)
-              REWIND(20)
-              WRITE(20,'(I1)') ILS+1
-              REWIND(20)
-              READ(20,'(A1)') FMT(22:22)
-              WRITE(IU,FMT) INT(AO(I)+0.5),INT(TA),IS,AN(I)
-            ENDIF
-           ELSE
-            FMT="(F14.5,T13,F14.5,T30,A50)"
+            FMT = "(E12.6,'    ',E12.6,'   ','(',E12.6,')',' ',A50)"
+            WRITE(IU,FMT) AO(I),A(I),SA(I),AN(I)
+          ELSE
+            FMT = "(E12.6,'    ',E12.6,'                 ',A50)"
             WRITE(IU,FMT) AO(I),A(I),AN(I)
           ENDIF
         ENDDO
-
-        CLOSE(20,STATUS='DELETE')
 
         RETURN
         END
