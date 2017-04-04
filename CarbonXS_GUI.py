@@ -468,6 +468,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.set_shortcut_keys()
 
+
+
+
     def set_shortcut_keys(self):
         """
         Sets the shortcut keys for widgets
@@ -481,7 +484,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_abort_fit.setShortcut(Qt.CTRL+Qt.Key_D)
         self.back_button.setShortcut(QtGui.QKeySequence.Back)
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
-
 
         self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip()+" (%s)"%QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open),
                                                                                                                  format=QKeySequence.NativeText))
@@ -1519,7 +1521,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
-        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results','.', "Full Export (.);; Jade MDI Format (*.mdi)")
+        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results','.', "Full Export (*);; Jade MDI Format (*.mdi)")
 
         if fname:
 
