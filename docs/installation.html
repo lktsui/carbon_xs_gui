@@ -51,10 +51,10 @@
             <li>Run CarbonXS_GUI.exe</li>
         </ul>
         
-        <h3><i class="fa fa-linux fa-2x" aria-hidden="true"></i> Linux (Tested on Ubuntu Distribution 16.04 LTS)</h3>
+        <h3><i class="fa fa-linux fa-2x" aria-hidden="true"></i> Linux</h3>
         
+        <h4>Ubuntu Linux (Tested on Ubuntu 16.04 LTS)</h4>
         <ul>
-            <li>The directions written here are for Debian based distributions. Please use your distribution's appropriate package manager tools.</li>
             <li>Open a terminal</li>
             <li>Install GCC: <code>sudo apt-get install gcc</code></li>
             <li>Install Git: <code>sudo apt-get install git</code></li>
@@ -71,6 +71,30 @@
             <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
             
          </ul>
+            
+
+        <h4>Fedora Linux (Tested on Fedora 25 Workstation)</h4>        
+        <ul>
+            <li>Open a terminal</li>
+            <li>Install Development Tools: <code>sudo dnf group install "Development Tools"</code></li>
+            <li>Install Gfortran: <code>sudo dnf install gcc-gfortran</code></li>
+            <li>Install Python: <code>sudo dnf install python</code></li>
+            <li>Install Python Development Tools: <code>sudo dnf install python-devel</code></li>
+            <li>Clone the repository: <code>git clone https://github.com/lktsui/carbon_xs_gui/</code></li>
+            <li>Navigate to carbonxs directory: <code>cd carbon_xs_gui/carbonxs</code></li>
+            <li>Compile CarbonXS: <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>
+            <li>Install Python dependencies
+                <ul>
+                <li><code>sudo dnf install python-pyside</code></li>
+                <li><code>sudo dnf install python-matplotlib</code></li>
+                <li><code>sudo dnf install python-matplotlib-qt4</code></li>
+                <li><code>sudo pip install ujson</code></li>
+                </ul>
+            </li>
+            <li>Launch CarbonXS GUI: <code>python CarbonXS_GUI.py</code></li>
+            
+         </ul>
+            
             
          <h3><i class="fa fa-apple fa-2x" aria-hidden="true"></i> Mac OSX (Tested on macOS 10.12 Sierra)</h3>
         
