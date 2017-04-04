@@ -1349,6 +1349,7 @@ C
                   ICOL=K
                 ENDIF
               ELSE IF (IPIV(K).GT.1) THEN
+                WRITE(*,*) "Singular Matrix."
                 PAUSE 'Singular matrix'
               ENDIF
 12          CONTINUE
@@ -1369,7 +1370,12 @@ C
         ENDIF
         INDXR(I)=IROW
         INDXC(I)=ICOL
-        IF (A(ICOL,ICOL).EQ.0.) PAUSE 'Singular matrix.'
+        IF (A(ICOL,ICOL).EQ.0.) THEN
+            WRITE(*,*) 'Singular matrix.'
+            PAUSE 'Singular matrix'
+        ENDIF
+
+
         PIVINV=1./A(ICOL,ICOL)
         A(ICOL,ICOL)=1.
         DO 16 L=1,N
