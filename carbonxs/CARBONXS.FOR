@@ -205,7 +205,7 @@ C
      +                NPARX,CHISQ,ALLINTEN,ALAMBDA,DYDA)
           WRITE(*,30) I,CHISQ,ALAMBDA
           WRITE(3,30) I,CHISQ,ALAMBDA
-30        FORMAT(I4,5X,F10.5,1X,E8.2)
+30        FORMAT(I4,5X,E10.5,1X,E8.2)
           IF ((OCH-CHISQ)/CHISQ .LT. EPS .AND. 
      +                        ALAMBDA .LE. OAL) GOTO 40
 
