@@ -4,6 +4,7 @@ rm -r dist
 python setup.py py2exe
 cp -r examples dist
 cp -r icons dist
+cp -r fonts dist
 mkdir dist/carbonxs
 cp carbonxs/carbonxs_gfortran.exe dist/carbonxs
 cp carbonxs/compiling.txt dist/carbonxs
