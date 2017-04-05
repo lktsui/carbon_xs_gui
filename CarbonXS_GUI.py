@@ -195,6 +195,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.undo_buffer = []
         self.undo_index = 0
 
+        QtGui.QFontDatabase.addApplicationFont(os.path.join('fonts', 'SourceCodePro-Regular.ttf'))
+        console_font = QtGui.QFont()
+        console_font.setFamily('Source Code Pro')
+        self.console.setFont(console_font)
+
+
+
+
     def write_config(self):
 
         """
