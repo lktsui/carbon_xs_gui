@@ -931,7 +931,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 print 'Imported Fitting Parameters from: %s'%fname
                 self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
-                self.parameter_load_check()
+                errors, warnings = self.check_fitting_parameters()
+                if errors+warnings > 0:
+                    print "Found %d errors and %d warnings. Please ensure parameters are physically meaningful."%(errors, warnings)
+
+
             except ValueError:
                 print "Error in loading JSON file: %s."%(fname)
                 print "Verify that the configuration file is properly formatted."
@@ -1232,41 +1236,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.parameter_list[index].setValue(param_value)
             self.parameter_enable_list[index].setChecked(param_enable)
 
-        self.parameter_load_check()
-
-
-    def parameter_load_check(self):
-        """
-        Performs sanity check and alerts the user if values may potentially be out of bounds
-
-        :return:
-        """
-
-        print "Performing checks on fitting parameters."
-
-        errors = 0
-        if self.param_14.value() > 1 or  self.param_14.value() < 0:
-            print "ERROR: Pr must be between 0 and 1."
-            errors += 1
-        if self.param_15.value() > 1 or  self.param_15.value() < 0:
-            print "ERROR: Pt must be between 0 and 1."
-            errors += 1
-        if self.param_12.value() < 0:
-            print "ERROR: Dab (In plane strain) must be greater than 0."
-            errors += 1
-        if self.param_13.value() < 0:
-            print "ERROR: Del (Interplanar strain) must be greater than 0."
-            errors += 1
-        if self.param_16.value() < 0:
-            print "Warning: Debye Waller Temperature factor is less than 0."
-            errors += 1
-        if self.param_17.value() < 0:
-            print "Warning: Preferential Orientation Factor is less than 0."
-            errors += 1
-
-        if errors > 0:
-            print "Encountered %d errors or warnings. Please ensure that these values are physically meaningful."%errors
-
+        errors, warnings = self.check_fitting_parameters()
+        if errors+warnings > 0:
+            print "Found %d errors and %d warnings. Please ensure parameters are physically meaningful."%(errors, warnings)
 
     def write_scan_data(self, output_file):
         """
@@ -1285,7 +1257,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             scan_file.write(data_line)
 
-    def sanity_checks(self):
+    def pre_run_sanity_check(self):
         """
         Performs sanity checks on current settings and parameters before a fit is run.
 
@@ -1307,21 +1279,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.sample_density.value() > 1.0 or self.sample_density.value() < 0.0:
             print "Sample Density must be between 0 and 1"
             errors += 1
-        if self.param_14.value() > 1 or  self.param_14.value() < 0:
-            print "Pr must be between 0 and 1"
-            errors += 1
-        if self.param_15.value() > 1 or  self.param_15.value() < 0:
-            print "Pt must be between 0 and 1"
-            errors += 1
-        if self.param_12.value() < 0:
-            print "Dab (In plane strain) must be greater than 0"
-            errors += 1
-        if self.param_13.value() < 0:
-            print "Del (Interplanar strain) must be greater than 0"
-            errors += 1
 
 
-
+        errors, warnings = self.check_fitting_parameters()
 
         if errors > 0:
             print "Found %d errors. Aborting Fit."%errors
@@ -1329,6 +1289,40 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         else:
             print "Parameter check passed with 0 errors. Proceeding with fit."
             return True
+
+
+    def check_fitting_parameters(self):
+        """
+        Performs sanity check and alerts the user if values may potentially be out of bounds
+
+        :return:
+        """
+
+        print "Performing checks on fitting parameters."
+
+        errors = 0
+        warnings = 0
+
+        if self.param_12.value() < 0:
+            print "ERROR: Dab (In plane strain) must be greater than 0."
+            errors += 1
+        if self.param_13.value() < 0:
+            print "ERROR: Del (Interplanar strain) must be greater than 0."
+            errors += 1
+        if self.param_14.value() > 1 or  self.param_14.value() < 0:
+            print "ERROR: Pr must be between 0 and 1."
+            errors += 1
+        if self.param_15.value() > 1 or  self.param_15.value() < 0:
+            print "ERROR: Pt must be between 0 and 1."
+            errors += 1
+        if self.param_16.value() < 0:
+            print "Warning: Debye Waller Temperature factor is less than 0."
+            warnings += 1
+        if self.param_17.value() < 0:
+            print "Warning: Preferential Orientation Factor is less than 0."
+            warnings += 1
+
+        return errors, warnings
 
     def start_fitting_process(self):
         """
@@ -1342,7 +1336,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "Beginning fitting process."
 
             # If all sanity checks pass, proceed with fit
-            if self.sanity_checks():
+            if self.pre_run_sanity_check():
                 self.call_fit_program()
 
         # If not, prompt the user to load data
@@ -1356,9 +1350,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 self.open_pattern()
                 # If a pattern has been loaded, proceeed with fit.
-                if len(self.x_data) > 0 and len(self.y_data) > 0 and self.sanity_checks():
+                if len(self.x_data) > 0 and len(self.y_data) > 0 and self.pre_run_sanity_check():
                     print "Loaded an XRD pattern"
-                    if self.sanity_checks():
+                    if self.pre_run_sanity_check():
                         self.call_fit_program()
 
     def call_fit_program(self):
