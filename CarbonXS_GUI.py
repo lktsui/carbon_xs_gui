@@ -1257,7 +1257,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             scan_file.write(data_line)
 
-    def pre_run_sanity_check(self):
+    def pre_run_sanity_check(self, fit_mode):
         """
         Performs sanity checks on current settings and parameters before a fit is run.
 
@@ -1266,12 +1266,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         errors = 0
 
-        if self.iterations.value() < 1:
+        if self.iterations.value() < 1 and fit_mode:
             print "Number of iterations is less than 1. No fitting will be performed."
             print "Use Fitting -> Calculate Pattern to perform pattern calculation."
             errors += 1
 
-        if not any([enable.isChecked() for enable in self.parameter_enable_list]):
+        if not any([enable.isChecked() for enable in self.parameter_enable_list]) and fit_mode:
             print "Error: No fitting parameters are enabled."
             errors +=1
 
@@ -1286,7 +1286,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         errors += fit_errors
 
         if errors > 0:
-            print "Found %d errors and %d warnings. Aborting Fit."%(errors, warnings)
+            print "Found %d errors and %d warnings. Aborting."%(errors, warnings)
             return False
         else:
             print "Parameter check passed with 0 errors and %d warnings. Proceeding with fit."%warnings
@@ -1351,7 +1351,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "Beginning fitting process."
 
             # If all sanity checks pass, proceed with fit
-            if self.pre_run_sanity_check():
+            if self.pre_run_sanity_check(True):
                 self.call_fit_program()
 
         # If not, prompt the user to load data
@@ -1365,10 +1365,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 self.open_pattern()
                 # If a pattern has been loaded, proceeed with fit.
-                if len(self.x_data) > 0 and len(self.y_data) > 0 and self.pre_run_sanity_check():
+                if len(self.x_data) > 0 and len(self.y_data) > 0 and self.pre_run_sanity_check(True):
                     print "Loaded an XRD pattern"
-                    if self.pre_run_sanity_check():
-                        self.call_fit_program()
+                    self.call_fit_program()
 
     def call_fit_program(self):
         """
@@ -1415,38 +1414,32 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        self.append_to_buffer = append_to_buffer
+        if self.pre_run_sanity_check(False):
+            self.append_to_buffer = append_to_buffer
+            print "Beginning pattern calculation process."
+            os.chdir('carbonxs')
+            print "Wrote carbon.inp to the carbonxs directory."
+            self.write_carboninp("carbon.inp", disable_fit=True)
+            print "Calling CarbonXS."
+            self.pattern_calc_flag = True
+            self.menu_start_fitting.setEnabled(False)
+            self.menu_calculate_pattern.setEnabled(False)
+            self.calculate_pattern_button.setEnabled(False)
+            self.fit_pattern_button.setEnabled(False)
 
-        print "Beginning pattern calculation process."
+            if "win32" in sys.platform:
+                print "Windows detected - calling carbonxs_gfortran.exe"
+                self.fitting_process.start('carbonxs_gfortran.exe')
+            elif 'linux' in sys.platform or 'darwin' in sys.platform:
+                print "Linux/OSX detected - calling carbonxs_app"
+                self.fitting_process.start('./carbonxs_app')
+            else:
+                print "WARNING UNSUPPORTED PLATFORM"
 
-        os.chdir('carbonxs')
+            self.menu_abort_fit.setEnabled(True)
+            self.abort_fit_button.setEnabled(True)
 
-        print "Wrote carbon.inp to the carbonxs directory."
-
-        self.write_carboninp("carbon.inp", disable_fit=True)
-
-        print "Calling CarbonXS."
-        self.pattern_calc_flag = True
-
-        self.menu_start_fitting.setEnabled(False)
-        self.menu_calculate_pattern.setEnabled(False)
-        self.calculate_pattern_button.setEnabled(False)
-        self.fit_pattern_button.setEnabled(False)
-
-        if "win32" in sys.platform:
-            print "Windows detected - calling carbonxs_gfortran.exe"
-            self.fitting_process.start('carbonxs_gfortran.exe')
-        elif 'linux' in sys.platform or 'darwin' in sys.platform:
-
-            print "Linux/OSX detected - calling carbonxs_app"
-            self.fitting_process.start('./carbonxs_app')
-        else:
-            print "WARNING UNSUPPORTED PLATFORM"
-
-        self.menu_abort_fit.setEnabled(True)
-        self.abort_fit_button.setEnabled(True)
-
-        os.chdir('..')
+            os.chdir('..')
 
     def abort_fit_process(self):
         """
