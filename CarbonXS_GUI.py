@@ -1281,13 +1281,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             errors += 1
 
 
-        errors, warnings = self.check_fitting_parameters()
+        fit_errors, warnings = self.check_fitting_parameters()
+
+        errors += fit_errors
 
         if errors > 0:
-            print "Found %d errors. Aborting Fit."%errors
+            print "Found %d errors and %d warnings. Aborting Fit."%(errors, warnings)
             return False
         else:
-            print "Parameter check passed with 0 errors. Proceeding with fit."
+            print "Parameter check passed with 0 errors and %d warnings. Proceeding with fit."%warnings
             return True
 
 
@@ -1302,6 +1304,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         errors = 0
         warnings = 0
+
+
+
 
         if self.param_12.value() < 0:
             print "ERROR: Dab (In plane strain) must be greater than 0."
