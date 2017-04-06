@@ -1305,16 +1305,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         errors = 0
         warnings = 0
 
-        if self.param_7.value < 0:
+        if self.param_7.value() < 0:
             print "ERROR: A (In place cell constant) must be greater than 0."
             errors += 1
-        if self.param_8.value < 0:
+        if self.param_8.value() < 0:
             print "ERROR: d002 (Interlayer Spacing) must be greater than 0."
             errors += 1
-        if self.param_9.value < 0:
+        if self.param_9.value() < 0:
             print "ERROR: La (Coherence Length) must be greater than 0."
             errors += 1
-        if self.param_10.value < 0:
+        if self.param_10.value() < 0:
             print "ERROR: M (Number of Layers) must be greater than 0."
             errors += 1
 
