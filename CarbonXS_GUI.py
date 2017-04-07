@@ -1405,6 +1405,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.fit_pattern_button.setEnabled(False)
         self.menu_abort_fit.setEnabled(True)
         self.abort_fit_button.setEnabled(True)
+        self.back_button.setEnabled(False)
+        self.forward_button.setEnabled(False)
         os.chdir('..')
 
 
@@ -1456,6 +1458,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.calculate_pattern_button.setEnabled(True)
         self.fit_pattern_button.setEnabled(True)
         self.abort_flag = True
+        self.check_undo_index()
 
     def fitting_finished(self, append_to_buffer):
         """
