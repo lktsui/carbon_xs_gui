@@ -754,6 +754,39 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # colors = sns.color_palette('Set2', 2)
         self.plot_loaded_data()
 
+    def calculate_background(self, x_array):
+        """
+        Calculate Background
+        
+        Calculates the background of the fit
+        
+        :param x_array: 
+        :return: 
+        """
+
+
+        wavelength = self.wavelength.value()
+
+
+        # Converts X array into S space using S = 2*sin(x/360 deg)/lambda
+        s_array = 2*np.sin(np.array(x_array)*np.pi/(360))/wavelength
+
+        # Grabs the background parameter values
+        bg_const = self.parameter_list[1].value()
+        bg_1 = self.parameter_list[2].value()
+        bg_2 = self.parameter_list[3].value()
+        bg_3 = self.parameter_list[4].value()
+        bg_4 = self.parameter_list[5].value()
+        bg_5 = self.parameter_list[6].value()
+
+        # Calculates the background
+
+        bg = bg_const + bg_1*s_array + bg_2*np.power(s_array, 2.0) + bg_3*np.power(s_array, 3.0)+ bg_4*np.power(s_array, 4.0)
+        bg += bg_5*np.power(s_array, -1.0)
+
+        return bg
+
+
     def plot_loaded_data(self):
         """
         Plots the loaded source and fit data
@@ -764,6 +797,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         source_color = "#66c2a5"
         fit_color = "#fc8d62"
         prev_color = "#8da0cb"
+        bg_color = '#e78ac3'
+
+
+
 
         # If the lock y axis option is enabled, preserve the current axis limits
         # However, only do this if there is already some data that has been plotted
@@ -780,7 +817,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if len(self.x_data) > 0:
             self.ax.plot(self.x_data, self.y_data, label="Source", linewidth = 2, color=source_color)
         if len(self.x_fit_data) > 0:
+
+        
+            background = self.calculate_background(self.x_fit_data)
+
             self.ax.plot(self.x_fit_data, self.y_fit_data, label="Fit", linewidth = 2, color=fit_color)
+            self.ax.plot(self.x_fit_data, background, label="Background", linewidth = 2, color=bg_color)
+
+
         if len(self.prev_x_fit) > 0 and self.show_previous.checkState():
             self.ax.plot(self.prev_x_fit, self.prev_y_fit,'--', label="Previous Fit", linewidth = 2, color=prev_color)
 
