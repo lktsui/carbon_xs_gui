@@ -8,7 +8,11 @@ setup(
         "includes" : ["matplotlib.backends.backend_tkagg",
                       ],
         "packages": ['FileDialog'],
-        'excludes':["wx",'email'],
+        'excludes':["wx",'email', 'IPython', 'requests', 'tornado', 'jinja2', 'setuptools',
+                    'jupyter_client', 'ipykernel', 'jupyter_core', 'sqlite3', 'pygments',
+                    'curses', 'future',
+
+                    ],
         'bundle_files':2} # Unbreaks the music
         }
     )
