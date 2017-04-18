@@ -878,15 +878,12 @@
     <item row="0" column="2">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QWidget" name="mplwindow" native="true"/>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="mplvl"/>
       </item>
       <item>
        <widget class="QTextBrowser" name="textBrowser">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>

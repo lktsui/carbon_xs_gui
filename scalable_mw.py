@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Tue Apr 18 14:36:26 2017
+# Created: Tue Apr 18 14:38:39 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -457,14 +457,11 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addLayout(self.left_side, 0, 1, 1, 1)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.mplwindow = QtGui.QWidget(self.centralwidget)
-        self.mplwindow.setObjectName("mplwindow")
-        self.verticalLayout.addWidget(self.mplwindow)
         self.mplvl = QtGui.QVBoxLayout()
         self.mplvl.setObjectName("mplvl")
         self.verticalLayout.addLayout(self.mplvl)
         self.textBrowser = QtGui.QTextBrowser(self.centralwidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
