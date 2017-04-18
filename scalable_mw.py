@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Tue Apr 18 14:10:46 2017
+# Created: Tue Apr 18 14:28:24 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -452,6 +452,8 @@ class Ui_MainWindow(object):
         self.sample_density.setObjectName("sample_density")
         self.diffractometer_settings_list.addWidget(self.sample_density, 3, 2, 1, 1)
         self.left_side.addLayout(self.diffractometer_settings_list)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.left_side.addItem(spacerItem)
         self.gridLayout_2.addLayout(self.left_side, 0, 1, 1, 1)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
@@ -464,6 +466,8 @@ class Ui_MainWindow(object):
         self.textBrowser = QtGui.QTextBrowser(self.centralwidget)
         self.textBrowser.setObjectName("textBrowser")
         self.verticalLayout.addWidget(self.textBrowser)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 2, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
