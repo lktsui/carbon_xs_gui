@@ -906,18 +906,126 @@
    <property name="nativeMenuBar">
     <bool>true</bool>
    </property>
-   <widget class="QMenu" name="menuTest">
+   <widget class="QMenu" name="menu_file">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="menu_openpattern"/>
+    <widget class="QMenu" name="menu_category_import">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="menu_import_carboninp"/>
+     <addaction name="menu_import_diffsettings"/>
+     <addaction name="menu_import_fittingparams"/>
+     <addaction name="menu_import_fittingsettings"/>
+    </widget>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="menu_export_carboninp"/>
+     <addaction name="menu_export_diffsettings"/>
+     <addaction name="menu_export_fittingparams"/>
+     <addaction name="menu_export_fittingsettings"/>
+    </widget>
+    <addaction name="menu_open_xrd_pattern"/>
+    <addaction name="menu_category_import"/>
+    <addaction name="menuExport"/>
    </widget>
-   <addaction name="menuTest"/>
+   <widget class="QMenu" name="menuFitting">
+    <property name="title">
+     <string>Fitting</string>
+    </property>
+    <addaction name="menu_calculate_pattern"/>
+    <addaction name="menu_start_fit"/>
+    <addaction name="menu_abort_fit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="menu_tutorial"/>
+    <addaction name="menu_bugreport"/>
+    <addaction name="menu_about"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menuFitting"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="menu_openpattern">
+  <action name="menu_open_xrd_pattern">
    <property name="text">
     <string>Open XRD Pattern</string>
+   </property>
+  </action>
+  <action name="menu_import_carboninp">
+   <property name="text">
+    <string>From CARBON.INP</string>
+   </property>
+  </action>
+  <action name="menu_import_diffsettings">
+   <property name="text">
+    <string>Diffractometer Settings</string>
+   </property>
+  </action>
+  <action name="menu_import_fittingparams">
+   <property name="text">
+    <string>Fitting Parameters</string>
+   </property>
+  </action>
+  <action name="menu_import_fittingsettings">
+   <property name="text">
+    <string>Fitting Settings</string>
+   </property>
+  </action>
+  <action name="menu_export_carboninp">
+   <property name="text">
+    <string>To CARBON.INP</string>
+   </property>
+  </action>
+  <action name="menu_export_diffsettings">
+   <property name="text">
+    <string>Diffractometer Settings</string>
+   </property>
+  </action>
+  <action name="menu_export_fittingparams">
+   <property name="text">
+    <string>Fitting Parameters</string>
+   </property>
+  </action>
+  <action name="menu_export_fittingsettings">
+   <property name="text">
+    <string>Fitting Settings</string>
+   </property>
+  </action>
+  <action name="menu_calculate_pattern">
+   <property name="text">
+    <string>Calculate Pattern</string>
+   </property>
+  </action>
+  <action name="menu_start_fit">
+   <property name="text">
+    <string>Start Fitting</string>
+   </property>
+  </action>
+  <action name="menu_abort_fit">
+   <property name="text">
+    <string>Abort Fit</string>
+   </property>
+  </action>
+  <action name="menu_tutorial">
+   <property name="text">
+    <string>Documentation</string>
+   </property>
+  </action>
+  <action name="menu_bugreport">
+   <property name="text">
+    <string>Report a Bug</string>
+   </property>
+  </action>
+  <action name="menu_about">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
