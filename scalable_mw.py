@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Tue Apr 18 15:50:25 2017
+# Created: Tue Apr 18 15:54:12 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -460,14 +460,14 @@ class Ui_MainWindow(object):
         self.mplvl = QtGui.QVBoxLayout()
         self.mplvl.setObjectName("mplvl")
         self.verticalLayout.addLayout(self.mplvl)
-        self.textBrowser = QtGui.QTextBrowser(self.centralwidget)
+        self.console = QtGui.QTextBrowser(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
-        self.textBrowser.setSizePolicy(sizePolicy)
-        self.textBrowser.setObjectName("textBrowser")
-        self.verticalLayout.addWidget(self.textBrowser)
+        sizePolicy.setHeightForWidth(self.console.sizePolicy().hasHeightForWidth())
+        self.console.setSizePolicy(sizePolicy)
+        self.console.setObjectName("console")
+        self.verticalLayout.addWidget(self.console)
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 2, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)

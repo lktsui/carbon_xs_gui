@@ -12,7 +12,9 @@ import shutil
 import webbrowser
 import data_io
 
-from ui_mainWindow import Ui_MainWindow
+
+from scalable_mw import Ui_MainWindow
+
 from text_file_viewer import Ui_Dialog
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
@@ -84,16 +86,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.setWindowTitle("CarbonXS GUI v"+version)
 
         self.parameter_list = [
-            self.param_0,
-            self.param_1,
-            self.param_2,
-            self.param_3,
-            self.param_4,
-            self.param_5,
-            self.param_6,
-            self.param_7,
-            self.param_8,
-            self.param_9,
+            self.param_00,
+            self.param_01,
+            self.param_02,
+            self.param_03,
+            self.param_04,
+            self.param_05,
+            self.param_06,
+            self.param_07,
+            self.param_08,
+            self.param_09,
             self.param_10,
             self.param_11,
             self.param_12,
@@ -107,18 +109,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         for item in self.parameter_list:
             item.setMaximum(1e21)
             item.setMinimum(-1e21)
+            item.setDecimals(5)
 
         self.parameter_labels = [
-            self.param_label_0.text(),
-            self.param_label_1.text(),
-            self.param_label_2.text(),
-            self.param_label_3.text(),
-            self.param_label_4.text(),
-            self.param_label_5.text(),
-            self.param_label_6.text(),
-            self.param_label_7.text(),
-            self.param_label_8.text(),
-            self.param_label_9.text(),
+            self.param_label_00.text(),
+            self.param_label_01.text(),
+            self.param_label_02.text(),
+            self.param_label_03.text(),
+            self.param_label_04.text(),
+            self.param_label_05.text(),
+            self.param_label_06.text(),
+            self.param_label_07.text(),
+            self.param_label_08.text(),
+            self.param_label_09.text(),
             self.param_label_10.text(),
             self.param_label_11.text(),
             self.param_label_12.text(),
@@ -130,16 +133,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         ]
 
         self.parameter_enable_list = [
-            self.param_enable_0,
-            self.param_enable_1,
-            self.param_enable_2,
-            self.param_enable_3,
-            self.param_enable_4,
-            self.param_enable_5,
-            self.param_enable_6,
-            self.param_enable_7,
-            self.param_enable_8,
-            self.param_enable_9,
+            self.param_enable_00,
+            self.param_enable_01,
+            self.param_enable_02,
+            self.param_enable_03,
+            self.param_enable_04,
+            self.param_enable_05,
+            self.param_enable_06,
+            self.param_enable_07,
+            self.param_enable_08,
+            self.param_enable_09,
             self.param_enable_10,
             self.param_enable_11,
             self.param_enable_12,
@@ -188,7 +191,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.abort_flag = False
 
         self.assignWidgets()
-        self.show()
+        self.showMaximized()
 
         # Undo Buffer
         self.append_to_buffer = True
@@ -383,7 +386,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.canvas)
         self.canvas.draw()
 
-        self.mpl_toolbar = NavigationToolbar(self.canvas, self.mplwindow)
+        self.mpl_toolbar = NavigationToolbar(self.canvas, self)
         self.mplvl.addWidget(self.mpl_toolbar)
 
 
@@ -881,7 +884,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             ujson.dump(diffractometer_settings, data_file, indent = 4)
 
             print 'Exported Diffractometer Settings to: %s'%fname
-            self.statusBar.showMessage('Exported Diffractometer Settings to: %s'%fname)
+            self.statusBar().showMessage('Exported Diffractometer Settings to: %s'%fname)
 
 
 
@@ -912,7 +915,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 print 'Imported Diffractometer Settings from: %s'%fname
 
-                self.statusBar.showMessage('Imported Diffractometer Settings from: %s'%fname)
+                self.statusBar().showMessage('Imported Diffractometer Settings from: %s'%fname)
 
             except ValueError:
                 print "Error in loading JSON file: %s."%(fname)
@@ -947,7 +950,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             ujson.dump(fitting_params, data_file, indent = 4)
 
             print 'Exported Fitting Parameters to: %s'%fname
-            self.statusBar.showMessage('Exported Fitting Parameters to: %s'%fname)
+            self.statusBar().showMessage('Exported Fitting Parameters to: %s'%fname)
 
     def import_fitting_params(self):
         """
@@ -974,7 +977,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     self.parameter_enable_list[index].setChecked(enabled)
 
                 print 'Imported Fitting Parameters from: %s'%fname
-                self.statusBar.showMessage('Imported Fitting Parameters from: %s'%fname)
+                self.statusBar().showMessage('Imported Fitting Parameters from: %s'%fname)
                 errors, warnings = self.check_fitting_parameters()
                 if errors+warnings > 0:
                     print "Found %d errors and %d warnings. Please ensure parameters are physically meaningful."%(errors, warnings)
@@ -1030,7 +1033,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             ujson.dump(fitting_settings, data_file, indent = 4)
 
             print 'Exported Fitting Settings to: %s'%fname
-            self.statusBar.showMessage('Exported Fitting Settings to: %s'%fname)
+            self.statusBar().showMessage('Exported Fitting Settings to: %s'%fname)
 
     def import_fitting_settings(self):
 
@@ -1077,7 +1080,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.gradient_check_delta.setValue(fitting_settings['gc_delta'])
 
                 print 'Imported Fitting Settings from: %s'%fname
-                self.statusBar.showMessage('Imported Fitting Settings to: %s'%fname)
+                self.statusBar().showMessage('Imported Fitting Settings to: %s'%fname)
 
 
             except ValueError:
@@ -1106,7 +1109,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.write_carboninp(fname)
 
         print 'Exported in CARBON.INP format to: %s'%fname
-        self.statusBar.showMessage('Exported in CARBON.INP format to: %s'%fname)
+        self.statusBar().showMessage('Exported in CARBON.INP format to: %s'%fname)
 
     def write_carboninp(self, destination, disable_fit = False):
         """
@@ -1195,7 +1198,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if fname:
             self.read_carboninp(fname)
             print 'Imported CARBON.INP parameters from: %s' % fname
-            self.statusBar.showMessage('Imported CARBON.INP parameters from: %s' % fname)
+            self.statusBar().showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
     def read_carboninp(self, filename):
         """
@@ -1349,13 +1352,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         errors = 0
         warnings = 0
 
-        if self.param_7.value() < 0:
+        if self.param_07.value() < 0:
             print "ERROR: A (In place cell constant) must be greater than 0."
             errors += 1
-        if self.param_8.value() < 0:
+        if self.param_08.value() < 0:
             print "ERROR: d002 (Interlayer Spacing) must be greater than 0."
             errors += 1
-        if self.param_9.value() < 0:
+        if self.param_09.value() < 0:
             print "ERROR: La (Coherence Length) must be greater than 0."
             errors += 1
         if self.param_10.value() < 0:
@@ -1443,7 +1446,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "WARNING UNSUPPORTED PLATFORM"
 
         # Sets menu flags to disable start of another process and enable aborting fit process
-        self.menu_start_fitting.setEnabled(False)
+        self.menu_start_fit.setEnabled(False)
         self.menu_calculate_pattern.setEnabled(False)
         self.calculate_pattern_button.setEnabled(False)
         self.fit_pattern_button.setEnabled(False)
@@ -1468,7 +1471,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.write_carboninp("carbon.inp", disable_fit=True)
             print "Calling CarbonXS."
             self.pattern_calc_flag = True
-            self.menu_start_fitting.setEnabled(False)
+            self.menu_start_fit.setEnabled(False)
             self.menu_calculate_pattern.setEnabled(False)
             self.calculate_pattern_button.setEnabled(False)
             self.fit_pattern_button.setEnabled(False)
@@ -1497,7 +1500,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_abort_fit.setEnabled(False)
         self.abort_fit_button.setEnabled(False)
 
-        self.menu_start_fitting.setEnabled(True)
+        self.menu_start_fit.setEnabled(True)
         self.menu_calculate_pattern.setEnabled(True)
         self.calculate_pattern_button.setEnabled(True)
         self.fit_pattern_button.setEnabled(True)
@@ -1557,7 +1560,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.menu_abort_fit.setEnabled(False)
             self.abort_fit_button.setEnabled(False)
 
-            self.menu_start_fitting.setEnabled(True)
+            self.menu_start_fit.setEnabled(True)
             self.menu_calculate_pattern.setEnabled(True)
             self.calculate_pattern_button.setEnabled(True)
             self.fit_pattern_button.setEnabled(True)
@@ -1699,11 +1702,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         reply = QtGui.QMessageBox.information(self, 'About',
         "Version %s.\nGUI by Lok-kun Tsui.\nCarbonXS by H. Shi, J.N. Reimers, and J.R. Dahn."%self.version,
                                               QtGui.QMessageBox.Close)
-
-
-    def closeEvent(self, event):
-        print "Closing program"
-        self.write_config()
+    #
+    #
+    # def closeEvent(self, event):
+    #     print "Closing program"
+    #     self.write_config()
 
 
 def main():
@@ -1724,6 +1727,9 @@ def main():
     ex.data_init()
 
     sys.exit(app.exec_())
+
+
+
 
 if __name__ == '__main__':
 
