@@ -20,855 +20,873 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
-     <layout class="QVBoxLayout" name="left_side">
-      <item>
-       <widget class="QLabel" name="label_fitting_params">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Fitting Parameters</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="parameter_select_buttons">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <layout class="QVBoxLayout" name="left_side">
         <item>
-         <widget class="QPushButton" name="enable_all_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QLabel" name="label_fitting_params">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
           </property>
           <property name="text">
-           <string>All</string>
+           <string>Fitting Parameters</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="enable_none_button">
+         <layout class="QHBoxLayout" name="parameter_select_buttons">
+          <item>
+           <widget class="QPushButton" name="enable_all_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>All</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="enable_none_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="enable_invert_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Invert</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="fitting_parameters_list">
+          <item row="12" column="0">
+           <widget class="QDoubleSpinBox" name="param_09"/>
+          </item>
+          <item row="13" column="0">
+           <widget class="QDoubleSpinBox" name="param_10"/>
+          </item>
+          <item row="19" column="0">
+           <widget class="QDoubleSpinBox" name="param_16"/>
+          </item>
+          <item row="14" column="0">
+           <widget class="QDoubleSpinBox" name="param_11"/>
+          </item>
+          <item row="15" column="0">
+           <widget class="QDoubleSpinBox" name="param_12"/>
+          </item>
+          <item row="5" column="2">
+           <widget class="QCheckBox" name="param_enable_02">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QCheckBox" name="param_enable_03">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QDoubleSpinBox" name="param_05"/>
+          </item>
+          <item row="9" column="0">
+           <widget class="QDoubleSpinBox" name="param_06"/>
+          </item>
+          <item row="11" column="0">
+           <widget class="QDoubleSpinBox" name="param_08"/>
+          </item>
+          <item row="15" column="2">
+           <widget class="QCheckBox" name="param_enable_12">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="4">
+           <widget class="QLabel" name="param_label_15">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Pt, Probability of 3R Stacking</string>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="4">
+           <widget class="QLabel" name="param_label_17">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>PO, Preferential Orientation Factor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="4">
+           <widget class="QLabel" name="param_label_14">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Pr, Probability of Random Stacking</string>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="4">
+           <widget class="QLabel" name="param_label_11">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>SM, Width of M Distribution</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="4">
+           <widget class="QLabel" name="param_label_09">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>La, Coherence Length</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="4">
+           <widget class="QLabel" name="param_label_03">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background S^2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="4">
+           <widget class="QLabel" name="param_label_10">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>M, Number of Layers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="QLabel" name="param_label_02">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background S</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4">
+           <widget class="QLabel" name="param_label_01">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background Constant</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="2">
+           <widget class="QCheckBox" name="param_enable_09">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="2">
+           <widget class="QCheckBox" name="param_enable_10">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="2">
+           <widget class="QCheckBox" name="param_enable_14">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QCheckBox" name="param_enable_01">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="2">
+           <widget class="QCheckBox" name="param_enable_13">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="2">
+           <widget class="QCheckBox" name="param_enable_15">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QDoubleSpinBox" name="param_00">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="2">
+           <widget class="QCheckBox" name="param_enable_17">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QDoubleSpinBox" name="param_07"/>
+          </item>
+          <item row="16" column="0">
+           <widget class="QDoubleSpinBox" name="param_13"/>
+          </item>
+          <item row="17" column="0">
+           <widget class="QDoubleSpinBox" name="param_14"/>
+          </item>
+          <item row="20" column="0">
+           <widget class="QDoubleSpinBox" name="param_17"/>
+          </item>
+          <item row="18" column="0">
+           <widget class="QDoubleSpinBox" name="param_15"/>
+          </item>
+          <item row="9" column="4">
+           <widget class="QLabel" name="param_label_06">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background 1/S</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="4">
+           <widget class="QLabel" name="param_label_05">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background S^4</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="4">
+           <widget class="QLabel" name="param_label_04">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Background S^3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="4">
+           <widget class="QLabel" name="param_label_08">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>d002, Interlayer Spacing (Angstrom)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="4">
+           <widget class="QLabel" name="param_label_12">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>DAB, In plane strain</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="4">
+           <widget class="QLabel" name="param_label_07">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>A, In Plane Cell Constant (Angstrom)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="4">
+           <widget class="QLabel" name="param_label_16">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Debye Waller Temperature Factor, (Angstrom^2)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="4">
+           <widget class="QLabel" name="param_label_13">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>del, Inter Plane Strain</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QLabel" name="param_label_00">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Scale Factor (a.u.)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QDoubleSpinBox" name="param_02"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QDoubleSpinBox" name="param_03"/>
+          </item>
+          <item row="7" column="0">
+           <widget class="QDoubleSpinBox" name="param_04"/>
+          </item>
+          <item row="11" column="2">
+           <widget class="QCheckBox" name="param_enable_08">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QCheckBox" name="param_enable_00">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="2">
+           <widget class="QCheckBox" name="param_enable_16">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QDoubleSpinBox" name="param_01"/>
+          </item>
+          <item row="14" column="2">
+           <widget class="QCheckBox" name="param_enable_11">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QCheckBox" name="param_enable_04">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QCheckBox" name="param_enable_06">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QCheckBox" name="param_enable_07">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QCheckBox" name="param_enable_05">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_fitting_settings">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
-           <string>None</string>
+           <string>Fitting Settings</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="enable_invert_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <layout class="QGridLayout" name="fitting_settings_list">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Data Point Multiple (Nskip)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Integration Width (Nsg)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QDoubleSpinBox" name="epsilon"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QDoubleSpinBox" name="theta_min_value"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QSpinBox" name="iterations"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="theta_min_label">
+            <property name="text">
+             <string>Theta Min</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="theta_max_label">
+            <property name="text">
+             <string>Theta Max</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Stop Criteria (Epsilon)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Model Layers (1 or 2)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="number_layers">
+            <item>
+             <property name="text">
+              <string>1 Layer Model</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2 Layer Model</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QSpinBox" name="nskip"/>
+          </item>
+          <item row="3" column="3">
+           <widget class="QSpinBox" name="n_sg"/>
+          </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="gradient_check_enable">
+            <item>
+             <property name="text">
+              <string>Off</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>On</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="theta_max_value"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Iterations</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>TCI Points (NPhi)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QSpinBox" name="n_phi"/>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Gradient Checking</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Gradient Checking Delta</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QDoubleSpinBox" name="gradient_check_delta"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_diffractometer_settings">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
           </property>
           <property name="text">
-           <string>Invert</string>
+           <string>Diffractometer Settings</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="diffractometer_settings_list">
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Sample Depth (mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Sample Density Fraction</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Wavelength (Angstrom)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Sample Width (mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Beam Width (mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="sample_depth"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QDoubleSpinBox" name="wavelength"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Goniometer Radius (mm)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QDoubleSpinBox" name="beam_width"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QDoubleSpinBox" name="sample_width"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QDoubleSpinBox" name="goniometer_radius"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QDoubleSpinBox" name="sample_density"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="fitting_parameters_list">
-        <item row="12" column="0">
-         <widget class="QDoubleSpinBox" name="param_09"/>
-        </item>
-        <item row="13" column="0">
-         <widget class="QDoubleSpinBox" name="param_10"/>
-        </item>
-        <item row="19" column="0">
-         <widget class="QDoubleSpinBox" name="param_16"/>
-        </item>
-        <item row="14" column="0">
-         <widget class="QDoubleSpinBox" name="param_11"/>
-        </item>
-        <item row="15" column="0">
-         <widget class="QDoubleSpinBox" name="param_12"/>
-        </item>
-        <item row="5" column="2">
-         <widget class="QCheckBox" name="param_enable_02">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QCheckBox" name="param_enable_03">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
-         <widget class="QDoubleSpinBox" name="param_05"/>
-        </item>
-        <item row="9" column="0">
-         <widget class="QDoubleSpinBox" name="param_06"/>
-        </item>
-        <item row="11" column="0">
-         <widget class="QDoubleSpinBox" name="param_08"/>
-        </item>
-        <item row="15" column="2">
-         <widget class="QCheckBox" name="param_enable_12">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="4">
-         <widget class="QLabel" name="param_label_15">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Pt, Probability of 3R Stacking</string>
-          </property>
-         </widget>
-        </item>
-        <item row="20" column="4">
-         <widget class="QLabel" name="param_label_17">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>PO, Preferential Orientation Factor</string>
-          </property>
-         </widget>
-        </item>
-        <item row="17" column="4">
-         <widget class="QLabel" name="param_label_14">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Pr, Probability of Random Stacking</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="4">
-         <widget class="QLabel" name="param_label_11">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>SM, Width of M Distribution</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="4">
-         <widget class="QLabel" name="param_label_09">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>La, Coherence Length</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="4">
-         <widget class="QLabel" name="param_label_03">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background S^2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="4">
-         <widget class="QLabel" name="param_label_10">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>M, Number of Layers</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="4">
-         <widget class="QLabel" name="param_label_02">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background S</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="4">
-         <widget class="QLabel" name="param_label_01">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background Constant</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="2">
-         <widget class="QCheckBox" name="param_enable_09">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="2">
-         <widget class="QCheckBox" name="param_enable_10">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="17" column="2">
-         <widget class="QCheckBox" name="param_enable_14">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QCheckBox" name="param_enable_01">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="2">
-         <widget class="QCheckBox" name="param_enable_13">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="2">
-         <widget class="QCheckBox" name="param_enable_15">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QDoubleSpinBox" name="param_00">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="20" column="2">
-         <widget class="QCheckBox" name="param_enable_17">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0">
-         <widget class="QDoubleSpinBox" name="param_07"/>
-        </item>
-        <item row="16" column="0">
-         <widget class="QDoubleSpinBox" name="param_13"/>
-        </item>
-        <item row="17" column="0">
-         <widget class="QDoubleSpinBox" name="param_14"/>
-        </item>
-        <item row="20" column="0">
-         <widget class="QDoubleSpinBox" name="param_17"/>
-        </item>
-        <item row="18" column="0">
-         <widget class="QDoubleSpinBox" name="param_15"/>
-        </item>
-        <item row="9" column="4">
-         <widget class="QLabel" name="param_label_06">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background 1/S</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="4">
-         <widget class="QLabel" name="param_label_05">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background S^4</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="4">
-         <widget class="QLabel" name="param_label_04">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Background S^3</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="4">
-         <widget class="QLabel" name="param_label_08">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>d002, Interlayer Spacing (Angstrom)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="15" column="4">
-         <widget class="QLabel" name="param_label_12">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>DAB, In plane strain</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="4">
-         <widget class="QLabel" name="param_label_07">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>A, In Plane Cell Constant (Angstrom)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="19" column="4">
-         <widget class="QLabel" name="param_label_16">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Debye Waller Temperature Factor, (Angstrom^2)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="4">
-         <widget class="QLabel" name="param_label_13">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>del, Inter Plane Strain</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="4">
-         <widget class="QLabel" name="param_label_00">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Scale Factor (a.u.)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QDoubleSpinBox" name="param_02"/>
-        </item>
-        <item row="6" column="0">
-         <widget class="QDoubleSpinBox" name="param_03"/>
-        </item>
-        <item row="7" column="0">
-         <widget class="QDoubleSpinBox" name="param_04"/>
-        </item>
-        <item row="11" column="2">
-         <widget class="QCheckBox" name="param_enable_08">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QCheckBox" name="param_enable_00">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="19" column="2">
-         <widget class="QCheckBox" name="param_enable_16">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QDoubleSpinBox" name="param_01"/>
-        </item>
-        <item row="14" column="2">
-         <widget class="QCheckBox" name="param_enable_11">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QCheckBox" name="param_enable_04">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <widget class="QCheckBox" name="param_enable_06">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="2">
-         <widget class="QCheckBox" name="param_enable_07">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="2">
-         <widget class="QCheckBox" name="param_enable_05">
-          <property name="text">
-           <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_fitting_settings">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Fitting Settings</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
+      </widget>
+      <widget class="QSplitter" name="splitter">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QWidget" name="">
+        <layout class="QVBoxLayout" name="mplvl"/>
        </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="fitting_settings_list">
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Data Point Multiple (Nskip)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Integration Width (Nsg)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QDoubleSpinBox" name="epsilon"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QDoubleSpinBox" name="theta_min_value"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QSpinBox" name="iterations"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="theta_min_label">
-          <property name="text">
-           <string>Theta Min</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="theta_max_label">
-          <property name="text">
-           <string>Theta Max</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Stop Criteria (Epsilon)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Model Layers (1 or 2)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QComboBox" name="number_layers">
-          <item>
-           <property name="text">
-            <string>1 Layer Model</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2 Layer Model</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QSpinBox" name="nskip"/>
-        </item>
-        <item row="3" column="3">
-         <widget class="QSpinBox" name="n_sg"/>
-        </item>
-        <item row="5" column="1">
-         <widget class="QComboBox" name="gradient_check_enable">
-          <item>
-           <property name="text">
-            <string>Off</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>On</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDoubleSpinBox" name="theta_max_value"/>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Iterations</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>TCI Points (NPhi)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QSpinBox" name="n_phi"/>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_9">
-          <property name="text">
-           <string>Gradient Checking</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Gradient Checking Delta</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QDoubleSpinBox" name="gradient_check_delta"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_diffractometer_settings">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Diffractometer Settings</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="diffractometer_settings_list">
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Sample Depth (mm)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>Sample Density Fraction</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDoubleSpinBox" name="sample_depth"/>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Sample Width (mm)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QDoubleSpinBox" name="wavelength"/>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>Beam Width (mm)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Wavelength (Angstrom)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Goniometer Radius (mm)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QDoubleSpinBox" name="sample_width"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QDoubleSpinBox" name="goniometer_radius"/>
-        </item>
-        <item row="3" column="1">
-         <widget class="QDoubleSpinBox" name="beam_width"/>
-        </item>
-        <item row="3" column="2">
-         <widget class="QDoubleSpinBox" name="sample_density"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="2">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QVBoxLayout" name="mplvl"/>
-      </item>
-      <item>
        <widget class="QTextBrowser" name="console">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
@@ -877,8 +895,8 @@
          </sizepolicy>
         </property>
        </widget>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
