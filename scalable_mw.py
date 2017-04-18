@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Tue Apr 18 15:54:12 2017
+# Created: Tue Apr 18 16:09:12 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -25,9 +25,8 @@ class Ui_MainWindow(object):
         self.left_side = QtGui.QVBoxLayout()
         self.left_side.setObjectName("left_side")
         self.label_fitting_params = QtGui.QLabel(self.centralwidget)
-        self.label_fitting_params.setMinimumSize(QtCore.QSize(200, 50))
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(16)
         self.label_fitting_params.setFont(font)
         self.label_fitting_params.setAlignment(QtCore.Qt.AlignCenter)
         self.label_fitting_params.setObjectName("label_fitting_params")
@@ -330,9 +329,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_fitting_settings.sizePolicy().hasHeightForWidth())
         self.label_fitting_settings.setSizePolicy(sizePolicy)
-        self.label_fitting_settings.setMinimumSize(QtCore.QSize(200, 50))
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(16)
         font.setWeight(50)
         font.setBold(False)
         self.label_fitting_settings.setFont(font)
@@ -408,7 +406,7 @@ class Ui_MainWindow(object):
         self.left_side.addLayout(self.fitting_settings_list)
         self.label_diffractometer_settings = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(16)
         self.label_diffractometer_settings.setFont(font)
         self.label_diffractometer_settings.setAlignment(QtCore.Qt.AlignCenter)
         self.label_diffractometer_settings.setObjectName("label_diffractometer_settings")
