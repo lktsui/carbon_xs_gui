@@ -57,7 +57,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
         self.canvas = FigureCanvas(fig)
-        self.mplvl.addWidget(self.canvas)
+        self.mplvl.addWidget(self.canvas, 2, 0 )
         self.canvas.draw()
 
         self.mpl_toolbar = NavigationToolbar(self.canvas, self)
