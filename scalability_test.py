@@ -60,7 +60,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.mplvl.addWidget(self.canvas)
         self.canvas.draw()
 
-        self.mpl_toolbar = NavigationToolbar(self.canvas, self.mplwindow)
+        self.mpl_toolbar = NavigationToolbar(self.canvas, self)
         self.mplvl.addWidget(self.mpl_toolbar)
 
 
