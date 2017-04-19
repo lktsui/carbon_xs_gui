@@ -1703,10 +1703,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         "Version %s.\nGUI by Lok-kun Tsui.\nCarbonXS by H. Shi, J.N. Reimers, and J.R. Dahn."%self.version,
                                               QtGui.QMessageBox.Close)
     #
-    #
-    # def closeEvent(self, event):
-    #     print "Closing program"
-    #     self.write_config()
+
+    def closeEvent(self, event):
+        print "Closing program"
+        self.write_config()
 
 
 def main():
