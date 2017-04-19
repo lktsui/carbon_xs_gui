@@ -59,6 +59,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>Enable all parameters.</string>
+            </property>
             <property name="text">
              <string>All</string>
             </property>
@@ -72,6 +75,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>Disable all parameters.</string>
+            </property>
             <property name="text">
              <string>None</string>
             </property>
@@ -84,6 +90,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Invert currently enabled/disabled parameters.</string>
             </property>
             <property name="text">
              <string>Invert</string>

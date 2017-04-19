@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Wed Apr 19 13:44:34 2017
+# Created: Wed Apr 19 13:49:00 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -560,8 +560,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.label_fitting_params.setText(QtGui.QApplication.translate("MainWindow", "Fitting Parameters", None, QtGui.QApplication.UnicodeUTF8))
+        self.enable_all_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Enable all parameters.", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_all_button.setText(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
+        self.enable_none_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Disable all parameters.", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_none_button.setText(QtGui.QApplication.translate("MainWindow", "None", None, QtGui.QApplication.UnicodeUTF8))
+        self.enable_invert_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Invert currently enabled/disabled parameters.", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_invert_button.setText(QtGui.QApplication.translate("MainWindow", "Invert", None, QtGui.QApplication.UnicodeUTF8))
         self.param_09.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>L<sub>a</sub></i> - in-plane coherence length (Angstrom)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_10.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>M</i> - Total number of layers.", None, QtGui.QApplication.UnicodeUTF8))
