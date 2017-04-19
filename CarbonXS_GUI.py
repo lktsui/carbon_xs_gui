@@ -1726,7 +1726,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 def main():
 
-    version = "1.2.1"
+    version = "1.3.0"
 
     app = QtGui.QApplication(sys.argv)
 
