@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Wed Apr 19 13:49:00 2017
+# Created: Wed Apr 19 14:29:43 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,6 +68,9 @@ class Ui_MainWindow(object):
         self.enable_invert_button.setSizePolicy(sizePolicy)
         self.enable_invert_button.setObjectName("enable_invert_button")
         self.parameter_select_buttons.addWidget(self.enable_invert_button)
+        self.enable_bg_button = QtGui.QPushButton(self.layoutWidget)
+        self.enable_bg_button.setObjectName("enable_bg_button")
+        self.parameter_select_buttons.addWidget(self.enable_bg_button)
         self.left_side.addLayout(self.parameter_select_buttons)
         self.fitting_parameters_list = QtGui.QGridLayout()
         self.fitting_parameters_list.setObjectName("fitting_parameters_list")
@@ -566,6 +569,8 @@ class Ui_MainWindow(object):
         self.enable_none_button.setText(QtGui.QApplication.translate("MainWindow", "None", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_invert_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Invert currently enabled/disabled parameters.", None, QtGui.QApplication.UnicodeUTF8))
         self.enable_invert_button.setText(QtGui.QApplication.translate("MainWindow", "Invert", None, QtGui.QApplication.UnicodeUTF8))
+        self.enable_bg_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Enable only background parameters", None, QtGui.QApplication.UnicodeUTF8))
+        self.enable_bg_button.setText(QtGui.QApplication.translate("MainWindow", "Background Only", None, QtGui.QApplication.UnicodeUTF8))
         self.param_09.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>L<sub>a</sub></i> - in-plane coherence length (Angstrom)", None, QtGui.QApplication.UnicodeUTF8))
         self.param_10.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>M</i> - Total number of layers.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_16.setToolTip(QtGui.QApplication.translate("MainWindow", "Debye Waller Temperature Factor, (Angstrom^2)", None, QtGui.QApplication.UnicodeUTF8))
@@ -652,6 +657,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QtGui.QApplication.translate("MainWindow", "Sample Width (mm)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_13.setText(QtGui.QApplication.translate("MainWindow", "Beam Width (mm)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_12.setText(QtGui.QApplication.translate("MainWindow", "Goniometer Radius (mm)", None, QtGui.QApplication.UnicodeUTF8))
+        self.console.setToolTip(QtGui.QApplication.translate("MainWindow", "Enable only background parameters.", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_file.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_category_import.setTitle(QtGui.QApplication.translate("MainWindow", "Import", None, QtGui.QApplication.UnicodeUTF8))
         self.menuExport.setTitle(QtGui.QApplication.translate("MainWindow", "Export", None, QtGui.QApplication.UnicodeUTF8))

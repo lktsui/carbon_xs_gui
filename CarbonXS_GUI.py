@@ -448,6 +448,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.enable_all_button.clicked.connect(self.enable_all_params)
         self.enable_none_button.clicked.connect(self.disable_all_params)
         self.enable_invert_button.clicked.connect(self.invert_all_params)
+        self.enable_bg_button.clicked.connect(self.enable_background_params)
 
 
         # self.import_data.clicked.connect(self.load_parameters)
@@ -591,6 +592,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         for setting in self.parameter_enable_list:
             setting.setChecked(not setting.isChecked())
+
+    def enable_background_params(self):
+        """
+        Enables only the fitting parameters for the background.
+        :return:
+        """
+
+
+        for index, setting in enumerate(self.parameter_enable_list):
+
+            if index > 0 and index < 7:
+                setting.setChecked(True)
+            else:
+                setting.setChecked(False)
 
 
 

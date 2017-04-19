@@ -99,6 +99,16 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="enable_bg_button">
+            <property name="toolTip">
+             <string>Enable only background parameters</string>
+            </property>
+            <property name="text">
+             <string>Background Only</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -1011,6 +1021,9 @@
           <horstretch>2</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Enable only background parameters.</string>
         </property>
        </widget>
       </widget>
