@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Wed Apr 19 13:33:14 2017
+# Created: Wed Apr 19 13:44:34 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -620,18 +620,28 @@ class Ui_MainWindow(object):
         self.label_fitting_settings.setText(QtGui.QApplication.translate("MainWindow", "Fitting Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("MainWindow", "Data Point Multiple (Nskip)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("MainWindow", "Integration Width (Nsg)", None, QtGui.QApplication.UnicodeUTF8))
+        self.epsilon.setToolTip(QtGui.QApplication.translate("MainWindow", "Smallest Chi^2 change before stopping.", None, QtGui.QApplication.UnicodeUTF8))
+        self.theta_min_value.setToolTip(QtGui.QApplication.translate("MainWindow", "Start refinement angle.", None, QtGui.QApplication.UnicodeUTF8))
+        self.iterations.setToolTip(QtGui.QApplication.translate("MainWindow", "Maximum number of iterations.", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_min_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Min", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_max_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Max", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("MainWindow", "Stop Criteria (Epsilon)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("MainWindow", "Model Layers (1 or 2)", None, QtGui.QApplication.UnicodeUTF8))
+        self.number_layers.setToolTip(QtGui.QApplication.translate("MainWindow", "1 or 2 layer model - 1 layer for disordered, 2 layers for graphitic.", None, QtGui.QApplication.UnicodeUTF8))
         self.number_layers.setItemText(0, QtGui.QApplication.translate("MainWindow", "1 Layer Model", None, QtGui.QApplication.UnicodeUTF8))
         self.number_layers.setItemText(1, QtGui.QApplication.translate("MainWindow", "2 Layer Model", None, QtGui.QApplication.UnicodeUTF8))
+        self.nskip.setToolTip(QtGui.QApplication.translate("MainWindow", "Use every n-th point for calculation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.n_sg.setToolTip(QtGui.QApplication.translate("MainWindow", "Number of half-widths of Bragg rods to calculate tangent cylinder integral with. Recommended: > 3", None, QtGui.QApplication.UnicodeUTF8))
+        self.gradient_check_enable.setToolTip(QtGui.QApplication.translate("MainWindow", "Enable CarbonXS gradient checking. For debugging purposes only.", None, QtGui.QApplication.UnicodeUTF8))
         self.gradient_check_enable.setItemText(0, QtGui.QApplication.translate("MainWindow", "Off", None, QtGui.QApplication.UnicodeUTF8))
         self.gradient_check_enable.setItemText(1, QtGui.QApplication.translate("MainWindow", "On", None, QtGui.QApplication.UnicodeUTF8))
+        self.theta_max_value.setToolTip(QtGui.QApplication.translate("MainWindow", "End refinement angle.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("MainWindow", "Iterations", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("MainWindow", "TCI Points (NPhi)", None, QtGui.QApplication.UnicodeUTF8))
+        self.n_phi.setToolTip(QtGui.QApplication.translate("MainWindow", "Number of points to include in the tangent cylinder integral.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Gradient Checking", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Gradient Checking Delta", None, QtGui.QApplication.UnicodeUTF8))
+        self.gradient_check_delta.setToolTip(QtGui.QApplication.translate("MainWindow", "Delta value for numerical gradient checking.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_diffractometer_settings.setText(QtGui.QApplication.translate("MainWindow", "Diffractometer Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Sample Depth (mm)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Sample Density Fraction", None, QtGui.QApplication.UnicodeUTF8))

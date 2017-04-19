@@ -742,13 +742,25 @@
            </widget>
           </item>
           <item row="1" column="3">
-           <widget class="QDoubleSpinBox" name="epsilon"/>
+           <widget class="QDoubleSpinBox" name="epsilon">
+            <property name="toolTip">
+             <string>Smallest Chi^2 change before stopping.</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QDoubleSpinBox" name="theta_min_value"/>
+           <widget class="QDoubleSpinBox" name="theta_min_value">
+            <property name="toolTip">
+             <string>Start refinement angle.</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QSpinBox" name="iterations"/>
+           <widget class="QSpinBox" name="iterations">
+            <property name="toolTip">
+             <string>Maximum number of iterations.</string>
+            </property>
+           </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="theta_min_label">
@@ -780,6 +792,9 @@
           </item>
           <item row="3" column="1">
            <widget class="QComboBox" name="number_layers">
+            <property name="toolTip">
+             <string>1 or 2 layer model - 1 layer for disordered, 2 layers for graphitic.</string>
+            </property>
             <item>
              <property name="text">
               <string>1 Layer Model</string>
@@ -793,13 +808,24 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QSpinBox" name="nskip"/>
+           <widget class="QSpinBox" name="nskip">
+            <property name="toolTip">
+             <string>Use every n-th point for calculation.</string>
+            </property>
+           </widget>
           </item>
           <item row="3" column="3">
-           <widget class="QSpinBox" name="n_sg"/>
+           <widget class="QSpinBox" name="n_sg">
+            <property name="toolTip">
+             <string>Number of half-widths of Bragg rods to calculate tangent cylinder integral with. Recommended: &gt; 3</string>
+            </property>
+           </widget>
           </item>
           <item row="5" column="1">
            <widget class="QComboBox" name="gradient_check_enable">
+            <property name="toolTip">
+             <string>Enable CarbonXS gradient checking. For debugging purposes only.</string>
+            </property>
             <item>
              <property name="text">
               <string>Off</string>
@@ -813,7 +839,11 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QDoubleSpinBox" name="theta_max_value"/>
+           <widget class="QDoubleSpinBox" name="theta_max_value">
+            <property name="toolTip">
+             <string>End refinement angle.</string>
+            </property>
+           </widget>
           </item>
           <item row="0" column="2">
            <widget class="QLabel" name="label_3">
@@ -830,7 +860,11 @@
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QSpinBox" name="n_phi"/>
+           <widget class="QSpinBox" name="n_phi">
+            <property name="toolTip">
+             <string>Number of points to include in the tangent cylinder integral.</string>
+            </property>
+           </widget>
           </item>
           <item row="4" column="1">
            <widget class="QLabel" name="label_9">
@@ -847,7 +881,11 @@
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="QDoubleSpinBox" name="gradient_check_delta"/>
+           <widget class="QDoubleSpinBox" name="gradient_check_delta">
+            <property name="toolTip">
+             <string>Delta value for numerical gradient checking.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
