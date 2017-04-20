@@ -938,35 +938,35 @@
         <item>
          <layout class="QGridLayout" name="diffractometer_settings_list">
           <item row="0" column="1">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="sample_depth_label">
             <property name="text">
              <string>Sample Depth (mm)</string>
             </property>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QLabel" name="label_14">
+           <widget class="QLabel" name="sample_density_label">
             <property name="text">
              <string>Sample Density Fraction</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="wavelength_label">
             <property name="text">
              <string>Wavelength (Angstrom)</string>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLabel" name="label_11">
+           <widget class="QLabel" name="sample_width_label">
             <property name="text">
              <string>Sample Width (mm)</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="label_13">
+           <widget class="QLabel" name="beam_width_label">
             <property name="text">
              <string>Beam Width (mm)</string>
             </property>
@@ -979,7 +979,7 @@
            <widget class="QDoubleSpinBox" name="wavelength"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_12">
+           <widget class="QLabel" name="goniometer_radius_label">
             <property name="text">
              <string>Goniometer Radius (mm)</string>
             </property>
