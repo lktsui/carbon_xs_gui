@@ -979,7 +979,11 @@
            <widget class="QDoubleSpinBox" name="sample_depth"/>
           </item>
           <item row="1" column="0">
-           <widget class="QDoubleSpinBox" name="wavelength"/>
+           <widget class="QDoubleSpinBox" name="wavelength">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="goniometer_radius_label">

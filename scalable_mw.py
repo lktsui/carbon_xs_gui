@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 10:25:04 2017
+# Created: Thu Apr 20 10:25:46 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -451,6 +451,7 @@ class Ui_MainWindow(object):
         self.sample_depth.setObjectName("sample_depth")
         self.diffractometer_settings_list.addWidget(self.sample_depth, 1, 1, 1, 1)
         self.wavelength = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.wavelength.setDecimals(5)
         self.wavelength.setObjectName("wavelength")
         self.diffractometer_settings_list.addWidget(self.wavelength, 1, 0, 1, 1)
         self.goniometer_radius_label = QtGui.QLabel(self.layoutWidget)
