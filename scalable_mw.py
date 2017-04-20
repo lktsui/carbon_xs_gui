@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 10:26:31 2017
+# Created: Thu Apr 20 10:27:35 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -472,6 +472,8 @@ class Ui_MainWindow(object):
         self.diffractometer_settings_list.addWidget(self.goniometer_radius, 3, 0, 1, 1)
         self.sample_density = QtGui.QDoubleSpinBox(self.layoutWidget)
         self.sample_density.setDecimals(5)
+        self.sample_density.setMaximum(1.0)
+        self.sample_density.setSingleStep(0.01)
         self.sample_density.setObjectName("sample_density")
         self.diffractometer_settings_list.addWidget(self.sample_density, 3, 2, 1, 1)
         self.left_side.addLayout(self.diffractometer_settings_list)
