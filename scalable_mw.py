@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Wed Apr 19 14:29:43 2017
+# Created: Thu Apr 20 09:51:11 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -363,6 +363,8 @@ class Ui_MainWindow(object):
         self.epsilon.setObjectName("epsilon")
         self.fitting_settings_list.addWidget(self.epsilon, 1, 3, 1, 1)
         self.theta_min_value = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.theta_min_value.setMaximum(180.0)
+        self.theta_min_value.setSingleStep(0.1)
         self.theta_min_value.setObjectName("theta_min_value")
         self.fitting_settings_list.addWidget(self.theta_min_value, 1, 0, 1, 1)
         self.iterations = QtGui.QSpinBox(self.layoutWidget)
@@ -397,6 +399,8 @@ class Ui_MainWindow(object):
         self.gradient_check_enable.addItem("")
         self.fitting_settings_list.addWidget(self.gradient_check_enable, 5, 1, 1, 1)
         self.theta_max_value = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.theta_max_value.setMaximum(180.0)
+        self.theta_max_value.setSingleStep(0.1)
         self.theta_max_value.setObjectName("theta_max_value")
         self.fitting_settings_list.addWidget(self.theta_max_value, 1, 1, 1, 1)
         self.label_3 = QtGui.QLabel(self.layoutWidget)

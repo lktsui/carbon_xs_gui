@@ -772,6 +772,12 @@
             <property name="toolTip">
              <string>Start refinement angle.</string>
             </property>
+            <property name="maximum">
+             <double>180.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
            </widget>
           </item>
           <item row="1" column="2">
@@ -861,6 +867,12 @@
            <widget class="QDoubleSpinBox" name="theta_max_value">
             <property name="toolTip">
              <string>End refinement angle.</string>
+            </property>
+            <property name="maximum">
+             <double>180.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
             </property>
            </widget>
           </item>
