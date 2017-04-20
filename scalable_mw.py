@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 11:02:55 2017
+# Created: Thu Apr 20 11:34:44 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -590,7 +590,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1366, 21))
-        self.menubar.setNativeMenuBar(True)
+        self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName("menubar")
         self.menu_file = QtGui.QMenu(self.menubar)
         self.menu_file.setObjectName("menu_file")
