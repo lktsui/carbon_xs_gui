@@ -459,6 +459,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
         self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
+        self.menu_exit.triggered.connect(QtGui.qApp.quit)
 
         # Export Data
         self.menu_export_carboninp.triggered.connect(self.export_to_carboninp)
@@ -498,6 +499,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_abort_fit.setShortcut(Qt.CTRL+Qt.Key_D)
         self.back_button.setShortcut(QtGui.QKeySequence.Back)
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
+        self.menu_exit.setShortcut(QtGui.QKeySequence.Quit)
 
         self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip()+" (%s)"%QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open),
                                                                                                                  format=QKeySequence.NativeText))

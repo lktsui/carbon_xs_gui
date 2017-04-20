@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 11:34:44 2017
+# Created: Thu Apr 20 11:57:42 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -636,6 +636,8 @@ class Ui_MainWindow(object):
         self.menu_bugreport.setObjectName("menu_bugreport")
         self.menu_about = QtGui.QAction(MainWindow)
         self.menu_about.setObjectName("menu_about")
+        self.menu_exit = QtGui.QAction(MainWindow)
+        self.menu_exit.setObjectName("menu_exit")
         self.menu_category_import.addAction(self.menu_import_carboninp)
         self.menu_category_import.addAction(self.menu_import_diffsettings)
         self.menu_category_import.addAction(self.menu_import_fittingparams)
@@ -647,6 +649,7 @@ class Ui_MainWindow(object):
         self.menu_file.addAction(self.menu_open_xrd_pattern)
         self.menu_file.addAction(self.menu_category_import.menuAction())
         self.menu_file.addAction(self.menuExport.menuAction())
+        self.menu_file.addAction(self.menu_exit)
         self.menuFitting.addAction(self.menu_calculate_pattern)
         self.menuFitting.addAction(self.menu_start_fit)
         self.menuFitting.addAction(self.menu_abort_fit)
@@ -778,4 +781,5 @@ class Ui_MainWindow(object):
         self.menu_tutorial.setText(QtGui.QApplication.translate("MainWindow", "Documentation", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_bugreport.setText(QtGui.QApplication.translate("MainWindow", "Report a Bug", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_about.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_exit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
 
