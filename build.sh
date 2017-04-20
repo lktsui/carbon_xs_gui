@@ -15,3 +15,4 @@ cp -r config dist
 cp -r README.md dist
 cp LICENSE dist
 cp winlib/*.dll dist/carbonxs
+git archive master --format zip -o dist/src.zip
