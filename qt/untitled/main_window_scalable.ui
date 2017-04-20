@@ -790,14 +790,14 @@
           <item row="0" column="0">
            <widget class="QLabel" name="theta_min_label">
             <property name="text">
-             <string>Theta Min</string>
+             <string>2 Theta Min</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QLabel" name="theta_max_label">
             <property name="text">
-             <string>Theta Max</string>
+             <string>2 Theta Max</string>
             </property>
            </widget>
           </item>

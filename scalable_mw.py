@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 09:51:11 2017
+# Created: Thu Apr 20 09:52:42 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -635,8 +635,8 @@ class Ui_MainWindow(object):
         self.epsilon.setToolTip(QtGui.QApplication.translate("MainWindow", "Smallest Chi^2 change before stopping.", None, QtGui.QApplication.UnicodeUTF8))
         self.theta_min_value.setToolTip(QtGui.QApplication.translate("MainWindow", "Start refinement angle.", None, QtGui.QApplication.UnicodeUTF8))
         self.iterations.setToolTip(QtGui.QApplication.translate("MainWindow", "Maximum number of iterations.", None, QtGui.QApplication.UnicodeUTF8))
-        self.theta_min_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Min", None, QtGui.QApplication.UnicodeUTF8))
-        self.theta_max_label.setText(QtGui.QApplication.translate("MainWindow", "Theta Max", None, QtGui.QApplication.UnicodeUTF8))
+        self.theta_min_label.setText(QtGui.QApplication.translate("MainWindow", "2 Theta Min", None, QtGui.QApplication.UnicodeUTF8))
+        self.theta_max_label.setText(QtGui.QApplication.translate("MainWindow", "2 Theta Max", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("MainWindow", "Stop Criteria (Epsilon)", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("MainWindow", "Model Layers (1 or 2)", None, QtGui.QApplication.UnicodeUTF8))
         self.number_layers.setToolTip(QtGui.QApplication.translate("MainWindow", "1 or 2 layer model - 1 layer for disordered, 2 layers for graphitic.", None, QtGui.QApplication.UnicodeUTF8))
