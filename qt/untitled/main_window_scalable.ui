@@ -976,7 +976,11 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QDoubleSpinBox" name="sample_depth"/>
+           <widget class="QDoubleSpinBox" name="sample_depth">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QDoubleSpinBox" name="wavelength">
@@ -993,16 +997,32 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="beam_width"/>
+           <widget class="QDoubleSpinBox" name="beam_width">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QDoubleSpinBox" name="sample_width"/>
+           <widget class="QDoubleSpinBox" name="sample_width">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QDoubleSpinBox" name="goniometer_radius"/>
+           <widget class="QDoubleSpinBox" name="goniometer_radius">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QDoubleSpinBox" name="sample_density"/>
+           <widget class="QDoubleSpinBox" name="sample_density">
+            <property name="decimals">
+             <number>5</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
