@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 10:23:48 2017
+# Created: Thu Apr 20 10:25:04 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -360,6 +360,7 @@ class Ui_MainWindow(object):
         self.label_8.setObjectName("label_8")
         self.fitting_settings_list.addWidget(self.label_8, 2, 3, 1, 1)
         self.epsilon = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.epsilon.setDecimals(5)
         self.epsilon.setObjectName("epsilon")
         self.fitting_settings_list.addWidget(self.epsilon, 1, 3, 1, 1)
         self.theta_min_value = QtGui.QDoubleSpinBox(self.layoutWidget)

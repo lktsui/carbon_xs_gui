@@ -765,6 +765,9 @@
             <property name="toolTip">
              <string>Smallest Chi^2 change before stopping.</string>
             </property>
+            <property name="decimals">
+             <number>5</number>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
