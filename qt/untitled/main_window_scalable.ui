@@ -115,6 +115,12 @@
          <layout class="QGridLayout" name="fitting_parameters_list">
           <item row="12" column="0">
            <widget class="QDoubleSpinBox" name="param_09">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;L&lt;sub&gt;a&lt;/sub&gt;&lt;/i&gt; - in-plane coherence length (Angstrom)</string>
             </property>
@@ -122,6 +128,12 @@
           </item>
           <item row="13" column="0">
            <widget class="QDoubleSpinBox" name="param_10">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;M&lt;/i&gt; - Total number of layers.</string>
             </property>
@@ -129,6 +141,12 @@
           </item>
           <item row="19" column="0">
            <widget class="QDoubleSpinBox" name="param_16">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Debye Waller Temperature Factor, (Angstrom^2)</string>
             </property>
@@ -136,6 +154,12 @@
           </item>
           <item row="14" column="0">
            <widget class="QDoubleSpinBox" name="param_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;SM&lt;/i&gt; - Width of the M distribution</string>
             </property>
@@ -143,6 +167,12 @@
           </item>
           <item row="15" column="0">
            <widget class="QDoubleSpinBox" name="param_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;D&lt;sub&gt;ab&lt;/sub&gt;&lt;/i&gt; - in-plane strain</string>
             </property>
@@ -164,6 +194,12 @@
           </item>
           <item row="8" column="0">
            <widget class="QDoubleSpinBox" name="param_05">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background S**4 factor (BG = Z + A*S + B*S^2 + C*S^3 + &lt;b&gt;D&lt;/b&gt;*S^4 + F/S)</string>
             </property>
@@ -171,6 +207,12 @@
           </item>
           <item row="9" column="0">
            <widget class="QDoubleSpinBox" name="param_06">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background inverse factor. (BG = Z + AS + BS^2 + CS^3 + D*S^4 + &lt;b&gt;F&lt;/b&gt;/S)</string>
             </property>
@@ -178,6 +220,12 @@
           </item>
           <item row="11" column="0">
            <widget class="QDoubleSpinBox" name="param_08">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;d&lt;sub&gt;002&lt;/sub&gt;&lt;/i&gt; interlayer spacing (Angstrom)</string>
             </property>
@@ -406,7 +454,7 @@
           <item row="3" column="0">
            <widget class="QDoubleSpinBox" name="param_00">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -425,6 +473,12 @@
           </item>
           <item row="10" column="0">
            <widget class="QDoubleSpinBox" name="param_07">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;a&lt;/i&gt; direction lattice constant.</string>
             </property>
@@ -432,6 +486,12 @@
           </item>
           <item row="16" column="0">
            <widget class="QDoubleSpinBox" name="param_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;Del&lt;/i&gt; - inter plane strain per layer</string>
             </property>
@@ -439,6 +499,12 @@
           </item>
           <item row="17" column="0">
            <widget class="QDoubleSpinBox" name="param_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;Pr&lt;/i&gt; - probability of random stacking per layer. Must be between 0 and 1.</string>
             </property>
@@ -446,6 +512,12 @@
           </item>
           <item row="20" column="0">
            <widget class="QDoubleSpinBox" name="param_17">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;PO&lt;/i&gt; Preferential orientation factor</string>
             </property>
@@ -453,6 +525,12 @@
           </item>
           <item row="18" column="0">
            <widget class="QDoubleSpinBox" name="param_15">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>&lt;i&gt;Pt&lt;/i&gt; - probability of 3R stacking in 2 layer model. Must be between 0 and 1.</string>
             </property>
@@ -637,6 +715,12 @@
           </item>
           <item row="5" column="0">
            <widget class="QDoubleSpinBox" name="param_02">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background linear factor. (BG = Z + &lt;b&gt;A&lt;/b&gt;*S + B*S^2 + C*S^3 + D*S^4 + F/S)</string>
             </property>
@@ -644,6 +728,12 @@
           </item>
           <item row="6" column="0">
            <widget class="QDoubleSpinBox" name="param_03">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background quadratic factor. (BG = Z + A*S + &lt;b&gt;B&lt;/b&gt;*S^2 + C*S^3 + D*S^4 + F/S)</string>
             </property>
@@ -651,6 +741,12 @@
           </item>
           <item row="7" column="0">
            <widget class="QDoubleSpinBox" name="param_04">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background cubic factor. (BG = Z + A*S + B*S^2 + &lt;b&gt;C&lt;/b&gt;*S^3 + D*S^4 + F/S)</string>
             </property>
@@ -679,6 +775,12 @@
           </item>
           <item row="4" column="0">
            <widget class="QDoubleSpinBox" name="param_01">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Background constant factor. (BG = &lt;b&gt;Z&lt;/b&gt; + A*S + B*S^2 + C*S^3 + D*S^4 + F/S)</string>
             </property>
