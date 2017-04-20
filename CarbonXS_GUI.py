@@ -383,6 +383,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
         self.canvas = FigureCanvas(fig)
+        self.canvas.setMinimumHeight(100)
+
         self.mplvl.addWidget(self.canvas, 2, 0)
         self.canvas.draw()
 
