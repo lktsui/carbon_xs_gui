@@ -499,7 +499,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_abort_fit.setShortcut(Qt.CTRL+Qt.Key_D)
         self.back_button.setShortcut(QtGui.QKeySequence.Back)
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
-        self.menu_exit.setShortcut(QtGui.QKeySequence.Quit)
+
+        if 'windows' in sys.platform:
+            self.menu_exit.setShortcut(Qt.ALT+Qt.Key_F4)
+        else:
+            self.menu_exit.setShortcut(QtGui.QKeySequence.Quit)
 
         self.open_pattern_button.setToolTip(self.open_pattern_button.toolTip()+" (%s)"%QtGui.QKeySequence.toString(QtGui.QKeySequence(QtGui.QKeySequence.Open),
                                                                                                                  format=QKeySequence.NativeText))
