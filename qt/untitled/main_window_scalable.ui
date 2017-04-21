@@ -893,6 +893,9 @@
             <property name="toolTip">
              <string>Maximum number of iterations.</string>
             </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
            </widget>
           </item>
           <item row="0" column="0">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
 #
-# Created: Thu Apr 20 11:57:42 2017
+# Created: Fri Apr 21 10:50:28 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -455,6 +455,7 @@ class Ui_MainWindow(object):
         self.theta_min_value.setObjectName("theta_min_value")
         self.fitting_settings_list.addWidget(self.theta_min_value, 1, 0, 1, 1)
         self.iterations = QtGui.QSpinBox(self.layoutWidget)
+        self.iterations.setMaximum(9999)
         self.iterations.setObjectName("iterations")
         self.fitting_settings_list.addWidget(self.iterations, 1, 2, 1, 1)
         self.theta_min_label = QtGui.QLabel(self.layoutWidget)
