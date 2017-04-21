@@ -500,7 +500,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.back_button.setShortcut(QtGui.QKeySequence.Back)
         self.forward_button.setShortcut(QtGui.QKeySequence.Forward)
 
-        if 'windows' in sys.platform:
+        if 'win32' in sys.platform:
             self.menu_exit.setShortcut(Qt.ALT+Qt.Key_F4)
         else:
             self.menu_exit.setShortcut(QtGui.QKeySequence.Quit)
