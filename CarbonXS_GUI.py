@@ -19,6 +19,14 @@ from text_file_viewer import Ui_Dialog
 
 use_pyside = qt_compat.QT_API == qt_compat.QT_API_PYSIDE
 
+if hasattr(sys, 'frozen') and sys.platform == 'darwin':
+    print "Detected a frozen application and extracting the appropriate file directory format"
+    base_directory = os.path.join(os.path.dirname(sys.executable))
+else:
+    base_directory = '.'
+
+
+
 if use_pyside:
     from PySide.QtCore import *
     from PySide.QtGui import *
@@ -198,7 +206,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.undo_buffer = []
         self.undo_index = 0
 
-        QtGui.QFontDatabase.addApplicationFont(os.path.join('fonts', 'SourceCodePro-Regular.ttf'))
+        QtGui.QFontDatabase.addApplicationFont(os.path.join(base_directory, 'fonts', 'SourceCodePro-Regular.ttf'))
         console_font = QtGui.QFont()
         console_font.setFamily('Source Code Pro')
         self.console.setFont(console_font)
@@ -227,7 +235,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                          }
 
-        config_file = open(os.path.join('config','config.json'), 'w')
+        config_file = open(os.path.join(base_directory, 'config','config.json'), 'w')
 
         ujson.dump(configuration, config_file, indent=4)
 
@@ -240,19 +248,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Attempts to load a Carbon.INP file if it exists
         try:
-            self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
+            self.read_carboninp(os.path.join(base_directory, 'carbonxs', 'carbon.inp'))
 
             print "Loaded most recently used parameters successfully from 'carbonxs' directory."
         except IOError:
             print "No previous parameters found in 'carbonxs' directory."
 
         # Clears any SCAN.DAT file already in carbonxs directory
-        if 'SCAN.DAT' in os.listdir('carbonxs'):
-            os.remove(os.path.join('carbonxs', 'SCAN.DAT'))
+        if 'SCAN.DAT' in os.listdir(os.path.join(base_directory, 'carbonxs')):
+            os.remove(os.path.join(base_directory, 'carbonxs', 'SCAN.DAT'))
 
         # Read in the previously written configuration file
-        if 'config.json' in os.listdir('config'):
-            config_file = open(os.path.join('config', 'config.json'),'r')
+        if 'config.json' in os.listdir(os.path.join(base_directory, 'config')):
+            config_file = open(os.path.join(base_directory, 'config', 'config.json'),'r')
             config = ujson.load(config_file)
 
             try:
@@ -298,32 +306,32 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
-        self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','open.png')), 'Open Pattern', self)
+        self.open_pattern_button = QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','open.png')), 'Open Pattern', self)
         self.open_pattern_button.setStatusTip('Open Pattern')
         self.open_pattern_button.setToolTip("Opens a new XRD pattern.")
 
-        self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','calculator.png')), 'Calculate', self)
+        self.calculate_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','calculator.png')), 'Calculate', self)
         self.calculate_pattern_button.setStatusTip('Calculate Pattern')
         self.calculate_pattern_button.setToolTip("Calculates pattern using current parameters without performing a fit.")
 
-        self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','fit.png')), 'Fit', self)
+        self.fit_pattern_button= QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','fit.png')), 'Fit', self)
         self.fit_pattern_button.setStatusTip('Fit Pattern')
         self.fit_pattern_button.setToolTip("Uses current parameters to perform a fit.")
 
-        self.abort_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','stop.png')), 'Abort', self)
+        self.abort_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','stop.png')), 'Abort', self)
         self.abort_fit_button.setStatusTip('Abort Fit')
         self.abort_fit_button.setEnabled(False)
         self.abort_fit_button.setToolTip("Aborts current fit by killing CarbonXS process.")
 
-        self.export_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join('icons','export.png')), 'Export Last Fit', self)
+        self.export_fit_button= QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','export.png')), 'Export Last Fit', self)
         self.export_fit_button.setStatusTip('Export Last Fit')
         self.export_fit_button.setToolTip("Export the carbon.out, carbon.dat, and new CARBON.INP files of the most recent fit run by CarbonXS.")
 
-        self.back_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','back_button.png')), 'Previous Fit/Calc', self)
+        self.back_button = QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','back_button.png')), 'Previous Fit/Calc', self)
         self.back_button.setStatusTip('Go to Previous Fit or Calculation')
         self.back_button.setToolTip("Go to Previous Fit or Calculation")
 
-        self.forward_button = QtGui.QAction(QtGui.QIcon(os.path.join('icons','forward_button.png')), 'Next Fit/Calc', self)
+        self.forward_button = QtGui.QAction(QtGui.QIcon(os.path.join(base_directory,'icons','forward_button.png')), 'Next Fit/Calc', self)
         self.forward_button.setStatusTip('Go to Next Fit or Calculation')
         self.forward_button.setToolTip("Go to Next Fit or Calculation")
 
@@ -536,7 +544,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             return
 
 
-        pattern_filename = os.path.join('carbonxs', 'carbon.dat')
+        pattern_filename = os.path.join(base_directory, 'carbonxs', 'carbon.dat')
 
         self.x_fit_data = []
         self.y_fit_data = []
@@ -762,7 +770,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         :return:
         """
-        pattern_filename = os.path.join('carbonxs', 'carbon.dat')
+        pattern_filename = os.path.join(base_directory, 'carbonxs', 'carbon.dat')
 
         self.prev_x_fit = self.x_fit_data
         self.prev_y_fit = self.y_fit_data
@@ -887,7 +895,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join('config', 'diffractometer settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join(base_directory, 'config', 'diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -919,7 +927,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings', os.path.join('config','diffractometer settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings', os.path.join(base_directory, 'config','diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -958,7 +966,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters', os.path.join('config', 'fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters', os.path.join(base_directory, 'config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -983,7 +991,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters', os.path.join('config','fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters', os.path.join(base_directory, 'config','fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -1023,7 +1031,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         :return:
         """
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings', os.path.join(base_directory, 'config', 'fitting settings'), filter="*.json")
 
         if fname:
 
@@ -1062,7 +1070,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings', os.path.join('config', 'fitting settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings', os.path.join(base_directory, 'config', 'fitting settings'), filter="*.json")
 
         if fname:
 
@@ -1114,7 +1122,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
         fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
-                                                          os.path.join('config', 'fitting settings'), filter="CARBON.INP")
+                                                          os.path.join(base_directory, 'config', 'fitting settings'), filter="CARBON.INP")
 
         if fname:
             self.write_carboninp(fname)
@@ -1417,7 +1425,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        os.chdir('carbonxs')
+        os.chdir(os.path.join(base_directory, 'carbonxs'))
 
         print "Writing carbon.inp to the carbonxs directory."
 
@@ -1461,7 +1469,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.pre_run_sanity_check(False):
             self.append_to_buffer = append_to_buffer
             print "Beginning pattern calculation process."
-            os.chdir('carbonxs')
+            os.chdir(os.path.join(base_directory, 'carbonxs'))
             print "Wrote carbon.inp to the carbonxs directory."
             self.write_carboninp("carbon.inp", disable_fit=True)
             print "Calling CarbonXS."
@@ -1517,7 +1525,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 if not self.pattern_calc_flag:
                     print "Reading new carbon.inp data and plotting new data"
-                    self.read_carboninp(os.path.join('carbonxs', 'carbon.inp'))
+                    self.read_carboninp(os.path.join(base_directory, 'carbonxs', 'carbon.inp'))
 
 
 
@@ -1600,14 +1608,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                                                                "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
                                                                QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                             if reply == QtGui.QMessageBox.Yes:
-                                shutil.copy(os.path.join('carbonxs', data_file), fname + export_suffix)
+                                shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), fname + export_suffix)
                                 print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
                             else:
                                 print "%s already exists. Did not overwrite." % destination
 
                         else:
 
-                            shutil.copy(os.path.join('carbonxs', data_file), destination)
+                            shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), destination)
                             print "Copied %s file to %s" %(data_file, destination)
 
     def go_back(self):
@@ -1712,12 +1720,12 @@ def main():
 
 
     ex = MainWindow(version)
-
-    console_stream = ConsoleStream()
-    console_stream.message.connect(ex.on_stream_message)
-
-    sys.stdout = console_stream
-    sys.stderr = console_stream
+    #
+    # console_stream = ConsoleStream()
+    # console_stream.message.connect(ex.on_stream_message)
+    #
+    # sys.stdout = console_stream
+    # sys.stderr = console_stream
 
     ex.data_init()
 
@@ -1732,7 +1740,7 @@ if __name__ == '__main__':
     print "Checking if programs are available"
 
     if  'darwin' in sys.platform or 'linux' in sys.platform:
-        if 'carbonxs_app' not in os.listdir('carbonxs'):
+        if 'carbonxs_app' not in os.listdir(os.path.join(base_directory, 'carbonxs')):
             print "ERROR: carbonxs_app is not present in the carbonxs directory"
             print "This indicates that a version of the carbonxs program has not yet been compiled"
             print "Please compile (see compiling.txt) the Fortran program using GCC."
@@ -1743,7 +1751,7 @@ if __name__ == '__main__':
 
 
     elif 'win32' in sys.platform:
-        if 'carbonxs_gfortran.exe' not in os.listdir('carbonxs'):
+        if 'carbonxs_gfortran.exe' not in os.listdir(os.path.join(base_directory, 'carbonxs')):
             print "ERROR! carbonxs_gfortran.exe is not in the carbonxs directory"
             print "Please make sure this program has been correctly extracted."
             sys.exit()
