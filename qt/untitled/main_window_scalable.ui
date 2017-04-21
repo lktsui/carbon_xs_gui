@@ -1050,12 +1050,18 @@
             <property name="decimals">
              <number>5</number>
             </property>
+            <property name="maximum">
+             <double>9999.000000000000000</double>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QDoubleSpinBox" name="wavelength">
             <property name="decimals">
              <number>5</number>
+            </property>
+            <property name="maximum">
+             <double>9999.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -1071,6 +1077,9 @@
             <property name="decimals">
              <number>5</number>
             </property>
+            <property name="maximum">
+             <double>9999.000000000000000</double>
+            </property>
            </widget>
           </item>
           <item row="1" column="2">
@@ -1078,12 +1087,18 @@
             <property name="decimals">
              <number>5</number>
             </property>
+            <property name="maximum">
+             <double>9999.000000000000000</double>
+            </property>
            </widget>
           </item>
           <item row="3" column="0">
            <widget class="QDoubleSpinBox" name="goniometer_radius">
             <property name="decimals">
              <number>5</number>
+            </property>
+            <property name="maximum">
+             <double>9999.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -1093,7 +1108,7 @@
              <number>5</number>
             </property>
             <property name="maximum">
-             <double>1.000000000000000</double>
+             <double>9999.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.010000000000000</double>
