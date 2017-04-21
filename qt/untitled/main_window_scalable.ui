@@ -858,23 +858,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Integration Width (Nsg)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QDoubleSpinBox" name="epsilon">
-            <property name="toolTip">
-             <string>Smallest Chi^2 change before stopping.</string>
-            </property>
-            <property name="decimals">
-             <number>5</number>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QDoubleSpinBox" name="theta_min_value">
             <property name="toolTip">
@@ -885,6 +868,16 @@
             </property>
             <property name="singleStep">
              <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QDoubleSpinBox" name="epsilon">
+            <property name="toolTip">
+             <string>Smallest Chi^2 change before stopping.</string>
+            </property>
+            <property name="decimals">
+             <number>5</number>
             </property>
            </widget>
           </item>
@@ -905,10 +898,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="theta_max_label">
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>2 Theta Max</string>
+             <string>Integration Width (Nsg)</string>
             </property>
            </widget>
           </item>
@@ -916,13 +909,6 @@
            <widget class="QLabel" name="label_4">
             <property name="text">
              <string>Stop Criteria (Epsilon)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Model Layers (1 or 2)</string>
             </property>
            </widget>
           </item>
@@ -943,6 +929,13 @@
             </item>
            </widget>
           </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="theta_max_label">
+            <property name="text">
+             <string>2 Theta Max</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="0">
            <widget class="QSpinBox" name="nskip">
             <property name="toolTip">
@@ -950,28 +943,11 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="3">
-           <widget class="QSpinBox" name="n_sg">
-            <property name="toolTip">
-             <string>Number of half-widths of Bragg rods to calculate tangent cylinder integral with. Recommended: &gt; 3</string>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Model Layers (1 or 2)</string>
             </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="gradient_check_enable">
-            <property name="toolTip">
-             <string>Enable CarbonXS gradient checking. For debugging purposes only.</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>Off</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>On</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item row="1" column="1">
@@ -994,10 +970,10 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>TCI Points (NPhi)</string>
+          <item row="3" column="3">
+           <widget class="QSpinBox" name="n_sg">
+            <property name="toolTip">
+             <string>Number of half-widths of Bragg rods to calculate tangent cylinder integral with. Recommended: &gt; 3</string>
             </property>
            </widget>
           </item>
@@ -1008,24 +984,10 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="label_9">
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>Gradient Checking</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QLabel" name="label_10">
-            <property name="text">
-             <string>Gradient Checking Delta</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QDoubleSpinBox" name="gradient_check_delta">
-            <property name="toolTip">
-             <string>Delta value for numerical gradient checking.</string>
+             <string>TCI Points (NPhi)</string>
             </property>
            </widget>
           </item>

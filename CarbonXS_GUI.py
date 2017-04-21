@@ -1046,13 +1046,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             fitting_settings['nsg']  = self.n_sg.value()
             fitting_settings['epsilon'] = self.epsilon.value()
 
-            if self.gradient_check_enable.currentIndex() == 0:
-                fitting_settings['enable_gc'] = False
-            else:
-                fitting_settings['enable_gc'] = True
-
-            fitting_settings['gc_delta']  = self.gradient_check_delta.value()
-
+            fitting_settings['enable_gc'] = False
+            fitting_settings['gc_delta']  = 0
             ujson.dump(fitting_settings, data_file, indent = 4)
 
             print 'Exported Fitting Settings to: %s'%fname
@@ -1094,13 +1089,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 self.n_phi.setValue(fitting_settings['nphi'])
                 self.n_sg.setValue(fitting_settings['nsg'])
                 self.epsilon.setValue(fitting_settings['epsilon'])
-
-                if fitting_settings['enable_gc']:
-                    self.gradient_check_enable.setCurrentIndex(1)
-                else:
-                    self.gradient_check_enable.setCurrentIndex(0)
-
-                self.gradient_check_delta.setValue(fitting_settings['gc_delta'])
 
                 print 'Imported Fitting Settings from: %s'%fname
                 self.statusBar().showMessage('Imported Fitting Settings to: %s'%fname)
@@ -1184,12 +1172,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         export_file.write("      %d   %6.5f                        "%(iterations, self.epsilon.value())+
                           "       Itmax   Eps\n")
 
-        if self.gradient_check_enable.currentIndex() == 1:
-            enable_gc = 1
-        else:
-            enable_gc = 0
+        enable_gc = 0
 
-        export_file.write("      %d   %6.5f                        "%(enable_gc, self.gradient_check_delta.value())+
+        export_file.write("      %d   %6.5f                        "%(enable_gc, 0.0)+
                           "       Itest   Dx\n")
 
         for index, label in enumerate(self.parameter_labels):
@@ -1273,19 +1258,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.epsilon.setValue(float(data_elements_4[1]))
 
         data_elements_5 = data_lines[5].split()
-        if int(data_elements_5[0]):
-            # Enable Gradient Checking
-            self.gradient_check_enable.setCurrentIndex(1)
-        else:
-            # Disable Gradient Checking
-            self.gradient_check_enable.setCurrentIndex(0)
-
-
-        self.gradient_check_delta.setValue(float(data_elements_5[1]))
-
-
-
-
 
         for index, line in enumerate(data_lines[6:]):
             config_elements = line.split()
@@ -1741,11 +1713,11 @@ def main():
 
     ex = MainWindow(version)
 
-    console_stream = ConsoleStream()
-    console_stream.message.connect(ex.on_stream_message)
-
-    sys.stdout = console_stream
-    sys.stderr = console_stream
+    # console_stream = ConsoleStream()
+    # console_stream.message.connect(ex.on_stream_message)
+    #
+    # sys.stdout = console_stream
+    # sys.stderr = console_stream
 
     ex.data_init()
 
