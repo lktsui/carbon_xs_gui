@@ -239,7 +239,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                          }
 
-        config_file = open(os.path.join(base_directory, 'config','config.json'), 'w')
+        config_file = open(os.path.join(user_data_directory, 'config','config.json'), 'w')
 
         ujson.dump(configuration, config_file, indent=4)
 
@@ -260,7 +260,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             os.makedirs(user_data_directory)
         if not os.path.exists(os.path.join(user_data_directory, "config")):
             os.mkdir(os.path.join(user_data_directory, "config"))
-            shutil.copy2(os.path.join(base_directory, 'config', 'config.json'), os.path.join(user_data_directory, 'config'))
         if not os.path.exists(os.path.join(user_data_directory, "config", 'diffractometer settings')):
             os.mkdir(os.path.join(user_data_directory, "config", 'diffractometer settings'))
             shutil.copy2(os.path.join(base_directory, 'config','diffractometer settings',
@@ -310,8 +309,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             os.remove(os.path.join(base_directory, 'carbonxs', 'SCAN.DAT'))
 
         # Read in the previously written configuration file
-        if 'config.json' in os.listdir(os.path.join(base_directory, 'config')):
-            config_file = open(os.path.join(base_directory, 'config', 'config.json'),'r')
+        if 'config.json' in os.listdir(os.path.join(user_data_directory, 'config')):
+            config_file = open(os.path.join(user_data_directory, 'config', 'config.json'),'r')
             config = ujson.load(config_file)
 
             try:
