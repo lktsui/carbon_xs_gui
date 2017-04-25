@@ -257,7 +257,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         print "Running first time app data setup."
         print "Creating data directory in %s"%user_data_directory
         if not os.path.exists(user_data_directory):
-            os.mkdir(user_data_directory)
+            os.makedirs(user_data_directory)
         if not os.path.exists(os.path.join(user_data_directory, "config")):
             os.mkdir(os.path.join(user_data_directory, "config"))
             shutil.copy2(os.path.join(base_directory, 'config', 'config.json'), os.path.join(user_data_directory, 'config'))
@@ -1772,11 +1772,11 @@ def main():
 
     ex = MainWindow(version)
 
-    console_stream = ConsoleStream()
-    console_stream.message.connect(ex.on_stream_message)
-
-    sys.stdout = console_stream
-    sys.stderr = console_stream
+    # console_stream = ConsoleStream()
+    # console_stream.message.connect(ex.on_stream_message)
+    #
+    # sys.stdout = console_stream
+    # sys.stderr = console_stream
 
     ex.data_init()
 
