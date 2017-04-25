@@ -1720,12 +1720,12 @@ def main():
 
 
     ex = MainWindow(version)
-    #
-    # console_stream = ConsoleStream()
-    # console_stream.message.connect(ex.on_stream_message)
-    #
-    # sys.stdout = console_stream
-    # sys.stderr = console_stream
+
+    console_stream = ConsoleStream()
+    console_stream.message.connect(ex.on_stream_message)
+
+    sys.stdout = console_stream
+    sys.stderr = console_stream
 
     ex.data_init()
 
