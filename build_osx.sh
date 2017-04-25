@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 rm -rf build
 rm -rf dist
-pyinstaller -w CarbonXS_GUI.py
+pyinstaller -w carbonxs_pyinstaller_osx.spec
 mkdir dist/CarbonXS_GUI.app/Contents/MacOs/carbonxs
 mkdir dist/CarbonXS_GUI.app/Contents/MacOs/config
 mkdir dist/CarbonXS_GUI.app/Contents/MacOs/fonts
