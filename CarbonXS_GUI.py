@@ -11,6 +11,7 @@ from matplotlib.backends import qt_compat
 import shutil
 import webbrowser
 import data_io
+import appdirs
 
 
 from scalable_mw import Ui_MainWindow
@@ -24,6 +25,9 @@ if hasattr(sys, 'frozen') and sys.platform == 'darwin':
     base_directory = os.path.join(os.path.dirname(sys.executable))
 else:
     base_directory = '.'
+
+
+user_data_directory = appdirs.user_data_dir("CarbonXS_GUI")
 
 
 
@@ -240,11 +244,58 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         ujson.dump(configuration, config_file, indent=4)
 
 
+    def first_time_app_setup(self):
+
+        """
+        Sets up the directory structure into the user data directories
+        
+        Returns
+        -------
+
+        """
+
+        print "Running first time app data setup."
+        print "Creating data directory in %s"%user_data_directory
+        if not os.path.exists(user_data_directory):
+            os.mkdir(user_data_directory)
+        if not os.path.exists(os.path.join(user_data_directory, "config")):
+            os.mkdir(os.path.join(user_data_directory, "config"))
+            shutil.copy2(os.path.join(base_directory, 'config', 'config.json'), os.path.join(user_data_directory, 'config'))
+        if not os.path.exists(os.path.join(user_data_directory, "config", 'diffractometer settings')):
+            os.mkdir(os.path.join(user_data_directory, "config", 'diffractometer settings'))
+            shutil.copy2(os.path.join(base_directory, 'config','diffractometer settings',
+                                      'dal_diffractometer.json'),
+                         os.path.join(user_data_directory, 'config', 'diffractometer settings'))
+            shutil.copy2(os.path.join(base_directory, 'config','diffractometer settings',
+                                      'unm_diffractometer.json'),
+                         os.path.join(user_data_directory, 'config', 'diffractometer settings'))
+
+        if not os.path.exists(os.path.join(user_data_directory, "config", 'fitting parameters')):
+            os.mkdir(os.path.join(user_data_directory, "config", 'fitting parameters'))
+            shutil.copy2(os.path.join(base_directory, 'config','fitting parameters',
+                                      'example_params.json'),
+                         os.path.join(user_data_directory, 'config', 'fitting parameters'))
+        if not os.path.exists(os.path.join(user_data_directory, "config", 'fitting settings')):
+            os.mkdir(os.path.join(user_data_directory, "config", 'fitting settings'))
+            shutil.copy2(os.path.join(base_directory, 'config','fitting settings',
+                                      'example_settings.json'),
+                         os.path.join(user_data_directory, 'config', 'fitting settings'))
+        if not os.path.exists(os.path.join(user_data_directory, "examples")):
+            os.mkdir(os.path.join(user_data_directory, "examples"))
+            shutil.copy2(os.path.join(base_directory, 'examples','CARBON.INP'),
+                         os.path.join(user_data_directory, 'examples'))
+            shutil.copy2(os.path.join(base_directory, 'examples','crystalline_carbon.dat'),
+                         os.path.join(user_data_directory, 'examples'))
+
 
     def data_init(self):
         """"
         On startup, read the last used Carbon.INP file
         """
+
+        if not os.path.exists(user_data_directory):
+            self.first_time_app_setup()
+
 
         # Attempts to load a Carbon.INP file if it exists
         try:
