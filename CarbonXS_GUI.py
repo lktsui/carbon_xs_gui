@@ -683,7 +683,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.')
+        full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory)
 
 
         previous_filename = self.current_filename
@@ -946,7 +946,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File', os.path.join(base_directory, 'config', 'diffractometer settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
+                                                          os.path.join(user_data_directory,
+                                                          'config', 'diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -978,7 +980,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings', os.path.join(base_directory, 'config','diffractometer settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
+                                                          os.path.join(user_data_directory,
+                                                           'config','diffractometer settings'), filter="*.json")
 
         if fname:
 
@@ -1017,7 +1021,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters', os.path.join(base_directory, 'config', 'fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
+                                                          os.path.join(user_data_directory,
+                                                         'config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -1042,7 +1048,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters', os.path.join(base_directory, 'config','fitting parameters'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
+                                                          os.path.join(user_data_directory,
+                                                                       'config','fitting parameters'), filter="*.json")
 
         if fname:
 
@@ -1082,7 +1090,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         :return:
         """
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings', os.path.join(base_directory, 'config', 'fitting settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings',
+                                                          os.path.join(user_data_directory,
+                                                        'config', 'fitting settings'), filter="*.json")
 
         if fname:
 
@@ -1121,7 +1131,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings', os.path.join(base_directory, 'config', 'fitting settings'), filter="*.json")
+        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings',
+                                                           os.path.join(user_data_directory, 'config',
+                                                                        'fitting settings'), filter="*.json")
 
         if fname:
 
@@ -1260,7 +1272,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.', filter="*.inp")
+        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory, filter="*.inp")
 
         if fname:
             self.read_carboninp(fname)
@@ -1634,7 +1646,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
 
-        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results','.', "Full Export (*);; Jade MDI Format (*.mdi)")
+        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
+                                                     "Full Export (*);; Jade MDI Format (*.mdi)")
 
         if fname:
 
@@ -1772,11 +1785,11 @@ def main():
 
     ex = MainWindow(version)
 
-    # console_stream = ConsoleStream()
-    # console_stream.message.connect(ex.on_stream_message)
-    #
-    # sys.stdout = console_stream
-    # sys.stderr = console_stream
+    console_stream = ConsoleStream()
+    console_stream.message.connect(ex.on_stream_message)
+
+    sys.stdout = console_stream
+    sys.stderr = console_stream
 
     ex.data_init()
 
