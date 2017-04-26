@@ -202,6 +202,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
+        self.init_menubar(self)
         self.assignWidgets()
         self.showMaximized()
 
@@ -345,6 +346,83 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
         self.check_undo_index()
+
+    def init_menubar(self, MainWindow):
+
+        if sys.platform == 'darwin':
+            self.menubar = QtGui.QMenuBar()
+        else:
+            self.menubar = QtGui.QMenuBar(self)
+
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1366, 21))
+        self.menubar.setNativeMenuBar(True)
+        self.menubar.setObjectName("menubar")
+        self.menu_file = QtGui.QMenu(self.menubar)
+        self.menu_file.setObjectName("menu_file")
+        self.menu_category_import = QtGui.QMenu(self.menu_file)
+        self.menu_category_import.setObjectName("menu_category_import")
+        self.menuExport = QtGui.QMenu(self.menu_file)
+        self.menuExport.setObjectName("menuExport")
+        self.menuFitting = QtGui.QMenu(self.menubar)
+        self.menuFitting.setObjectName("menuFitting")
+        self.menuHelp = QtGui.QMenu(self.menubar)
+        self.menuHelp.setObjectName("menuHelp")
+        self.setMenuBar(self.menubar)
+        self.menu_open_xrd_pattern = QtGui.QAction(MainWindow)
+        self.menu_open_xrd_pattern.setObjectName("menu_open_xrd_pattern")
+        self.menu_import_carboninp = QtGui.QAction(MainWindow)
+        self.menu_import_carboninp.setObjectName("menu_import_carboninp")
+        self.menu_import_diffsettings = QtGui.QAction(MainWindow)
+        self.menu_import_diffsettings.setObjectName("menu_import_diffsettings")
+        self.menu_import_fittingparams = QtGui.QAction(MainWindow)
+        self.menu_import_fittingparams.setObjectName("menu_import_fittingparams")
+        self.menu_import_fittingsettings = QtGui.QAction(MainWindow)
+        self.menu_import_fittingsettings.setObjectName("menu_import_fittingsettings")
+        self.menu_export_carboninp = QtGui.QAction(MainWindow)
+        self.menu_export_carboninp.setObjectName("menu_export_carboninp")
+        self.menu_export_diffsettings = QtGui.QAction(MainWindow)
+        self.menu_export_diffsettings.setObjectName("menu_export_diffsettings")
+        self.menu_export_fittingparams = QtGui.QAction(MainWindow)
+        self.menu_export_fittingparams.setObjectName("menu_export_fittingparams")
+        self.menu_export_fittingsettings = QtGui.QAction(self)
+        self.menu_export_fittingsettings.setObjectName("menu_export_fittingsettings")
+        self.menu_calculate_pattern = QtGui.QAction(self)
+        self.menu_calculate_pattern.setObjectName("menu_calculate_pattern")
+        self.menu_start_fit = QtGui.QAction(self)
+        self.menu_start_fit.setObjectName("menu_start_fit")
+        self.menu_abort_fit = QtGui.QAction(self)
+        self.menu_abort_fit.setObjectName("menu_abort_fit")
+        self.menu_tutorial = QtGui.QAction(self)
+        self.menu_tutorial.setObjectName("menu_tutorial")
+        self.menu_bugreport = QtGui.QAction(self)
+        self.menu_bugreport.setObjectName("menu_bugreport")
+        self.menu_about = QtGui.QAction(self)
+        self.menu_about.setObjectName("menu_about")
+        self.menu_exit = QtGui.QAction(self)
+        self.menu_exit.setObjectName("menu_exit")
+        self.menu_category_import.addAction(self.menu_import_carboninp)
+        self.menu_category_import.addAction(self.menu_import_diffsettings)
+        self.menu_category_import.addAction(self.menu_import_fittingparams)
+        self.menu_category_import.addAction(self.menu_import_fittingsettings)
+        self.menuExport.addAction(self.menu_export_carboninp)
+        self.menuExport.addAction(self.menu_export_diffsettings)
+        self.menuExport.addAction(self.menu_export_fittingparams)
+        self.menuExport.addAction(self.menu_export_fittingsettings)
+        self.menu_file.addAction(self.menu_open_xrd_pattern)
+        self.menu_file.addAction(self.menu_category_import.menuAction())
+        self.menu_file.addAction(self.menuExport.menuAction())
+        self.menu_file.addAction(self.menu_exit)
+        self.menuFitting.addAction(self.menu_calculate_pattern)
+        self.menuFitting.addAction(self.menu_start_fit)
+        self.menuFitting.addAction(self.menu_abort_fit)
+        self.menuHelp.addAction(self.menu_tutorial)
+        self.menuHelp.addAction(self.menu_bugreport)
+        self.menuHelp.addAction(self.menu_about)
+        self.menubar.addAction(self.menu_file.menuAction())
+        self.menubar.addAction(self.menuFitting.menuAction())
+        self.menubar.addAction(self.menuHelp.menuAction())
+        self.retranslateUi(self)
+
 
     def init_ui_elements(self):
         """
