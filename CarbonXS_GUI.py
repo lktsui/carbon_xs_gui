@@ -202,7 +202,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pattern_calc_flag = False
         self.abort_flag = False
 
-        self.init_menubar(self)
+        self.init_menubar_osx()
         self.assignWidgets()
         self.showMaximized()
 
@@ -347,7 +347,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.check_undo_index()
 
-    def init_menubar(self, MainWindow):
+    def init_menubar_osx(self):
+
+        """
+        Re-initializes the menubar for OSX to make it appear at the top of the screen.
+        
+        :return: 
+        """
 
         if sys.platform == 'darwin':
             self.menubar = QtGui.QMenuBar()
