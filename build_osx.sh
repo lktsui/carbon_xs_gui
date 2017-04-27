@@ -23,3 +23,4 @@ cp readme.md dist/$folder
 cp LICENSE dist/$folder
 cp -r docs dist/$folder
 git archive master --format zip -o dist/$folder/src.zip
+hdiutil create -srcfolder dist/$folder -volname "CarbonXS_GUI" -fs HFS+ -format UDZO -imagekey zlib-level=9 -o dist/$folder.dmg
