@@ -19,3 +19,7 @@ osx_version=`sw_vers -productVersion`
 folder=build_osx${osx_version}_${timestamp}
 mkdir dist/$folder
 mv dist/CarbonXS_GUI.app dist/$folder/CarbonXS_GUI.app
+cp readme.md dist/$folder
+cp LICENSE dist/$folder
+cp -r docs dist/$folder
+git archive master --format zip -o dist/$folder/src.zip
