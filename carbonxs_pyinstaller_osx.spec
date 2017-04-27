@@ -34,4 +34,10 @@ coll = COLLECT(exe,
 app = BUNDLE(coll,
              name='CarbonXS_GUI.app',
              icon=None,
-             bundle_identifier=None)
+             bundle_identifier=None,
+             info_plist={'CFBundleVersion':'1.3.0',
+                         'CFBundleShortVersionString':'1.3.0',
+                         'NSHighResolutionCapable':'True'
+             }
+
+             )
