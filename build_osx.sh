@@ -14,3 +14,13 @@ cp carbonxs/carbon.inp dist/CarbonXS_GUI.app/Contents/MacOs/carbonxs
 cp fonts/SourceCodePro-Regular.ttf dist/CarbonXS_GUI.app/Contents/MacOs/fonts
 cp fonts/OFL.txt dist/CarbonXS_GUI.app/Contents/MacOs/fonts
 cp -r icons dist/CarbonXS_GUI.app/Contents/MacOs/
+timestamp=`date +%Y%m%d-%H%M`
+osx_version=`sw_vers -productVersion`
+folder=build_osx${osx_version}_${timestamp}
+mkdir dist/$folder
+mv dist/CarbonXS_GUI.app dist/$folder/CarbonXS_GUI.app
+cp readme.md dist/$folder
+cp LICENSE dist/$folder
+cp -r docs dist/$folder
+git archive master --format zip -o dist/$folder/src.zip
+hdiutil create -srcfolder dist/$folder -volname "CarbonXS_GUI" -fs HFS+ -format UDZO -imagekey zlib-level=9 -o dist/$folder.dmg
