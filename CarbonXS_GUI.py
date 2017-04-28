@@ -95,7 +95,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
 
-        self.setWindowTitle("CarbonXS GUI v"+version)
 
         self.parameter_list = [
             self.param_00,
@@ -204,6 +203,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.init_menubar_osx()
         self.assignWidgets()
+        self.setWindowTitle("CarbonXS GUI v"+version)
         self.showMaximized()
 
         # Undo Buffer
