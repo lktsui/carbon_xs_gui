@@ -1,6 +1,8 @@
 # CarbonXS_GUI
 
-[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui) [![Github All Releases](https://img.shields.io/github/downloads/lktsui/carbon_xs_gui/total.svg)](https://github.com/lktsui/carbon_xs_gui)
+[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui) [![Github All Releases](https://img.shields.io/github/downloads/lktsui/carbon_xs_gui/total.svg)](https://github.com/lktsui/carbon_xs_gui)[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+
+
 
 
 Last Release: April 28, 2017
