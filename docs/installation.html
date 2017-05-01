@@ -167,7 +167,7 @@
              </ul>
              <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgfortran -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
              <ul>
-             <li>Portability on OSX: libquadmath is not appropriately static linked on OSX and compiled versions on one computer are not guaranteed to work on another. Per <a href=http://stackoverflow.com/questions/30545272/how-to-compile-fortran-code-to-run-without-gfortran-installed>this answer on Stack Overflow</a>, the files <code>libquadmath.0.dylib</code>
+             <li>Portability on OSX: libquadmath is not appropriately static linked on OSX and compiled versions on one computer are not guaranteed to work on another. Per <a href=http://stackoverflow.com/a/30606635>this answer on Stack Overflow</a>, the files <code>libquadmath.0.dylib</code>
              and <code>libquadmath.dylib</code> must be removed or renamed in the gcc library folder.
              </ul>
              <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -static-libgfortran -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
