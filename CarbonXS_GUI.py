@@ -164,6 +164,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_enable_17,
         ]
 
+        self.fit_settings = [self.theta_min_value, self.theta_max_value, self.iterations, self.epsilon,
+                             self.nskip, self.n_phi, self.n_sg]
+
+        self.diff_settings = [self.wavelength, self.sample_depth, self.sample_width,
+                              self.goniometer_radius, self.beam_width, self.sample_density]
+
+
         self.num_params = len(self.parameter_list)
 
         self.init_ui_elements()
@@ -1498,8 +1505,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         errors = 0
         warnings = 0
 
-        if not any([parameter.value() for parameter in self.parameter_list]):
-            print "ERROR: No non-zero parameters have been set. Please input an initial set of parameters"
+        if not any([fit_parameter.value() for fit_parameter in self.parameter_list]):
+            print "ERROR: No non-zero fitting parameters have been set. Please input an initial set of parameters"
+            errors += 1
+        if not any([fit_setting.value() for fit_setting in self.fit_settings]):
+            print "ERROR: No non-zero fit settings have been set. Please input a set of fit_settings"
+            errors += 1
+        if not any([diff_setting.value() for diff_setting in self.diff_settings]):
+            print "ERROR: No non-zero diffractometer settings have been set. Please input a set of diffractometer settings."
             errors += 1
 
         if self.param_07.value() < 0:
