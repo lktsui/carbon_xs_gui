@@ -1498,6 +1498,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         errors = 0
         warnings = 0
 
+        if not any([parameter.value() for parameter in self.parameter_list]):
+            print "ERROR: No non-zero parameters have been set. Please input an initial set of parameters"
+            errors += 1
+
         if self.param_07.value() < 0:
             print "ERROR: A (In place cell constant) must be greater than 0."
             errors += 1
