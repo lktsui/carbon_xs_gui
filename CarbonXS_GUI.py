@@ -344,8 +344,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 print "No configuration found for Last Number of Header Lines used. Defaulting to 0 Header Lines"
                 self.last_header_lines_used = 0
 
-
+        self.check_pt_parameter()
         self.check_undo_index()
+
+    def check_pt_parameter(self):
+        """
+        Depending on the model used, parameter 15 is overloaded to be 2 variables:
+
+                1 layer model - g / Fraction of Low Strain Carbon
+                2 layer model - Pt / Probability of 3R stacking
+
+
+        :return:
+        """
+
+        if self.number_layers.currentIndex() == 0:
+            self.param_label_15.setText('g / Fraction of Low Strain Carbon')
+        else:
+            self.param_label_15.setText('Pt / Probability of 3R Stacking')
+
+
+
+
 
     def init_menubar_osx(self):
 
@@ -466,6 +486,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.forward_button.setStatusTip('Go to Next Fit or Calculation')
         self.forward_button.setToolTip("Go to Next Fit or Calculation")
 
+
+
         self.toolbar = self.addToolBar('Tools')
         self.toolbar.addAction(self.open_pattern_button)
         self.toolbar.addAction(self.calculate_pattern_button)
@@ -474,6 +496,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.toolbar.addAction(self.export_fit_button)
         self.toolbar.addAction(self.back_button)
         self.toolbar.addAction(self.forward_button)
+
+        # Any time the layer model changes, update the Pt parameter
+        self.number_layers.currentIndexChanged.connect(self.check_pt_parameter)
+
 
     @QtCore.Slot(str)
     def on_stream_message(self, message):
