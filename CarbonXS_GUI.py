@@ -133,24 +133,24 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             item.setDecimals(5)
 
         self.parameter_labels = [
-            self.param_label_00.text(),
-            self.param_label_01.text(),
-            self.param_label_02.text(),
-            self.param_label_03.text(),
-            self.param_label_04.text(),
-            self.param_label_05.text(),
-            self.param_label_06.text(),
-            self.param_label_07.text(),
-            self.param_label_08.text(),
-            self.param_label_09.text(),
-            self.param_label_10.text(),
-            self.param_label_11.text(),
-            self.param_label_12.text(),
-            self.param_label_13.text(),
-            self.param_label_14.text(),
-            self.param_label_15.text(),
-            self.param_label_16.text(),
-            self.param_label_17.text(),
+            self.param_label_00,
+            self.param_label_01,
+            self.param_label_02,
+            self.param_label_03,
+            self.param_label_04,
+            self.param_label_05,
+            self.param_label_06,
+            self.param_label_07,
+            self.param_label_08,
+            self.param_label_09,
+            self.param_label_10,
+            self.param_label_11,
+            self.param_label_12,
+            self.param_label_13,
+            self.param_label_14,
+            self.param_label_15,
+            self.param_label_16,
+            self.param_label_17,
         ]
 
         self.parameter_enable_list = [
@@ -1173,7 +1173,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             for index, label in enumerate(self.parameter_labels):
 
-                fitting_params[label] = (self.parameter_list[index].value(), self.parameter_enable_list[index].isChecked())
+                fitting_params[label.text()] = (self.parameter_list[index].value(), self.parameter_enable_list[index].isChecked())
+
+            # Include the number of layers used in this model with the fitting parameters export
+            fitting_params['number_layers'] = self.number_layers.currentIndex()+1
+
 
             ujson.dump(fitting_params, data_file, indent = 4)
 
@@ -1201,14 +1205,48 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                 for index, label in enumerate(self.parameter_labels):
 
-                    param_value, enabled = fitting_params[label]
+                    if ("g, Fraction of Low Strain Carbon" == label.text()
+                        or "Pt, Probability of 3R Stacking" == label.text()):
+
+
+                        # Handle possibility that the
+                        if "g, Fraction of Low Strain Carbon" in fitting_params.keys():
+                            param_value, enabled = fitting_params["g, Fraction of Low Strain Carbon"]
+
+
+
+                        elif "Pt, Probability of 3R Stacking" in fitting_params.keys():
+                            param_value, enabled = fitting_params["Pt, Probability of 3R Stacking"]
+
+                        else:
+                            print "Could not find parameter 15"
+                            param_value = 0
+                            enabled = False
+
+                    else:
+                        param_value, enabled = fitting_params[label.text()]
+
 
                     self.parameter_list[index].setValue(param_value)
                     self.parameter_enable_list[index].setChecked(enabled)
 
+
+
+
                 print 'Imported Fitting Parameters from: %s'%fname
                 self.statusBar().showMessage('Imported Fitting Parameters from: %s'%fname)
                 errors, warnings = self.check_fitting_parameters()
+
+
+                # Check if the 1-layer model or 2 layer model encoded into the fitting params JSON file
+                # is consistent with currently loaded system
+                if 'number_layers' in fitting_params.keys():
+
+                    if self.number_layers.currentIndex() != fitting_params['number_layers']-1:
+                        print "Warning: Parameters loaded from a %d layer model system. Current model is a %d layer model."%(fitting_params['number_layers'],
+                                                                                                                             self.number_layers.currentIndex()+1)
+                        warnings += 1
+                
                 if errors+warnings > 0:
                     print "Found %d errors and %d warnings. Please ensure parameters are physically meaningful."%(errors, warnings)
 
@@ -1397,7 +1435,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             else:
                 param_str += "  0    "
 
-            param_str += label.ljust(70)
+            param_str += label.text().ljust(70)
             param_str += "\n"
 
             export_file.write(param_str)
@@ -1474,7 +1512,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             config_elements = line.split()
 
             if "*" in config_elements[0]:
-                print "Warning: Bad parameter found in "+self.parameter_labels[index]
+                print "Warning: Bad parameter found in "+self.parameter_labels[index].text()
                 print "Setting parameter value to 0"
                 param_value = 0
             else:
