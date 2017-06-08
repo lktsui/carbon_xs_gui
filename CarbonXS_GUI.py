@@ -360,8 +360,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         if self.number_layers.currentIndex() == 0:
             self.param_label_15.setText('g, Fraction of Low Strain Carbon')
+            print "Currently using 1 layer model - Parameter 15 is g, Fraction of Low Strain Carbon."
         else:
             self.param_label_15.setText('Pt, Probability of 3R Stacking')
+            print "Currently using 2 layer model - Parameter 15 is Pt, Probability of 3R Stacking."
 
 
 
