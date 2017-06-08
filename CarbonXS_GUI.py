@@ -1581,7 +1581,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             print "ERROR: Pr must be between 0 and 1."
             errors += 1
         if self.param_15.value() > 1 or  self.param_15.value() < 0:
-            print "ERROR: Pt must be between 0 and 1."
+            print "ERROR: g (1 layer model) or Pt (2 layer model) must be between 0 and 1."
             errors += 1
         if self.param_16.value() < 0:
             print "Warning: Debye Waller Temperature factor is less than 0."
