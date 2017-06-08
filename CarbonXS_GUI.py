@@ -38,11 +38,21 @@ if use_pyside:
 class FittingParams(object):
     # Fitting Parameters object to store current FPs in buffer
 
-    def __init__(self, parameter_list, param_enable):
+    def __init__(self, parameter_list, param_enable, fit_settings, diff_settings):
 
         self.param_values = [param.value() for param in parameter_list]
 
         self.param_flags = [pe.isChecked() for pe in param_enable]
+
+        self.fit_settings = {}
+        for key in fit_settings.keys():
+            if key == 'number_layers':
+                self.fit_settings[key] = fit_settings[key].currentIndex()
+            else:
+                self.fit_settings[key] = fit_settings[key].value()
+
+        self.diff_values = [ds.value() for ds in diff_settings]
+
 
 class TextFileViewer(QtGui.QDialog, Ui_Dialog):
 
@@ -164,6 +174,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.param_enable_17,
         ]
 
+
+        self.fit_settings = {'theta_min':self.theta_min_value,
+                             'theta_max':self.theta_max_value,
+                             'iterations':self.iterations,
+                             'epsilon':self.epsilon,
+                             'nskip':self.nskip,
+                             'number_layers':self.number_layers,
+                             'tci_pts':self.n_phi,
+                             'integration_width':self.n_sg
+                             }
+
+        self.diff_settings = [self.wavelength,
+                              self.sample_depth,
+                              self.sample_width,
+                              self.goniometer_radius,
+                              self.beam_width,
+                              self.sample_density
+                              ]
+
         self.num_params = len(self.parameter_list)
 
         self.init_ui_elements()
@@ -192,6 +221,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Remember the last header lines / separator used
         self.last_header_lines_used = 0
         self.last_separator_used = 0
+
+
+
 
 
         # Fitting Process
@@ -1718,7 +1750,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                         self.undo_buffer = self.undo_buffer[:self.undo_index+1]
 
 
-                    self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list))
+                    self.undo_buffer.append(FittingParams(self.parameter_list, self.parameter_enable_list,
+                                                          self.fit_settings, self.diff_settings))
                     self.undo_index = len(self.undo_buffer)-1
 
                     self.check_undo_index()
@@ -1800,10 +1833,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.undo_index - 1 >= 0:
 
             load_params = self.undo_buffer[self.undo_index-1]
-            for index, value in enumerate(load_params.param_values):
-                self.parameter_list[index].setValue(value)
-            for en_index, enabled in enumerate(load_params.param_flags):
-                self.parameter_enable_list[en_index].setChecked(enabled)
+            self.update_from_buffer(load_params)
 
             self.undo_index -= 1
 
@@ -1822,16 +1852,37 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.undo_index + 1 < len(self.undo_buffer):
 
             load_params = self.undo_buffer[self.undo_index+1]
-            for index, value in enumerate(load_params.param_values):
-                self.parameter_list[index].setValue(value)
-            for en_index, enabled in enumerate(load_params.param_flags):
-                self.parameter_enable_list[en_index].setChecked(enabled)
+            self.update_from_buffer(load_params)
 
             self.undo_index += 1
             self.calculate_pattern(append_to_buffer=False)
             self.check_undo_index()
         else:
             print "Cannot go further forward"
+
+    def update_from_buffer(self, load_params):
+        """
+        Update the fit parameters, fit settings, and diffractometer_settings from a buffer element
+        :param load_params:
+        :return:
+        """
+
+        for index, value in enumerate(load_params.param_values):
+            self.parameter_list[index].setValue(value)
+        for en_index, enabled in enumerate(load_params.param_flags):
+            self.parameter_enable_list[en_index].setChecked(enabled)
+
+        for key in load_params.fit_settings.keys():
+
+            if key == 'number_layers':
+                self.fit_settings[key].setCurrentIndex(load_params.fit_settings[key])
+            else:
+                self.fit_settings[key].setValue(load_params.fit_settings[key])
+
+        for ds_index, ds_value in enumerate(load_params.diff_values):
+            self.diff_settings[ds_index].setValue(ds_value)
+
+
 
     def check_undo_index(self):
         """
