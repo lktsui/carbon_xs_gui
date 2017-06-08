@@ -619,7 +619,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>&lt;i&gt;Pt&lt;/i&gt; - probability of 3R stacking in 2 layer model. Must be between 0 and 1.</string>
+             <string>&lt;i&gt;g&lt;/i&gt; - Fraction of low strain carbon in 1 layer model. OR &lt;i&gt;Pt&lt;/i&gt; - probability of 3R stacking in 2 layer model. Must be between 0 and 1.</string>
             </property>
            </widget>
           </item>
@@ -1413,6 +1413,63 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>enable_all_button</tabstop>
+  <tabstop>enable_none_button</tabstop>
+  <tabstop>enable_invert_button</tabstop>
+  <tabstop>enable_bg_button</tabstop>
+  <tabstop>param_00</tabstop>
+  <tabstop>param_enable_00</tabstop>
+  <tabstop>param_01</tabstop>
+  <tabstop>param_enable_01</tabstop>
+  <tabstop>param_02</tabstop>
+  <tabstop>param_enable_02</tabstop>
+  <tabstop>param_03</tabstop>
+  <tabstop>param_enable_03</tabstop>
+  <tabstop>param_04</tabstop>
+  <tabstop>param_enable_04</tabstop>
+  <tabstop>param_05</tabstop>
+  <tabstop>param_enable_05</tabstop>
+  <tabstop>param_06</tabstop>
+  <tabstop>param_enable_06</tabstop>
+  <tabstop>param_07</tabstop>
+  <tabstop>param_enable_07</tabstop>
+  <tabstop>param_08</tabstop>
+  <tabstop>param_enable_08</tabstop>
+  <tabstop>param_09</tabstop>
+  <tabstop>param_enable_09</tabstop>
+  <tabstop>param_10</tabstop>
+  <tabstop>param_enable_10</tabstop>
+  <tabstop>param_11</tabstop>
+  <tabstop>param_enable_11</tabstop>
+  <tabstop>param_12</tabstop>
+  <tabstop>param_enable_12</tabstop>
+  <tabstop>param_13</tabstop>
+  <tabstop>param_enable_13</tabstop>
+  <tabstop>param_14</tabstop>
+  <tabstop>param_enable_14</tabstop>
+  <tabstop>param_15</tabstop>
+  <tabstop>param_enable_15</tabstop>
+  <tabstop>param_16</tabstop>
+  <tabstop>param_enable_16</tabstop>
+  <tabstop>param_17</tabstop>
+  <tabstop>param_enable_17</tabstop>
+  <tabstop>theta_min_value</tabstop>
+  <tabstop>theta_max_value</tabstop>
+  <tabstop>iterations</tabstop>
+  <tabstop>epsilon</tabstop>
+  <tabstop>nskip</tabstop>
+  <tabstop>number_layers</tabstop>
+  <tabstop>n_phi</tabstop>
+  <tabstop>n_sg</tabstop>
+  <tabstop>wavelength</tabstop>
+  <tabstop>sample_depth</tabstop>
+  <tabstop>sample_width</tabstop>
+  <tabstop>goniometer_radius</tabstop>
+  <tabstop>beam_width</tabstop>
+  <tabstop>sample_density</tabstop>
+  <tabstop>console</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
