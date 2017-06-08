@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'qt\untitled\main_window_scalable.ui'
+# Form implementation generated from reading ui file 'qt/untitled/main_window_scalable.ui'
 #
-# Created: Fri Apr 21 16:19:33 2017
+# Created: Thu Jun 08 09:36:46 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -716,7 +716,7 @@ class Ui_MainWindow(object):
         self.param_13.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Del</i> - inter plane strain per layer", None, QtGui.QApplication.UnicodeUTF8))
         self.param_14.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Pr</i> - probability of random stacking per layer. Must be between 0 and 1.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_17.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>PO</i> Preferential orientation factor", None, QtGui.QApplication.UnicodeUTF8))
-        self.param_15.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>Pt</i> - probability of 3R stacking in 2 layer model. Must be between 0 and 1.", None, QtGui.QApplication.UnicodeUTF8))
+        self.param_15.setToolTip(QtGui.QApplication.translate("MainWindow", "<i>g</i> - Fraction of low strain carbon in 1 layer model. OR <i>Pt</i> - probability of 3R stacking in 2 layer model. Must be between 0 and 1.", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_06.setText(QtGui.QApplication.translate("MainWindow", "Background 1/S", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_05.setText(QtGui.QApplication.translate("MainWindow", "Background S^4", None, QtGui.QApplication.UnicodeUTF8))
         self.param_label_04.setText(QtGui.QApplication.translate("MainWindow", "Background S^3", None, QtGui.QApplication.UnicodeUTF8))
