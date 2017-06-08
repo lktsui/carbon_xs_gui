@@ -359,9 +359,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
 
         if self.number_layers.currentIndex() == 0:
-            self.param_label_15.setText('g / Fraction of Low Strain Carbon')
+            self.param_label_15.setText('g, Fraction of Low Strain Carbon')
         else:
-            self.param_label_15.setText('Pt / Probability of 3R Stacking')
+            self.param_label_15.setText('Pt, Probability of 3R Stacking')
 
 
 
