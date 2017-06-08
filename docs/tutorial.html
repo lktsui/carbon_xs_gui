@@ -79,7 +79,136 @@
             
             <p><img src="img/fit_params.png" class="img-responsive center-block" alt="Fit Params Screenshot"/></p>
             <p>The Fitting Parameters are the values to be refined. They include a scale term, terms for a polynomial background fit, and the physical parameters for the carbon system. 
-            The "Enable" boxes indicate whether the parameter is to be refined or left fixed.</p>
+            The "Enable" boxes indicate whether the parameter is to be refined or left fixed. A table of fitting parameters is listed below. <strong>Note that parameter 15 is overloaded and represents 
+            either the fraction of low-strain carbon in the 1-layer model or the probability of 3R stacking in the 2-layer model.</strong></p>
+            
+            
+                <table class="table table-hover">
+                
+                    <thead>
+                        <th>Parameter Number</th>
+                        <th>Parameter Name</th>
+                        <th>Units</th>
+                        <th>Description</th>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Scale Factor</td>
+                            <td>a.u.</td>
+                            <td>Multiplicative scale factor for diffraction pattern.</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Z</td>
+                            <td>a.u.</td>
+                            <td>Background function - constant term.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><u>A</u>*S</td>
+                            <td>a.u.</td>
+                            <td>Background function - linear term.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><u>B</u>*S<sup>2</sup></td>
+                            <td>a.u.</td>
+                            <td>Background function - quadratic term.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><u>C</u>*S<sup>3</sup></td>
+                            <td>a.u.</td>
+                            <td>Background function - cubic term.</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><u>D</u>*S<sup>4</sup></td>
+                            <td>a.u.</td>
+                            <td>Background function - quartic term.</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><u>E</u>*S<sup>-1</sup></td>
+                            <td>a.u.</td>
+                            <td>Background function - inverse term.</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>A</td>
+                            <td>angstrom</td>
+                            <td>Lateral lattice constant.</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>d<sub>002</sub></td>
+                            <td>angstrom</td>
+                            <td>Interlayer spacing.</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>L<sub>a</sub></td>
+                            <td>angstrom</td>
+                            <td>Coherence length in lateral direction.</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>M</td>
+                            <td>layers</td>
+                            <td>Number of coherent layers in vertical direction.</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>SM</td>
+                            <td>layers</td>
+                            <td>Width of the distribution for number of layers.</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>DAB</td>
+                            <td>a.u.</td>
+                            <td>In-plane strain.</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>del</td>
+                            <td>a.u.</td>
+                            <td>Inter-plane strain.</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Pr</td>
+                            <td>0-1</td>
+                            <td>Probability of random stacking between layers.</td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td>15</td>
+                            <td>Pt OR g</td>
+                            <td>0-1</td>
+                            <td><p>g - Fraction of low-strain carbon (1-layer model).</p>
+                                <p>Pt - Probability of 3R stacking (2-layer model).</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>16</td>
+                            <td>Debye Waller Temperature Factor</td>
+                            <td>angstrom<sup>2</sup></td>
+                            <td>Attenuation factor due to termal motion of atoms.</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>PO</td>
+                            <td>a.u.</td>
+                            <td>Preferential Orientation Factor.</td>
+                        </tr>
+                    </tbody>
+            
+                </table>
+            
             
             <h3>Fitting Settings</h3>
             
