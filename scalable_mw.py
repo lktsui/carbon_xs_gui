@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/untitled/main_window_scalable.ui'
 #
-# Created: Thu Jun 08 15:32:42 2017
+# Created: Fri Jun 09 10:27:23 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -649,13 +649,13 @@ class Ui_MainWindow(object):
         self.menu_exit = QtGui.QAction(MainWindow)
         self.menu_exit.setObjectName("menu_exit")
         self.menu_category_import.addAction(self.menu_import_carboninp)
-        self.menu_category_import.addAction(self.menu_import_diffsettings)
         self.menu_category_import.addAction(self.menu_import_fittingparams)
         self.menu_category_import.addAction(self.menu_import_fittingsettings)
+        self.menu_category_import.addAction(self.menu_import_diffsettings)
         self.menuExport.addAction(self.menu_export_carboninp)
-        self.menuExport.addAction(self.menu_export_diffsettings)
         self.menuExport.addAction(self.menu_export_fittingparams)
         self.menuExport.addAction(self.menu_export_fittingsettings)
+        self.menuExport.addAction(self.menu_export_diffsettings)
         self.menu_file.addAction(self.menu_open_xrd_pattern)
         self.menu_file.addAction(self.menu_category_import.menuAction())
         self.menu_file.addAction(self.menuExport.menuAction())

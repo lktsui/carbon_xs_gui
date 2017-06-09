@@ -1293,18 +1293,18 @@
       <string>Import</string>
      </property>
      <addaction name="menu_import_carboninp"/>
-     <addaction name="menu_import_diffsettings"/>
      <addaction name="menu_import_fittingparams"/>
      <addaction name="menu_import_fittingsettings"/>
+     <addaction name="menu_import_diffsettings"/>
     </widget>
     <widget class="QMenu" name="menuExport">
      <property name="title">
       <string>Export</string>
      </property>
      <addaction name="menu_export_carboninp"/>
-     <addaction name="menu_export_diffsettings"/>
      <addaction name="menu_export_fittingparams"/>
      <addaction name="menu_export_fittingsettings"/>
+     <addaction name="menu_export_diffsettings"/>
     </widget>
     <addaction name="menu_open_xrd_pattern"/>
     <addaction name="menu_category_import"/>
