@@ -1,6 +1,11 @@
 # CarbonXS_GUI
 
-[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui) - Last Release: April 5, 2017
+[![GitHub version](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui.svg)](https://badge.fury.io/gh/lktsui%2Fcarbon_xs_gui) [![Github All Releases](https://img.shields.io/github/downloads/lktsui/carbon_xs_gui/total.svg)](https://github.com/lktsui/carbon_xs_gui) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+
+
+
+
+Last Release: April 28, 2017
 
 Developed by Lok-kun Tsui (lktsui@unm.edu)
 
@@ -13,11 +18,12 @@ CarbonXS_GUI is a GUI front-end for CarbonXS, a Fortran X-ray diffraction patter
 **Documentation**: [Click here](http://lktsui.github.io/carbon_xs_gui)
 
 **Dependencies:**
-* Python 2.7
-* PySide
-* Numpy
-* Matplotlib
-* uJSON
+* [Python 2.7](https://www.python.org/)
+* [PySide](https://wiki.qt.io/PySide)
+* [Numpy](http://www.numpy.org/)
+* [Matplotlib](https://matplotlib.org/)
+* [uJSON](https://pypi.python.org/pypi/ujson)
+* [appdirs](https://github.com/ActiveState/appdirs)
 
 **Installation (Windows):**
 * Download the latest release from the [Releases](https://github.com/lktsui/carbon_xs_gui/releases) Page
@@ -32,5 +38,5 @@ CarbonXS_GUI is a GUI front-end for CarbonXS, a Fortran X-ray diffraction patter
 
 
 **Installation (Linux)**
-* See [Installation instructions for Linux and Mac OSX](https://lktsui.github.io/carbon_xs_gui/installation.html)
+* See [Installation instructions for Linux](https://lktsui.github.io/carbon_xs_gui/installation.html)
 

@@ -77,6 +77,7 @@
                 <ul>
                 <li><code>pip install ujson</code></li>
                 <li><code>pip install matplotlib</code></li>
+                <li><code>pip install appdirs</code></li>
                 <li><code>sudo apt-get install python-pyside</code></li>
                 </ul>
             </li>
@@ -100,6 +101,7 @@
                 <li><code>sudo dnf install python-pyside</code></li>
                 <li><code>sudo dnf install python-matplotlib</code></li>
                 <li><code>sudo dnf install python-matplotlib-qt4</code></li>
+                <li><code>sudo pip install appdirs</code></li>
                 <li><code>sudo pip install ujson</code></li>
                 </ul>
             </li>
@@ -126,6 +128,7 @@
                 <li>Install Python dependencies
                     <ul>
                     <li><code>pip install ujson</code></li>
+                    <li><code>pip install appdirs</code></li>
                     <li><code>pip install matplotlib</code></li>
                     <li><b>Option 1:</b> <code> pip install pyside</code>
                     <li><b>Option 2:</b> If Option 1 fails, follow these instructions to compile Pyside: <a href="http://pyside.readthedocs.io/en/latest/building/macosx.html">Building PySide on a Mac OSX System</a>. Briefly:</li>
@@ -162,8 +165,13 @@
                 </ul>
                 
              </ul>
-             <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
+             <li>Compile CarbonXS (Linux/OSX): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgfortran -static-libgcc -std=legacy -O3 -o carbonxs_app</code></li>      
+             <ul>
+             <li>Portability on OSX: libquadmath is not appropriately static linked on OSX and compiled versions on one computer are not guaranteed to work on another. Per <a href=http://stackoverflow.com/a/30606635>this answer on Stack Overflow</a>, the files <code>libquadmath.0.dylib</code>
+             and <code>libquadmath.dylib</code> must be removed or renamed in the gcc library folder.
+             </ul>
              <li>Compile CarbonXS (Windows): <code>gfortran CARBONXS.FOR -fno-automatic -static-libgcc -static-libgfortran -std=legacy -O3 -o carbonxs_gfortran.exe</code></li>      
+             
              
             </ul>
          
