@@ -220,7 +220,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         # Default data directories
         self.default_diff_data_dir = None
-
+        self.default_export_dir = None
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -261,12 +261,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                               'last_separator':self.last_separator_used,
                               'lock_x':bool(self.lock_x_axis.checkState()),
                               'lock_y':bool(self.lock_y_axis.checkState()),
-                              'show_previous_fit':bool(self.show_previous.checkState()),git a
+                              'show_previous_fit':bool(self.show_previous.checkState()),
 
                               },
                           'file_defaults':
                               {'diff_data_dir':self.default_diff_data_dir,
-
+                               'export_dir':self.default_export_dir
                               }
 
                          }
@@ -1852,14 +1852,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if self.default_export_dir:
 
-        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
+             fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',self.default_export_dir,
                                                      "Full Export (*);; Jade MDI Format (*.mdi)")
+        else:
+             fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
+                                                     "Full Export (*);; Jade MDI Format (*.mdi)")
+
+
+
 
         if fname:
 
             if fname.endswith('.mdi'):
                 print "Exporting fit results to Jade MDI Format"
+
+                directory, _ = os.path.split(fname)
 
                 data_io.write_mdi_file(fname, self.x_fit_data, self.y_fit_data, wavelength=self.wavelength.value())
 
@@ -1868,6 +1877,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     # Checks if the files exist in the directory
                     if data_file in os.listdir('carbonxs'):
+
                         destination = fname + export_suffix
 
                         # Checks if the destination files already exists
@@ -1879,6 +1889,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                                                                "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
                                                                QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                             if reply == QtGui.QMessageBox.Yes:
+
+                                self.default_export_dir = fname
                                 shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), fname + export_suffix)
                                 print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
                             else:
@@ -1886,8 +1898,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                         else:
 
+                            self.default_export_dir = fname
+
                             shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), destination)
                             print "Copied %s file to %s" %(data_file, destination)
+
+
+
 
     def go_back(self):
         """
