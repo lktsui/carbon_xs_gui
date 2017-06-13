@@ -218,7 +218,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.last_separator_used = 0
 
 
-
+        # Default data directories
+        self.default_diff_data_dir = None
 
 
         # Fitting Process
@@ -260,10 +261,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                               'last_separator':self.last_separator_used,
                               'lock_x':bool(self.lock_x_axis.checkState()),
                               'lock_y':bool(self.lock_y_axis.checkState()),
-                              'show_previous_fit':bool(self.show_previous.checkState()),
+                              'show_previous_fit':bool(self.show_previous.checkState()),git a
+
+                              },
+                          'file_defaults':
+                              {'diff_data_dir':self.default_diff_data_dir,
 
                               }
-
 
                          }
 
@@ -370,6 +374,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             except KeyError:
                 print "No configuration found for Last Number of Header Lines used. Defaulting to 0 Header Lines"
                 self.last_header_lines_used = 0
+
+            try:
+                self.default_diff_data_dir = config['file_defaults']['diff_data_dir']
+            except KeyError:
+                print "No configuration found for default diffraction data directory. Using default directory."
+                self.default_diff_data_dir = None
+
+
 
         self.check_pt_parameter()
         self.check_undo_index()
@@ -679,7 +691,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
-
     def set_shortcut_keys(self):
         """
         Sets the shortcut keys for widgets
@@ -818,7 +829,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory)
+        if self.default_diff_data_dir:
+
+            full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', self.default_diff_data_dir)
+        else:
+            full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory)
 
 
         previous_filename = self.current_filename
@@ -826,7 +841,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if full_path:
             input_file = open(full_path, 'r')
 
-            _, filename = os.path.split(full_path)
+            directory, filename = os.path.split(full_path)
             if full_path.endswith('.mdi'):
 
                 try:
@@ -835,6 +850,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
                     self.current_filename = filename
+
+                    self.default_diff_data_dir = directory
+
                 except ValueError:
                     print "Error: Improperly formatted pattern file in file %s."%full_path
                     print "The pattern file should conform to the JADE MDI format."
@@ -851,6 +869,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     self.x_data, self.y_data = data_io.read_ras_file(full_path)
 
                     self.current_filename = filename
+                    self.default_diff_data_dir = directory
 
                 except ValueError:
                     print "Error: Improperly formatted pattern file in file %s."%full_path
@@ -906,6 +925,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     self.last_header_lines_used = header_lines
                     self.last_separator_used = separator_selection
+                    self.default_diff_data_dir = directory
 
                 except ValueError:
                     print "Error: loading data from %s"%full_path
