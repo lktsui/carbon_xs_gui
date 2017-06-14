@@ -375,12 +375,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 print "No configuration found for Last Number of Header Lines used. Defaulting to 0 Header Lines"
                 self.last_header_lines_used = 0
 
+            # Loads file directory defaults from configuration file
+
             try:
                 self.default_diff_data_dir = config['file_defaults']['diff_data_dir']
             except KeyError:
                 print "No configuration found for default diffraction data directory. Using default directory."
                 self.default_diff_data_dir = None
 
+            try:
+                self.default_export_dir = config['file_defaults']['export_dir']
+            except KeyError:
+                print "No configuration found for default diffraction data directory. Using default directory."
+                self.default_export_dir = None
 
 
         self.check_pt_parameter()
@@ -1871,6 +1878,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 directory, _ = os.path.split(fname)
 
                 data_io.write_mdi_file(fname, self.x_fit_data, self.y_fit_data, wavelength=self.wavelength.value())
+                self.default_export_dir = directory
 
             else:
                 for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
@@ -1879,18 +1887,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     if data_file in os.listdir('carbonxs'):
 
                         destination = fname + export_suffix
+                        directory, filename = os.path.split(destination)
 
                         # Checks if the destination files already exists
                         if os.path.exists(destination):
 
                             # Prompts user to overwrite if it does
-                            _, filename = os.path.split(destination)
                             reply = QtGui.QMessageBox.question(self, 'Fit Completed',
                                                                "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
                                                                QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                             if reply == QtGui.QMessageBox.Yes:
 
-                                self.default_export_dir = fname
+                                self.default_export_dir = directory
                                 shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), fname + export_suffix)
                                 print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
                             else:
@@ -1898,7 +1906,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                         else:
 
-                            self.default_export_dir = fname
+                            self.default_export_dir =directory
 
                             shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), destination)
                             print "Copied %s file to %s" %(data_file, destination)
