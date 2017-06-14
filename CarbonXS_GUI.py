@@ -1501,8 +1501,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.write_carboninp(fname)
             self.default_carboninp_export_dir, _ = os.path.split(fname)
 
-        print 'Exported in CARBON.INP format to: %s'%fname
-        self.statusBar().showMessage('Exported in CARBON.INP format to: %s'%fname)
+            print 'Exported in CARBON.INP format to: %s'%fname
+            self.statusBar().showMessage('Exported in CARBON.INP format to: %s'%fname)
 
     def write_carboninp(self, destination, disable_fit = False):
         """
