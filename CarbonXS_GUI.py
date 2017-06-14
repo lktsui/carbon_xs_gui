@@ -227,6 +227,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.default_fitparams_export_dir = None
         self.default_fitsettings_import_dir = None
         self.default_fitsettings_export_dir = None
+        self.default_diffsettings_import_dir = None
+        self.default_diffsettings_export_dir = None
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -279,6 +281,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                                'import_fitparams':self.default_fitparams_import_dir,
                                'export_fitsettings':self.default_fitsettings_export_dir,
                                'import_fitsettings':self.default_fitsettings_import_dir,
+                               'export_diffsettings':self.default_diffsettings_export_dir,
+                               'import_diffsettings':self.default_diffsettings_import_dir,
 
 
                               }
@@ -437,6 +441,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 print "No configuration found for default fit settings import directory. Using default directory."
                 self.default_fitsettings_import_dir = None
 
+            try:
+                self.default_diffsettings_export_dir = config['file_defaults']['export_diffsettings']
+            except KeyError:
+                print "No configuration found for default diffractometer settings export directory. Using default directory."
+                self.default_diffsettings_export_dir = None
+            try:
+                self.default_diffsettings_import_dir = config['file_defaults']['import_diffsettings']
+            except KeyError:
+                print "No configuration found for default diffractometer settings import directory. Using default directory."
+                self.default_diffsettings_import_dir = None
+
 
 
         self.check_pt_parameter()
@@ -459,9 +474,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         else:
             self.param_label_15.setText('Pt, Probability of 3R Stacking')
             print "Currently using 2 layer model - Parameter 15 is Pt, Probability of 3R Stacking."
-
-
-
 
 
     def init_menubar_osx(self):
@@ -1156,14 +1168,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if self.default_diffsettings_export_dir:
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
+                                                              self.default_diffsettings_export_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
                                                           os.path.join(user_data_directory,
                                                           'config', 'diffractometer settings'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'w')
+            directory, _ = os.path.split(fname)
+            self.default_diffsettings_export_dir = directory
 
             diffractometer_settings = {"wavelength":self.wavelength.value(),
                                        "beam_width":self.beam_width.value(),
@@ -1191,14 +1209,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
+        if self.default_diffsettings_import_dir:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
+                                                              self.default_diffsettings_import_dir, filter="*.json")
+        else:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
                                                           os.path.join(user_data_directory,
                                                            'config','diffractometer settings'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'r')
-
+            directory, _ = os.path.split(fname)
+            self.default_diffsettings_import_dir = directory
 
             try:
                 diffractometer_settings = ujson.load(data_file)
