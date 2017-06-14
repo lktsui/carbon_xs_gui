@@ -1975,7 +1975,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        if not self.x_data:
+        if not len(self.x_data):
             reply = QtGui.QMessageBox.warning(self, 'Export Data',
                     "No data currently loaded.",
                                               QtGui.QMessageBox.Close)
