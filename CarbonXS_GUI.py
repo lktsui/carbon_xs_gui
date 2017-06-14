@@ -733,7 +733,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.menu_import_diffsettings.triggered.connect(self.import_diffractometer_params)
         self.menu_import_fittingparams.triggered.connect(self.import_fitting_params)
         self.menu_import_fittingsettings.triggered.connect(self.import_fitting_settings)
-        self.menu_exit.triggered.connect(QtGui.qApp.quit)
+        self.menu_exit.triggered.connect(self.close)
 
         # Export Data
         self.menu_export_carboninp.triggered.connect(self.export_to_carboninp)
