@@ -221,6 +221,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Default data directories
         self.default_diff_data_dir = None
         self.default_export_dir = None
+        self.default_carboninp_import_dir = None
+        self.default_carboninp_export_dir = None
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -266,7 +268,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                               },
                           'file_defaults':
                               {'diff_data_dir':self.default_diff_data_dir,
-                               'export_dir':self.default_export_dir
+                               'export_dir':self.default_export_dir,
+                               'export_carboninp':self.default_carboninp_export_dir,
+                               'import_carboninp':self.default_carboninp_import_dir,
+
+
                               }
 
                          }
@@ -386,9 +392,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             try:
                 self.default_export_dir = config['file_defaults']['export_dir']
             except KeyError:
-                print "No configuration found for default diffraction data directory. Using default directory."
+                print "No configuration found for default export data directory. Using default directory."
                 self.default_export_dir = None
 
+            try:
+                self.default_carboninp_export_dir = config['file_defaults']['export_carboninp']
+            except KeyError:
+                print "No configuration found for default carbon.inp export directory. Using default directory."
+                self.default_carboninp_export_dir = None
+            try:
+                self.default_carboninp_import_dir = config['file_defaults']['import_carboninp']
+            except KeyError:
+                print "No configuration found for default carbon.inp import directory. Using default directory."
+                self.default_carboninp_import_dir = None
 
         self.check_pt_parameter()
         self.check_undo_index()
@@ -1383,12 +1399,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if self.default_carboninp_export_dir:
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
-                                                          os.path.join(base_directory, 'config', 'fitting settings'), filter="CARBON.INP")
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
+                                                              self.default_carboninp_export_dir, filter="CARBON.INP")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
+                                                          os.path.join(user_data_directory, 'config', 'fitting settings'), filter="CARBON.INP")
 
         if fname:
             self.write_carboninp(fname)
+            self.default_carboninp_export_dir, _ = os.path.split(fname)
 
         print 'Exported in CARBON.INP format to: %s'%fname
         self.statusBar().showMessage('Exported in CARBON.INP format to: %s'%fname)
@@ -1472,10 +1493,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory, filter="*.inp")
+        if self.default_carboninp_import_dir:
+            fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', self.default_carboninp_import_dir, filter="*.inp")
+        else:
+            fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory, filter="*.inp")
 
         if fname:
             self.read_carboninp(fname)
+            self.default_carboninp_import_dir, _ = os.path.split(fname)
+
             print 'Imported CARBON.INP parameters from: %s' % fname
             self.statusBar().showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
@@ -1873,8 +1899,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         else:
              fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
                                                      "Full Export (*);; Jade MDI Format (*.mdi)")
-
-
 
 
         if fname:
