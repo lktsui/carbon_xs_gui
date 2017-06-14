@@ -223,6 +223,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.default_export_dir = None
         self.default_carboninp_import_dir = None
         self.default_carboninp_export_dir = None
+        self.default_fitparams_import_dir = None
+        self.default_fitparams_export_dir = None
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -271,6 +273,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                                'export_dir':self.default_export_dir,
                                'export_carboninp':self.default_carboninp_export_dir,
                                'import_carboninp':self.default_carboninp_import_dir,
+                               'export_fitparams':self.default_fitparams_export_dir,
+                               'import_fitparams':self.default_fitparams_import_dir,
 
 
                               }
@@ -405,6 +409,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             except KeyError:
                 print "No configuration found for default carbon.inp import directory. Using default directory."
                 self.default_carboninp_import_dir = None
+
+
+            try:
+                self.default_fitparams_export_dir = config['file_defaults']['export_fitparams']
+            except KeyError:
+                print "No configuration found for default fit parameters export directory. Using default directory."
+                self.default_fitparams_export_dir = None
+            try:
+                self.default_fitparams_import_dir = config['file_defaults']['import_fitparams']
+            except KeyError:
+                print "No configuration found for default fit parameters import directory. Using default directory."
+                self.default_fitparams_import_dir = None
+
+
 
         self.check_pt_parameter()
         self.check_undo_index()
@@ -1199,13 +1217,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
+        if self.default_fitparams_export_dir:
+
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
+                                                              self.default_fitparams_export_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
                                                           os.path.join(user_data_directory,
                                                          'config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'w')
+
+            directory, _ = os.path.split(fname)
+            self.default_fitparams_export_dir = directory
 
             fitting_params = {}
 
@@ -1230,7 +1256,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
+        if self.default_fitparams_import_dir:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
+                                                              self.default_fitparams_import_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
                                                           os.path.join(user_data_directory,
                                                                        'config','fitting parameters'), filter="*.json")
 
@@ -1238,8 +1269,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             try:
                 data_file = open(fname, 'r')
+                directory, _ = os.path.split(fname)
+
+                self.default_fitparams_import_dir = directory
 
                 fitting_params = ujson.load(data_file)
+
 
                 for index, label in enumerate(self.parameter_labels):
 
