@@ -1467,10 +1467,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.default_carboninp_export_dir:
 
             fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
-                                                              self.default_carboninp_export_dir, filter="CARBON.INP")
+                                                              self.default_carboninp_export_dir, filter="*.inp")
         else:
             fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
-                                                          os.path.join(user_data_directory, 'config', 'fitting settings'), filter="CARBON.INP")
+                                                          os.path.join(user_data_directory, 'config', 'fitting settings'), filter="*.inp")
 
         if fname:
             self.write_carboninp(fname)
