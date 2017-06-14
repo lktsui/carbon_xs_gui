@@ -218,8 +218,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.last_separator_used = 0
 
 
-
-
+        # Default data directories
+        self.default_diff_data_dir = None
+        self.default_export_dir = None
+        self.default_carboninp_import_dir = None
+        self.default_carboninp_export_dir = None
+        self.default_fitparams_import_dir = None
+        self.default_fitparams_export_dir = None
+        self.default_fitsettings_import_dir = None
+        self.default_fitsettings_export_dir = None
+        self.default_diffsettings_import_dir = None
+        self.default_diffsettings_export_dir = None
 
         # Fitting Process
         self.fitting_process = QtCore.QProcess(self)
@@ -262,8 +271,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                               'lock_y':bool(self.lock_y_axis.checkState()),
                               'show_previous_fit':bool(self.show_previous.checkState()),
 
-                              }
+                              },
+                          'file_defaults':
+                              {'diff_data_dir':self.default_diff_data_dir,
+                               'export_dir':self.default_export_dir,
+                               'export_carboninp':self.default_carboninp_export_dir,
+                               'import_carboninp':self.default_carboninp_import_dir,
+                               'export_fitparams':self.default_fitparams_export_dir,
+                               'import_fitparams':self.default_fitparams_import_dir,
+                               'export_fitsettings':self.default_fitsettings_export_dir,
+                               'import_fitsettings':self.default_fitsettings_import_dir,
+                               'export_diffsettings':self.default_diffsettings_export_dir,
+                               'import_diffsettings':self.default_diffsettings_import_dir,
 
+
+                              }
 
                          }
 
@@ -371,6 +393,67 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 print "No configuration found for Last Number of Header Lines used. Defaulting to 0 Header Lines"
                 self.last_header_lines_used = 0
 
+            # Loads file directory defaults from configuration file
+
+            try:
+                self.default_diff_data_dir = config['file_defaults']['diff_data_dir']
+            except KeyError:
+                print "No configuration found for default diffraction data directory. Using default directory."
+                self.default_diff_data_dir = None
+
+            try:
+                self.default_export_dir = config['file_defaults']['export_dir']
+            except KeyError:
+                print "No configuration found for default export data directory. Using default directory."
+                self.default_export_dir = None
+
+            try:
+                self.default_carboninp_export_dir = config['file_defaults']['export_carboninp']
+            except KeyError:
+                print "No configuration found for default carbon.inp export directory. Using default directory."
+                self.default_carboninp_export_dir = None
+            try:
+                self.default_carboninp_import_dir = config['file_defaults']['import_carboninp']
+            except KeyError:
+                print "No configuration found for default carbon.inp import directory. Using default directory."
+                self.default_carboninp_import_dir = None
+
+
+            try:
+                self.default_fitparams_export_dir = config['file_defaults']['export_fitparams']
+            except KeyError:
+                print "No configuration found for default fit parameters export directory. Using default directory."
+                self.default_fitparams_export_dir = None
+            try:
+                self.default_fitparams_import_dir = config['file_defaults']['import_fitparams']
+            except KeyError:
+                print "No configuration found for default fit parameters import directory. Using default directory."
+                self.default_fitparams_import_dir = None
+
+            try:
+                self.default_fitsettings_export_dir = config['file_defaults']['export_fitsettings']
+            except KeyError:
+                print "No configuration found for default fit settings export directory. Using default directory."
+                self.default_fitsettings_export_dir = None
+            try:
+                self.default_fitsettings_import_dir = config['file_defaults']['import_fitsettings']
+            except KeyError:
+                print "No configuration found for default fit settings import directory. Using default directory."
+                self.default_fitsettings_import_dir = None
+
+            try:
+                self.default_diffsettings_export_dir = config['file_defaults']['export_diffsettings']
+            except KeyError:
+                print "No configuration found for default diffractometer settings export directory. Using default directory."
+                self.default_diffsettings_export_dir = None
+            try:
+                self.default_diffsettings_import_dir = config['file_defaults']['import_diffsettings']
+            except KeyError:
+                print "No configuration found for default diffractometer settings import directory. Using default directory."
+                self.default_diffsettings_import_dir = None
+
+
+
         self.check_pt_parameter()
         self.check_undo_index()
 
@@ -391,9 +474,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         else:
             self.param_label_15.setText('Pt, Probability of 3R Stacking')
             print "Currently using 2 layer model - Parameter 15 is Pt, Probability of 3R Stacking."
-
-
-
 
 
     def init_menubar_osx(self):
@@ -679,7 +759,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
-
     def set_shortcut_keys(self):
         """
         Sets the shortcut keys for widgets
@@ -818,7 +897,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory)
+        if self.default_diff_data_dir:
+
+            full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', self.default_diff_data_dir)
+        else:
+            full_path, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory)
 
 
         previous_filename = self.current_filename
@@ -826,7 +909,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if full_path:
             input_file = open(full_path, 'r')
 
-            _, filename = os.path.split(full_path)
+            directory, filename = os.path.split(full_path)
             if full_path.endswith('.mdi'):
 
                 try:
@@ -835,6 +918,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 
                     self.current_filename = filename
+
+                    self.default_diff_data_dir = directory
+
                 except ValueError:
                     print "Error: Improperly formatted pattern file in file %s."%full_path
                     print "The pattern file should conform to the JADE MDI format."
@@ -851,6 +937,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     self.x_data, self.y_data = data_io.read_ras_file(full_path)
 
                     self.current_filename = filename
+                    self.default_diff_data_dir = directory
 
                 except ValueError:
                     print "Error: Improperly formatted pattern file in file %s."%full_path
@@ -906,6 +993,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                     self.last_header_lines_used = header_lines
                     self.last_separator_used = separator_selection
+                    self.default_diff_data_dir = directory
 
                 except ValueError:
                     print "Error: loading data from %s"%full_path
@@ -1080,14 +1168,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if self.default_diffsettings_export_dir:
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
+                                                              self.default_diffsettings_export_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export File',
                                                           os.path.join(user_data_directory,
                                                           'config', 'diffractometer settings'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'w')
+            directory, _ = os.path.split(fname)
+            self.default_diffsettings_export_dir = directory
 
             diffractometer_settings = {"wavelength":self.wavelength.value(),
                                        "beam_width":self.beam_width.value(),
@@ -1115,14 +1209,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
+        if self.default_diffsettings_import_dir:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
+                                                              self.default_diffsettings_import_dir, filter="*.json")
+        else:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Export Diffractometer Settings',
                                                           os.path.join(user_data_directory,
                                                            'config','diffractometer settings'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'r')
-
+            directory, _ = os.path.split(fname)
+            self.default_diffsettings_import_dir = directory
 
             try:
                 diffractometer_settings = ujson.load(data_file)
@@ -1156,13 +1257,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
+        if self.default_fitparams_export_dir:
+
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
+                                                              self.default_fitparams_export_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Parameters',
                                                           os.path.join(user_data_directory,
                                                          'config', 'fitting parameters'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'w')
+
+            directory, _ = os.path.split(fname)
+            self.default_fitparams_export_dir = directory
 
             fitting_params = {}
 
@@ -1187,7 +1296,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
+        if self.default_fitparams_import_dir:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
+                                                              self.default_fitparams_import_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Parameters',
                                                           os.path.join(user_data_directory,
                                                                        'config','fitting parameters'), filter="*.json")
 
@@ -1195,8 +1309,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             try:
                 data_file = open(fname, 'r')
+                directory, _ = os.path.split(fname)
+
+                self.default_fitparams_import_dir = directory
 
                 fitting_params = ujson.load(data_file)
+
 
                 for index, label in enumerate(self.parameter_labels):
 
@@ -1263,13 +1381,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         :return:
         """
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings',
+
+        if self.default_fitsettings_export_dir:
+             fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings',
+                                                         self.default_fitsettings_export_dir, filter="*.json")
+
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export Fitting Settings',
                                                           os.path.join(user_data_directory,
                                                         'config', 'fitting settings'), filter="*.json")
 
         if fname:
 
             data_file = open(fname, 'w')
+            directory, _ = os.path.split(fname)
+            self.default_fitsettings_export_dir = directory
 
             fitting_settings = {}
 
@@ -1304,7 +1430,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings',
+        if self.default_fitsettings_import_dir:
+
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings',
+                                                              self.default_fitsettings_import_dir, filter="*.json")
+        else:
+            fname, opened = QtGui.QFileDialog.getOpenFileName(self, 'Import Fitting Settings',
                                                            os.path.join(user_data_directory, 'config',
                                                                         'fitting settings'), filter="*.json")
 
@@ -1312,6 +1443,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
             try:
                 data_file = open(fname, 'r')
+                directory, _ = os.path.split(fname)
+                self.default_fitsettings_import_dir = directory
 
                 fitting_settings = ujson.load(data_file)
 
@@ -1356,12 +1489,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if self.default_carboninp_export_dir:
 
-        fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
-                                                          os.path.join(base_directory, 'config', 'fitting settings'), filter="CARBON.INP")
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
+                                                              self.default_carboninp_export_dir, filter="*.inp")
+        else:
+            fname, opened = QtGui.QFileDialog.getSaveFileName(self, 'Export CARBON.INP',
+                                                          os.path.join(user_data_directory, 'config', 'fitting settings'), filter="*.inp")
 
         if fname:
             self.write_carboninp(fname)
+            self.default_carboninp_export_dir, _ = os.path.split(fname)
 
         print 'Exported in CARBON.INP format to: %s'%fname
         self.statusBar().showMessage('Exported in CARBON.INP format to: %s'%fname)
@@ -1445,10 +1583,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory, filter="*.inp")
+        if self.default_carboninp_import_dir:
+            fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', self.default_carboninp_import_dir, filter="*.inp")
+        else:
+            fname, _= QtGui.QFileDialog.getOpenFileName(self, 'Open file', user_data_directory, filter="*.inp")
 
         if fname:
             self.read_carboninp(fname)
+            self.default_carboninp_import_dir, _ = os.path.split(fname)
+
             print 'Imported CARBON.INP parameters from: %s' % fname
             self.statusBar().showMessage('Imported CARBON.INP parameters from: %s' % fname)
 
@@ -1832,33 +1975,51 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if not self.x_data:
+            reply = QtGui.QMessageBox.warning(self, 'Export Data',
+                    "No data currently loaded.",
+                                              QtGui.QMessageBox.Close)
 
-        fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
+            return
+
+        if self.default_export_dir:
+
+             fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',self.default_export_dir,
                                                      "Full Export (*);; Jade MDI Format (*.mdi)")
+        else:
+             fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',user_data_directory,
+                                                     "Full Export (*);; Jade MDI Format (*.mdi)")
+
 
         if fname:
 
             if fname.endswith('.mdi'):
                 print "Exporting fit results to Jade MDI Format"
 
+                directory, _ = os.path.split(fname)
+
                 data_io.write_mdi_file(fname, self.x_fit_data, self.y_fit_data, wavelength=self.wavelength.value())
+                self.default_export_dir = directory
 
             else:
                 for data_file, export_suffix in [('carbon.out', '_carbon_out.txt'), ('carbon.dat', '_carbon_dat.txt'), ('CARBON.INP','_CARBON.INP')]:
 
                     # Checks if the files exist in the directory
                     if data_file in os.listdir('carbonxs'):
+
                         destination = fname + export_suffix
+                        directory, filename = os.path.split(destination)
 
                         # Checks if the destination files already exists
                         if os.path.exists(destination):
 
                             # Prompts user to overwrite if it does
-                            _, filename = os.path.split(destination)
                             reply = QtGui.QMessageBox.question(self, 'Fit Completed',
                                                                "%s exists. Overwrite?"%filename, QtGui.QMessageBox.Yes |
                                                                QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                             if reply == QtGui.QMessageBox.Yes:
+
+                                self.default_export_dir = directory
                                 shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), fname + export_suffix)
                                 print "Copied %s file to %s. (Overwrote old file)" % (data_file, destination)
                             else:
@@ -1866,8 +2027,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
                         else:
 
+                            self.default_export_dir =directory
+
                             shutil.copy(os.path.join(base_directory, 'carbonxs', data_file), destination)
                             print "Copied %s file to %s" %(data_file, destination)
+
+
+
 
     def go_back(self):
         """
