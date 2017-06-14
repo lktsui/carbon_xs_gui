@@ -1859,6 +1859,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
+        if not self.x_data:
+            reply = QtGui.QMessageBox.warning(self, 'Export Data',
+                    "No data currently loaded.",
+                                              QtGui.QMessageBox.Close)
+
+            return
+
         if self.default_export_dir:
 
              fname, _ = QtGui.QFileDialog.getSaveFileName(self, 'Select Base Name For Results',self.default_export_dir,
